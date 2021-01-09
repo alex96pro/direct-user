@@ -4,7 +4,7 @@ export default function User() {
     return(
         <div>
             <NavBar loggedIn={true}/>
-            Welcome user !
+            <h1>Welcome user</h1>
         </div>
     );
 }
