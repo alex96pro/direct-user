@@ -1,0 +1,11 @@
+@import '../../_variables';
+
+.landing{
+    text-align: center;
+    .landing-punchline{
+        font-size: 4rem;
+        font-weight: bold;
+        color:$accent-color;
+        margin: 2rem;
+    }
+}

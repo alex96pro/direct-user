@@ -1,0 +1,12 @@
+@import '../../mixins';
+@import '../../variables';
+
+.login{
+    @include flexAlign(column, center, center, wrap);
+
+    .login-header{
+        color:white;
+        margin: 1.5rem;
+        font-size: 3rem;
+    }
+}

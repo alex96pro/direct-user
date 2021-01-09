@@ -1,0 +1,13 @@
+@import '../../mixins';
+@import '../../variables';
+
+.sign-up{
+    @include flexAlign(column, center, center, wrap);
+
+    .sign-up-header{
+        color:white;
+        margin: 1.5rem;
+        font-size: 3rem;
+        text-align: center;
+    }
+}
