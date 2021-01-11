@@ -1,4 +1,4 @@
-import { LOADING_STATUS, SIGN_UP_SUCCESS, SIGN_UP_FAILED, LOG_IN_FAILED, VERIFIED_ACCOUNT, FORGOTTEN_PASSWORD_SUCCESS, FORGOTTEN_PASSWORD_FAILED, PROFILE, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_FAILED } from '../actions/auth.actions';
+import * as ACTIONS from '../actions/auth.actions';
 
 const initialState = {
     loadingStatus: false,
@@ -14,69 +14,70 @@ const initialState = {
 
 export default function authReducer(state = initialState, action) {
     switch(action.type){
-        case LOADING_STATUS:
+        case ACTIONS.LOADING_STATUS:
             return{
                 ...state,
-                loadingStatus: true,
+                loadingStatus: action.payload,
                 signUpmessage:''
-            }
-        case SIGN_UP_SUCCESS:
+            };
+        case ACTIONS.SIGN_UP_SUCCESS:
             return{
                 ...state,
                 loadingStatus: false,
-                signUpmessage:`Signed up successfully! Please check your email: ${action.payload} to verify your account`,
+                signUpmessage:action.payload,
                 signUpSuccess:true
-            }
-        case SIGN_UP_FAILED:
+            };
+        case ACTIONS.SIGN_UP_FAILED:
             return{
                 ...state,
                 loadingStatus: false,
-                signUpmessage: 'email '+action.payload+" is already in use",
+                signUpmessage: action.payload,
                 signUpSuccess:false
-            }
-        case LOG_IN_FAILED:
+            };
+        case ACTIONS.LOG_IN_FAILED:
             return{
                 ...state,
                 loadingStatus: false,
                 logInMessage: action.payload
-            }
-        case VERIFIED_ACCOUNT:
+            };
+        case ACTIONS.VERIFIED_ACCOUNT:
             return{
                 ...state,
                 loadingStatus: false
-            }
-        case FORGOTTEN_PASSWORD_SUCCESS:
+            };
+        case ACTIONS.FORGOTTEN_PASSWORD_SUCCESS:
             return{
                 ...state,
                 loadingStatus: false,
                 forgottenPasswordSuccess: true,
                 forgottenPasswordMessage: action.payload
-            }
-        case FORGOTTEN_PASSWORD_FAILED:
+            };
+        case ACTIONS.FORGOTTEN_PASSWORD_FAILED:
             return{
                 ...state,
                 loadingStatus: false,
                 forgottenPasswordSuccess: false,
                 forgottenPasswordMessage: action.payload
-            }
-        case PROFILE:
+            };
+        case ACTIONS.PROFILE:
             return{
                 ...state,
                 loadingStatus: false,
                 user: action.payload
-            }
-        case CHANGE_PASSWORD_SUCCESS:
+            };
+        case ACTIONS.CHANGE_PASSWORD_SUCCESS:
             return{
                 ...state,
                 loadingStatus: false,
                 changePasswordSuccess: true,
-            }
-        case CHANGE_PASSWORD_FAILED:
+            };
+        case ACTIONS.CHANGE_PASSWORD_FAILED:
             return{
                 ...state,
                 loadingStatus: false,
-                changePasswordMessage: action.payload
-            }
+                changePasswordMessage: action.payload,
+                changePasswordSuccess:false
+            };
         default:
             return state;
     }

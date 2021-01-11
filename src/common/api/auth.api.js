@@ -1,28 +1,28 @@
-import { forgottenPasswordFailed, forgottenPasswordSuccess, loadingStatus, loginFailed } from '../actions/auth.actions';
-import { signUpSuccess, signUpFailed, verifiedAccount, profile, changePasswordSuccess, changePasswordFailed } from '../actions/auth.actions';
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
+import { forgottenPasswordFailed, forgottenPasswordSuccess, loadingStatus, loginFailed } from '../actions/auth.actions';
+import { signUpSuccess, signUpFailed, verifiedAccount, profile, changePasswordSuccess, changePasswordFailed } from '../actions/auth.actions';
 
 export function signUpAPI(data) {
     return async (dispatch) => {
         try{
-            dispatch(loadingStatus());
+            dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/auth/sign-up`,data);
-            console.log(response.data);
             if(response.data.length){
-                dispatch(signUpSuccess(data.email));
+                dispatch(signUpSuccess(`Signed up successfully! Please check your email: ${data.email} to verify your account`));
             }else{
-                dispatch(signUpFailed(data.email));
+                dispatch(signUpFailed('e-mail already in use'));
             }
         }catch(err){
             console.log(err);
         }
     }
 }
+
 export function logInAPI(data, loginSuccess) {
     return async (dispatch) => {
         try{
-            dispatch(loadingStatus());
+            dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/auth/login`,data);
             if(response.status === 200){
                 localStorage.setItem("ACCESS_TOKEN", response.data.accessToken);
@@ -43,10 +43,11 @@ export function logInAPI(data, loginSuccess) {
         }
     }
 }
+
 export function verifyAccountAPI(hashedUserId) {
     return async (dispatch) => {
         try{
-            dispatch(loadingStatus());
+            dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/auth/verify-account`,{hashedUserId:hashedUserId});
             if(response.status === 200){
                 dispatch(verifiedAccount());
@@ -60,28 +61,32 @@ export function verifyAccountAPI(hashedUserId) {
 export function forgottenPasswordAPI(data) {
     return async (dispatch) => {
         try{
-            dispatch(loadingStatus());
+            dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/auth/forgotten-password`,data);
             if(response.status === 200){
                 dispatch(forgottenPasswordSuccess("We sent you a new password on your email !"));
             }
         }catch(err){
             if(err.response.status === 401){
+                console.log(123);
                 dispatch(forgottenPasswordFailed("Email doesn't exist"));
+                console.log(234);
             }
         }
     }
 }
 
-export function profileAPI() {
+export function profileAPI(unauthorised) {
     return async (dispatch) => {
         try{
-            dispatch(loadingStatus());
+            dispatch(loadingStatus(true));
             let response = await axios.get(`${BACKEND_API}/auth/profile`,{headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN")}`}});
             dispatch(profile(response.data));
         }catch(err){
             if(err.response.status === 401){
-                console.log("UNAUTHORIZED");
+                dispatch(loadingStatus(false));
+                unauthorised();
+                alert("UNAUTHORIZED");
             }
         }
     }
@@ -90,7 +95,7 @@ export function profileAPI() {
 export function changePasswordAPI(data) {
     return async (dispatch) => {
         try{
-            dispatch(loadingStatus());
+            dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/auth/change-password`, {oldPassword: data.oldPassword, newPassword: data.newPassword}, 
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN")}`}});
             if(response.status === 200){

@@ -4,7 +4,7 @@ import { LOGOUT } from '../actions/auth.actions';
 
 const allReducers = combineReducers(
     {
-        authentication:authReducer
+        authentication: authReducer
     }
 );
 

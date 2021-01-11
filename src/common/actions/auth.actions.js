@@ -1,4 +1,3 @@
-
 export const LOGOUT = "LOGOUT";
 export const VERIFY = "VERIFY";
 export const LOADING_STATUS = "LOADING_STATUS";
@@ -22,59 +21,59 @@ export function loadingStatus(payload){
     return {
         type: LOADING_STATUS,
         payload
-    }
-}
+    };
+};
 export function signUpSuccess(payload){
     return {
         type: SIGN_UP_SUCCESS,
         payload
-    }
-}
+    };
+};
 export function signUpFailed(payload){
     return{
         type: SIGN_UP_FAILED,
         payload
-    }
-}
+    };
+};
 export function logOut(payload){
     return{
         type: LOGOUT,
         payload
-    }
-}
+    };
+};
 export function verifiedAccount(payload){
     return{
         type: VERIFIED_ACCOUNT,
         payload
-    }
-}
+    };
+};
 export function forgottenPasswordFailed(payload){
     return{
         type: FORGOTTEN_PASSWORD_FAILED,
         payload
-    }
-}
+    };
+};
 export function forgottenPasswordSuccess(payload){
     return{
         type: FORGOTTEN_PASSWORD_SUCCESS,
         payload
-    }
-}
+    };
+};
 export function profile(payload){
     return{
         type: PROFILE,
         payload
-    }
-}
+    };
+};
 export function changePasswordSuccess(payload){
     return{
         type: CHANGE_PASSWORD_SUCCESS,
         payload
-    }
-}
+    };
+};
 export function changePasswordFailed(payload){
     return{
         type: CHANGE_PASSWORD_FAILED,
         payload
-    }
-}
+    };
+};

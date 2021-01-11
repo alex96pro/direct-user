@@ -11,8 +11,7 @@ import Loader from '../../images/loader.gif';
 export default function Login() {
 
     const {register, handleSubmit, errors} = useForm();
-    const message = useSelector(state => state.authentication.logInMessage);
-    const loadingStatus = useSelector(state => state.authentication.loadingStatus);
+    const { logInMessage, loadingStatus }  = useSelector(state => state.authentication)
     const dispatch = useDispatch();
     const history = useHistory();
     const [showModal, setShowModal] = useState(false);
@@ -45,7 +44,7 @@ export default function Login() {
                 </form>
             </div>
             <div><button type="button" onClick={() => setShowModal(true)} className="button-link">Forgot password?</button></div>
-            {message && <p className="message-danger">{message}</p>}
+            {logInMessage && <p className="message-danger">{logInMessage}</p>}
             {showModal && <ForgottenPasswordModal closeModal={closeModal}/>}
             {history.location.message && <p className="message-success">{history.location.message}</p>}
         </div>

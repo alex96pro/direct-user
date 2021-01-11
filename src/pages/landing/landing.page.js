@@ -5,7 +5,7 @@ import NavBar from '../../components/nav-bar/nav-bar';
 export default function Landing() {
 
     const history = useHistory();
-
+    
     return (
         <div className="landing">
            <NavBar loggedIn={false}/>

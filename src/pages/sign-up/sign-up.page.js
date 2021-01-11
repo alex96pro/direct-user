@@ -3,18 +3,23 @@ import './sign-up.page.scss';
 import NavBar from '../../components/nav-bar/nav-bar';
 import { signUpAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
+import { signUpFailed } from '../../common/actions/auth.actions';
 import Loader from '../../images/loader.gif';
+import { useHistory } from 'react-router-dom';
 
 export default function SignUp() {
 
     const {register, handleSubmit, errors} = useForm();
     const dispatch = useDispatch();
-    const loadingStatus = useSelector(state => state.authentication.loadingStatus);
-    const message = useSelector(state => state.authentication.signUpmessage);
-    const signUpSuccess = useSelector(state => state.authentication.signUpSuccess);
+    const {loadingStatus, signUpmessage, signUpSuccess} = useSelector(state => state.authentication);
+    const history = useHistory();
 
     const signUp = (data) => {
-        dispatch(signUpAPI(data));
+        if(data.password !== data.retypePassword){
+            dispatch(signUpFailed("Passwords don't match"));
+        }else{
+            dispatch(signUpAPI(data));
+        }
     }
 
     return (
@@ -36,7 +41,8 @@ export default function SignUp() {
                         <div><button type="submit" className="button-long">Sign Up</button></div>
                     </form>
                 </div></div>}
-        {message && <p className={signUpSuccess ? "message-success" : "message-danger"}>{message}</p>}
+        <p className="label-accent-color">Already have an account?<button type="button" onClick={() => history.push('/login')} className="button-link">Log in</button></p>
+        {signUpmessage && <p className={signUpSuccess ? "message-success" : "message-danger"}>{signUpmessage}</p>}
         {loadingStatus && <img src={Loader} className="loader" alt="Loading..."/>}
         </div>
     );

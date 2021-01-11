@@ -9,9 +9,7 @@ export default function ForgottenPasswordModal(props) {
     
     const {register, handleSubmit, errors} = useForm();
     const [modalOpacity, setModalOpacity] = useState(0);
-    const success = useSelector(state => state.authentication.forgottenPasswordSuccess);
-    const message = useSelector(state => state.authentication.forgottenPasswordMessage);
-    const loadingStatus = useSelector(state => state.authentication.loadingStatus);
+    const {forgottenPasswordSuccess, forgottenPasswordMessage, loadingStatus} = useSelector(state => state.authentication);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -29,7 +27,7 @@ export default function ForgottenPasswordModal(props) {
                 <div className="modal-x-container">
                     <button onClick={() => props.closeModal()} className="modal-x">x</button>
                 </div>
-                {!success && 
+                {!forgottenPasswordSuccess && 
                     <form onSubmit={handleSubmit(sendPassword)}>
                         <div className="label-accent-color">Please enter your e-mail address and we will send you a new password</div>
                         <input type="email" name="email" ref={register({required:true})}/>
@@ -37,8 +35,8 @@ export default function ForgottenPasswordModal(props) {
                         <button type="submit" className="button-long">{loadingStatus? <img src={Loader} alt="Loading..." className="loader-small"></img> : "Send"}</button>
                     </form>
                 }
-                {message && <p className={success? "message-success" : "message-danger"}>{message}</p>}
-                {success && <button onClick={() => props.closeModal()} className="button-long">OK</button>}
+                {forgottenPasswordMessage && <p className={forgottenPasswordSuccess? "message-success" : "message-danger"}>{forgottenPasswordMessage}</p>}
+                {forgottenPasswordSuccess && <button onClick={() => props.closeModal()} className="button-long">OK</button>}
             </div>
         </div>
     );

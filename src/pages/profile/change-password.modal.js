@@ -5,13 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Loader from '../../images/loader.gif';
 import { logOut } from '../../common/actions/auth.actions';
+import { changePasswordFailed } from '../../common/actions/auth.actions';
 
 export default function ChangePasswordModal(props) {
+    
     const {register, handleSubmit, errors} = useForm();
     const [modalOpacity, setModalOpacity] = useState(0);
-    const loadingStatus = useSelector(state => state.authentication.loadingStatus);
-    const changePasswordMessage = useSelector(state => state.authentication.changePasswordMessage);
-    const changePasswordSuccess = useSelector(state => state.authentication.changePasswordSuccess);
+    const {loadingStatus,changePasswordMessage,changePasswordSuccess} = useSelector(state => state.authentication);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -28,7 +28,11 @@ export default function ChangePasswordModal(props) {
     }, [changePasswordSuccess, history, dispatch]);
 
     const handleChangePassword = (data) => {
-        dispatch(changePasswordAPI(data));
+        if(data.newPassword !== data.retypeNewPassword){
+            dispatch(changePasswordFailed("Passwords don't match"));
+        }else{
+            dispatch(changePasswordAPI(data));
+        }
     }
 
     return (
