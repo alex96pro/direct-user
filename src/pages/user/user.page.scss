@@ -22,9 +22,17 @@
         left:0rem;
         margin: 1rem;
     }
-    .meal-tags{
+    .meal-filter-tags{
         @include flexAlign(column, center, flex-start, nowrap);
         margin: 3rem 0rem;
+    }
+    .meal-tag{
+        color:$accent-color;
+        font-size:1.8rem;
+        border:0.2rem solid $accent-color;
+        margin:0.2rem;
+        padding:0.2rem;
+        width:max-content;
     }
     .meal-header{
         @include flexAlign(row, space-between, center, wrap);
