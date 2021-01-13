@@ -68,9 +68,7 @@ export function forgottenPasswordAPI(data) {
             }
         }catch(err){
             if(err.response.status === 401){
-                console.log(123);
                 dispatch(forgottenPasswordFailed("Email doesn't exist"));
-                console.log(234);
             }
         }
     }

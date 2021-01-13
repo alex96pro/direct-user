@@ -5,6 +5,9 @@ nav{
     height:5rem;
     width:100%;
     border-radius: 0;
+    position:sticky;
+    top:0;
+    left:0;
     @include flexAlign(row, flex-end, center, nowrap);
 
     .nav-link{

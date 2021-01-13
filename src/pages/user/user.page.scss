@@ -1,0 +1,49 @@
+@import '../../variables';
+@import '../../mixins';
+
+.user{
+    background-color: white;
+    .meals-container{
+       @include flexAlign(column, center, center, nowrap);
+    }
+    .meal-container{
+        margin: 1rem 1rem;
+        padding: 1rem 1rem;
+        background-color: rgb(231, 231, 231);
+        cursor: pointer;
+    }
+    .meal-filters{
+        position: fixed;
+        width:max-content;
+        height:100vh;
+        background-color: rgb(231, 231, 231);
+        padding: 1rem;
+        top:5rem;
+        left:0rem;
+        margin: 1rem;
+    }
+    .meal-filter-tags{
+        @include flexAlign(column, center, flex-start, nowrap);
+        margin: 3rem 0rem;
+    }
+    .meal-tag{
+        color:$accent-color;
+        font-size:1.8rem;
+        border:0.2rem solid $accent-color;
+        margin:0.2rem;
+        padding:0.2rem;
+        width:max-content;
+    }
+    .meal-header{
+        @include flexAlign(row, space-between, center, wrap);
+        margin: 1rem 0rem;
+    }
+    .meal-name{
+        color:$accent-color;
+        font-size:2rem;
+    }
+    .meal-price{
+        color:$accent-color;
+        font-size: 2rem;
+    }
+}
