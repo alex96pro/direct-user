@@ -14,7 +14,7 @@ export default function userReducer(state = initialState, action) {
                 ...state,
                 loadingStatus: action.payload
             }
-        case ACTIONS.GET_DAILY_SPECIALS:
+        case ACTIONS.GET_MEALS:
             let newArray = state.meals.concat(action.payload.meals);
             return{
                 ...state,
@@ -29,7 +29,7 @@ export default function userReducer(state = initialState, action) {
                 message: action.payload,
                 endOfResultsFlag: true
             }
-        case ACTIONS.CHANGE_RANGE_FOR_DAILY_SPECIALS:
+        case ACTIONS.CLEAR_MEALS:
             return{
                 ...state,
                 meals:[]

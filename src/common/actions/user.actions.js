@@ -1,7 +1,7 @@
-export const GET_DAILY_SPECIALS = "GET_DAILY_SPECIALS";
+export const GET_MEALS = "GET_MEALS";
 export const LOADING_STATUS = "LOADING_STATUS";
 export const END_OF_RESULTS = "END_OF_RESULTS";
-export const CHANGE_RANGE_FOR_DAILY_SPECIALS = "CHANGE_RANGE_FOR_DAILY_SPECIALS";
+export const CLEAR_MEALS = "CLEAR_MEALS";
 
 export function loadingStatus(payload){
     return {
@@ -9,9 +9,9 @@ export function loadingStatus(payload){
         payload
     };
 }
-export function getDailySpecials(payload){
+export function getMeals(payload){
     return {
-        type: GET_DAILY_SPECIALS,
+        type: GET_MEALS,
         payload
     };
 };
@@ -21,9 +21,9 @@ export function endOfResults(payload){
         payload
     }
 }
-export function changeRangeForDailySpecials(payload) {
+export function clearMeals(payload) {
     return {
-        type: CHANGE_RANGE_FOR_DAILY_SPECIALS,
+        type: CLEAR_MEALS,
         payload
     }
 }
