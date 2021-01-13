@@ -20,7 +20,7 @@
         padding: 1rem;
         top:5rem;
         left:0rem;
-        margin: 1rem;
+        margin: 1rem 0rem;
     }
     .meal-filter-tags{
         @include flexAlign(column, center, flex-start, nowrap);
@@ -45,5 +45,8 @@
     .meal-price{
         color:$accent-color;
         font-size: 2rem;
+    }
+    .user-bottom-page{
+        text-align: center;
     }
 }

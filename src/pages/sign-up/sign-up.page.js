@@ -38,12 +38,11 @@ export default function SignUp() {
                         <div className="label-accent-color">Retype password</div>
                         <input type="password" name="retypePassword" ref={register({required:true})}/>
                         {errors.retypePassword && <p className="message-danger">Password is required</p>}
-                        <div><button type="submit" className="button-long">Sign Up</button></div>
+                        <div><button type="submit" className="button-long">{loadingStatus?<img src={Loader} className="loader-small" alt="Loading..."></img>:"Sign Up"}</button></div>
                     </form>
+                {signUpmessage && <p className={signUpSuccess ? "message-success" : "message-danger"}>{signUpmessage}</p>}
                 </div></div>}
         <p className="label-accent-color">Already have an account?<button type="button" onClick={() => history.push('/login')} className="button-link">Log in</button></p>
-        {signUpmessage && <p className={signUpSuccess ? "message-success" : "message-danger"}>{signUpmessage}</p>}
-        {loadingStatus && <img src={Loader} className="loader" alt="Loading..."/>}
         </div>
     );
 }

@@ -14,7 +14,7 @@ const initialState = {
 
 export default function authReducer(state = initialState, action) {
     switch(action.type){
-        case ACTIONS.LOADING_STATUS:
+        case ACTIONS.LOADING_STATUS_AUTH:
             return{
                 ...state,
                 loadingStatus: action.payload,

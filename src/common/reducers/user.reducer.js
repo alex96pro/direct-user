@@ -9,7 +9,7 @@ const initialState = {
 
 export default function userReducer(state = initialState, action) {
     switch(action.type){
-        case ACTIONS.LOADING_STATUS:
+        case ACTIONS.LOADING_STATUS_USER:
             return{
                 ...state,
                 loadingStatus: action.payload
@@ -20,7 +20,8 @@ export default function userReducer(state = initialState, action) {
                 ...state,
                 meals: newArray,
                 loadingStatus: false,
-                endOfResultsFlag: false
+                endOfResultsFlag: false,
+                message: newArray.length <= 2 ? 'End of results': ''
             };
         case ACTIONS.END_OF_RESULTS:
             return{
@@ -32,7 +33,8 @@ export default function userReducer(state = initialState, action) {
         case ACTIONS.CLEAR_MEALS:
             return{
                 ...state,
-                meals:[]
+                meals:[],
+                message:''
             }
         default:
             return state;

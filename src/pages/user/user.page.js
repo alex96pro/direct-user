@@ -15,7 +15,7 @@ export default function User() {
     const {meals, loadingStatus, message, endOfResultsFlag} = useSelector(state => state.user);
     const [modal, setModal] = useState({show:false, selectedMeal:{}});
     const {register, handleSubmit, errors} = useForm();
-    const [state, setState] = useState({scrollCount: 1, range: DEFAULT_RANGE, tags: [], noMeals: false});
+    const [state, setState] = useState({scrollCount: 1, range: DEFAULT_RANGE, tags: []});
     const stateRef = useRef(state);
 
     const setStateRef = data => {
@@ -47,8 +47,8 @@ export default function User() {
     }
 
     const bottomOfPage = () => {
-        if ((window.innerHeight + window.scrollY) === document.body.offsetHeight) {
-            if(!stateRef.current.noMeals){
+        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 2) {
+            if(localStorage.getItem("END_OF_RESULTS") === "false"){
                 dispatch(getMealsAPI(stateRef.current.scrollCount + 1, stateRef.current.range, stateRef.current.tags));
                 setStateRef({...stateRef.current, scrollCount: stateRef.current.scrollCount + 1});
             }
@@ -60,7 +60,9 @@ export default function User() {
         window.navigator.geolocation.getCurrentPosition((position) => {
             localStorage.setItem("LATITUDE",position.coords.latitude);
             localStorage.setItem("LONGITUDE",position.coords.longitude);
-            dispatch(getMealsAPI(1));
+            if(localStorage.getItem("END_OF_RESULTS") === "false"){
+                dispatch(getMealsAPI(1));
+            }
         }, console.log);
         return () => {
             window.removeEventListener('scroll', bottomOfPage);
@@ -69,7 +71,7 @@ export default function User() {
     }, []);
     
     useEffect(() => { // ON END OF RESULTS
-        setStateRef({...stateRef.current, noMeals: endOfResultsFlag});
+        localStorage.setItem("END_OF_RESULTS", endOfResultsFlag);
     }, [endOfResultsFlag]);
 
     const showModal = (meal) => {
@@ -113,7 +115,9 @@ export default function User() {
                         )}
                     </div>)}
                     {loadingStatus && <img src={Loader} alt="Loading..." className="loader"/>}
-                    {message && <div className="message-success">{message}</div>}
+                    {message && !loadingStatus && 
+                    <div className="user-bottom-page"><p className="message-success">{message}</p>
+                    {state.scrollCount > 2 && <button onClick={() => window.scroll(0,0)} className="button-small">Go top</button>}</div>}
                     {modal.show && <MealModal closeModal={closeModal} meal={modal.selectedMeal}/>}
                 </div>
         </div>

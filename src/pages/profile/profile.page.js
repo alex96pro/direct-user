@@ -11,7 +11,7 @@ export default function Profile() {
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();
     const user = useSelector(state => state.authentication.user);
-    const loadingStatus = useSelector(state => state.authentication.loadingStatus);
+    const loadingStatusFlag = useSelector(state => state.authentication.loadingStatus);
 
     const closeModal = () => {
         setShowModal(false);
@@ -24,7 +24,7 @@ export default function Profile() {
     return (
         <div className="profile">
             <NavBar loggedIn={true}/>
-            {loadingStatus ? <img src={Loader} alt="Loading..." className="loader"/>:
+            {loadingStatusFlag ? <img src={Loader} alt="Loading..." className="loader"/>:
                 <div className="profile-container">
                     <h1>Profile</h1>
                     <div className="label-accent-color">Email</div>

@@ -1,6 +1,6 @@
 export const LOGOUT = "LOGOUT";
 export const VERIFY = "VERIFY";
-export const LOADING_STATUS = "LOADING_STATUS";
+export const LOADING_STATUS_AUTH = "LOADING_STATUS_AUTH";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILED = "SIGN_UP_FAILED";
 export const LOG_IN_FAILED = "LOG_IN_FAILED";
@@ -19,7 +19,7 @@ export function loginFailed(payload){
 };
 export function loadingStatus(payload){
     return {
-        type: LOADING_STATUS,
+        type: LOADING_STATUS_AUTH,
         payload
     };
 };
