@@ -3,7 +3,8 @@ import Landing from './pages/landing/landing.page';
 import Login from './pages/login/login.page';
 import SignUp from './pages/sign-up/sign-up.page';
 import User from './pages/user/user.page';
-import VerifyAccount from './pages/verify-account/verify-account.page';
+import VerifyAccount from './pages/verification/verify-account.page';
+import ForgottenPassword from './pages/verification/forgotten-password.page';
 import Profile from './pages/profile/profile.page';
 import './App.scss';
 
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/profile" exact component={Profile}></Route>
           <Route path="/user" exact component={User}></Route>
           <Route path="/verify-account/:id" exact component={VerifyAccount}></Route>
+          <Route path="/forgotten-password/:id" exact component={ForgottenPassword}></Route>
       </Router>
     );
 }

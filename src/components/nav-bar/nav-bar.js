@@ -2,6 +2,7 @@ import './nav-bar.scss';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logOut } from '../../common/actions/auth.actions';
+import Logo from '../../images/logo.png';
 
 export default function NavBar(props) {
 
@@ -27,6 +28,7 @@ export default function NavBar(props) {
                 <button className="nav-link">About</button>
             </div>
             }
+            <img src={Logo} alt="logo" className="logo"/>
         </nav>
     );
 };

@@ -11,7 +11,7 @@ export default function SignUp() {
 
     const {register, handleSubmit, errors} = useForm();
     const dispatch = useDispatch();
-    const {loadingStatus, signUpmessage, signUpSuccess} = useSelector(state => state.authentication);
+    const {loadingStatus, signUpMessage, signUpSuccess} = useSelector(state => state.authentication);
     const history = useHistory();
 
     const signUp = (data) => {
@@ -40,8 +40,9 @@ export default function SignUp() {
                         {errors.retypePassword && <p className="message-danger">Password is required</p>}
                         <div><button type="submit" className="button-long">{loadingStatus?<img src={Loader} className="loader-small" alt="Loading..."></img>:"Sign Up"}</button></div>
                     </form>
-                {signUpmessage && <p className={signUpSuccess ? "message-success" : "message-danger"}>{signUpmessage}</p>}
+                {signUpMessage && <p className="message-danger">{signUpMessage}</p>}
                 </div></div>}
+            {signUpMessage && signUpSuccess && <p className="label-accent-color">{signUpMessage}</p>}
         <p className="label-accent-color">Already have an account?<button type="button" onClick={() => history.push('/login')} className="button-link">Log in</button></p>
         </div>
     );

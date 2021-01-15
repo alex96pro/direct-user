@@ -34,13 +34,13 @@ export default function Login() {
             <div className="login-header">Hungry ?</div>
             <div className="wrapper-container-big">
                 <form onSubmit={handleSubmit(login)}>
-                    <div className="label-accent-color">email</div>
+                    <div className="label-accent-color">Email</div>
                     <input type="email" name="email" ref={register({required:true})}/>
                     {errors.email && <p className="message-danger">Email is required</p>}
-                    <div className="label-accent-color">password</div>
+                    <div className="label-accent-color">Password</div>
                     <input type="password" name="password" ref={register({required:true})}/>
                     {errors.password && <p className="message-danger">Password is required</p>}
-                    <button type="submit" className="button-long">{loadingStatus?<img src={Loader} className="loader-small" alt="Loading..."></img>:"Log in"}</button>
+                    <button type="submit" className="button-long">{loadingStatus ? <img src={Loader} className="loader-small" alt="Loading..."/> : "Log in"}</button>
                 </form>
                 {logInMessage && <p className="message-danger">{logInMessage}</p>}
                 {history.location.message && <p className="message-success">{history.location.message}</p>}

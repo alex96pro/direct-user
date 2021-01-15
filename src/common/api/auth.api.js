@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
-import { forgottenPasswordFailed, forgottenPasswordSuccess, loadingStatus, loginFailed } from '../actions/auth.actions';
+import { forgottenPasswordFailed, forgottenPasswordSuccess, loadingStatus, loginFailed, newPasswordSuccess } from '../actions/auth.actions';
 import { signUpSuccess, signUpFailed, verifiedAccount, profile, changePasswordSuccess, changePasswordFailed } from '../actions/auth.actions';
 
 export function signUpAPI(data) {
@@ -64,12 +64,34 @@ export function forgottenPasswordAPI(data) {
             dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/auth/forgotten-password`,data);
             if(response.status === 200){
-                dispatch(forgottenPasswordSuccess("We sent you a new password on your email !"));
+                dispatch(forgottenPasswordSuccess("We sent you a link for changing password on your email !"));
             }
         }catch(err){
             if(err.response.status === 401){
                 dispatch(forgottenPasswordFailed("Email doesn't exist"));
             }
+        }
+    }
+}
+
+export function newPasswordAPI(data, userId) {
+    return async (dispatch) => {
+        try{
+            dispatch(loadingStatus(true));
+            console.log(data);
+            console.log(userId);
+            let response = await axios.post(`${BACKEND_API}/auth/new-password`,{newPassword: data.newPassword, userId: userId});
+            if(response.status === 200){
+                dispatch(newPasswordSuccess("Successfuly created new password"));
+            }
+        }catch(err){
+            console.log(err);
+            if(err.response.status === 401){
+                alert("UNAUTHORIZED");
+            }else{
+                alert("SERVER ERROR");
+            }
+            dispatch(loadingStatus(false));
         }
     }
 }
@@ -83,8 +105,8 @@ export function profileAPI(unauthorised) {
         }catch(err){
             if(err.response.status === 401){
                 dispatch(loadingStatus(false));
-                unauthorised();
                 alert("UNAUTHORIZED");
+                unauthorised();
             }
         }
     }
