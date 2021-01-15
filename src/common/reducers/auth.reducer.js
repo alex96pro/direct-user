@@ -2,13 +2,14 @@ import * as ACTIONS from '../actions/auth.actions';
 
 const initialState = {
     loadingStatus: false,
-    signUpmessage: '',
+    signUpMessage: '',
     signUpSuccess: false,
     logInMessage: '',
     forgottenPasswordSuccess: false,
     forgottenPasswordMessage: '',
     changePasswordSuccess: false,
     changePasswordMessage: '',
+    newPasswordMessage:'',
     user: {}
 };
 
@@ -18,20 +19,20 @@ export default function authReducer(state = initialState, action) {
             return{
                 ...state,
                 loadingStatus: action.payload,
-                signUpmessage:''
+                signUpMessage:''
             };
         case ACTIONS.SIGN_UP_SUCCESS:
             return{
                 ...state,
                 loadingStatus: false,
-                signUpmessage:action.payload,
-                signUpSuccess:true
+                signUpMessage: action.payload,
+                signUpSuccess: true
             };
         case ACTIONS.SIGN_UP_FAILED:
             return{
                 ...state,
                 loadingStatus: false,
-                signUpmessage: action.payload,
+                signUpMessage: action.payload,
                 signUpSuccess:false
             };
         case ACTIONS.LOG_IN_FAILED:
@@ -78,6 +79,12 @@ export default function authReducer(state = initialState, action) {
                 changePasswordMessage: action.payload,
                 changePasswordSuccess:false
             };
+        case ACTIONS.NEW_PASSWORD_SUCCESS:
+            return{
+                ...state,
+                loadingStatus: false,
+                newPasswordMessage: action.payload
+            }
         default:
             return state;
     }

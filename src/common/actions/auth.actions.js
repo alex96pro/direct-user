@@ -10,6 +10,7 @@ export const FORGOTTEN_PASSWORD_FAILED = "FORGOTTEN_PASSWORD_FAILED";
 export const PROFILE = "PROFILE";
 export const CHANGE_PASSWORD_SUCCESS = "CHANGE_PASSWORD_SUCCESS";
 export const CHANGE_PASSWORD_FAILED = "CHANGE_PASSWORD_FAILED";
+export const NEW_PASSWORD_SUCCESS = "NEW_PASSWORD_SUCCESS";
 
 export function loginFailed(payload){
     return {
@@ -77,3 +78,9 @@ export function changePasswordFailed(payload){
         payload
     };
 };
+export function newPasswordSuccess(payload){
+    return{
+        type: NEW_PASSWORD_SUCCESS,
+        payload
+    }
+}

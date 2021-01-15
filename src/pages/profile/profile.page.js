@@ -5,6 +5,7 @@ import './profile.page.scss';
 import { profileAPI } from '../../common/api/auth.api';
 import ChangePasswordModal from './change-password.modal';
 import Loader from '../../images/loader.gif';
+import { useHistory } from 'react-router-dom';
 
 export default function Profile() {
 
@@ -12,13 +13,19 @@ export default function Profile() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.authentication.user);
     const loadingStatusFlag = useSelector(state => state.authentication.loadingStatus);
+    const history = useHistory();
 
     const closeModal = () => {
         setShowModal(false);
     }
 
+    const unauthorised = () => {
+        history.push('/');
+    }
+
     useEffect(() => {
-        dispatch(profileAPI());
+        dispatch(profileAPI(unauthorised));
+        // eslint-disable-next-line
     },[dispatch]);
 
     return (

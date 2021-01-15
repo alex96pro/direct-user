@@ -16,7 +16,7 @@ export default function ForgottenPasswordModal(props) {
         setModalOpacity(1);
     }, []);
 
-    const sendPassword = (data) => {
+    const submitEmal = (data) => {
         dispatch(forgottenPasswordAPI(data));
     }
 
@@ -28,8 +28,8 @@ export default function ForgottenPasswordModal(props) {
                     <button onClick={() => props.closeModal()} className="modal-x">x</button>
                 </div>
                 {!forgottenPasswordSuccess && 
-                    <form onSubmit={handleSubmit(sendPassword)}>
-                        <div className="label-accent-color">Please enter your e-mail address and we will send you a new password</div>
+                    <form onSubmit={handleSubmit(submitEmal)}>
+                        <div className="label-accent-color">Please enter your e-mail address and we will send you a link to change your password</div>
                         <input type="email" name="email" ref={register({required:true})}/>
                         {errors.email && <p className="message-danger">Email is required</p>}
                         <button type="submit" className="button-long">{loadingStatus? <img src={Loader} alt="Loading..." className="loader-small"></img> : "Send"}</button>
