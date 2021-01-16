@@ -4,10 +4,15 @@
 .sign-up{
     @include flexAlign(column, center, center, wrap);
 
+    .sign-up-container{
+        @include flexAlign(column, center, center, wrap);
+        transform: translateY(calc(50vh - 50% - 6rem)); 
+        // -6rem = height of nav bar (div initial position is right bellow nav bar)
+    }
     .sign-up-header{
-        color:white;
-        margin: 1.5rem;
-        font-size: 3rem;
+        color:$accent-color;
+        font-size: 2.2rem;
+        margin: 3.5rem 2rem;
         text-align: center;
     }
 }

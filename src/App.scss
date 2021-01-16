@@ -74,6 +74,10 @@ body{
         width:30rem;
     }
 }
+.form-container{
+    background-color: $wrapper-color;
+    padding:3rem;
+}
 .loader{
     width:8rem;
     height:8rem;
@@ -142,4 +146,16 @@ h1{
 .get-app-icon{
     height:5.3rem;
     width:16rem;
+}
+.header-white{
+    color:white;
+    margin: 1rem 1rem;
+    font-size: 3rem;
+    text-align: center;
+}
+.header-accent-color{
+    color:$accent-color;
+    margin: 1rem 1rem;
+    font-size: 3rem;
+    text-align: center;
 }
