@@ -34,7 +34,8 @@ export default function userReducer(state = initialState, action) {
             return{
                 ...state,
                 meals:[],
-                message:''
+                message:'',
+                endOfResultsFlag: false
             }
         default:
             return state;

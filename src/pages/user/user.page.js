@@ -66,6 +66,7 @@ export default function User() {
         }, console.log);
         return () => {
             window.removeEventListener('scroll', bottomOfPage);
+            dispatch(clearMeals());
         }
         // eslint-disable-next-line
     }, []);

@@ -25,9 +25,10 @@ export default function SignUp() {
     return (
         <div className="sign-up">
             <NavBar loggedIn={false}/>
-            {!signUpSuccess && <div>
-                <div className="sign-up-header">Hungry ?</div>
-                <div className="wrapper-container-big">
+            {!signUpSuccess && 
+            <div className="sign-up-container">
+                <div className="form-container">
+                <div className="sign-up-header">Create your new account</div>
                     <form onSubmit={handleSubmit(signUp)}>
                         <div className="label-accent-color">Email</div>
                         <input type="email" name="email" ref={register({required:true})}/>
@@ -41,9 +42,10 @@ export default function SignUp() {
                         <div><button type="submit" className="button-long">{loadingStatus?<img src={Loader} className="loader-small" alt="Loading..."></img>:"Sign Up"}</button></div>
                     </form>
                 {signUpMessage && <p className="message-danger">{signUpMessage}</p>}
-                </div></div>}
+                </div>
+                <p className="label-accent-color">Already have an account?<button type="button" onClick={() => history.push('/login')} className="button-link">Log in</button></p>
+            </div>}
             {signUpMessage && signUpSuccess && <p className="label-accent-color">{signUpMessage}</p>}
-        <p className="label-accent-color">Already have an account?<button type="button" onClick={() => history.push('/login')} className="button-link">Log in</button></p>
         </div>
     );
 }
