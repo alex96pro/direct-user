@@ -1,7 +1,7 @@
 @import '../../variables';
 @import '../../mixins';
 
-.user{
+.feed{
     background-color: white;
     .meals-container{
        @include flexAlign(column, center, center, nowrap);

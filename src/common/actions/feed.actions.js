@@ -1,11 +1,11 @@
 export const GET_MEALS = "GET_MEALS";
-export const LOADING_STATUS_USER = "LOADING_STATUS_USER";
+export const LOADING_STATUS_FEED = "LOADING_STATUS_FEED";
 export const END_OF_RESULTS = "END_OF_RESULTS";
 export const CLEAR_MEALS = "CLEAR_MEALS";
 
 export function loadingStatus(payload){
     return {
-        type: LOADING_STATUS_USER,
+        type: LOADING_STATUS_FEED,
         payload
     };
 }

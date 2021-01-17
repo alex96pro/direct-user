@@ -1,4 +1,4 @@
-import * as ACTIONS from '../actions/user.actions';
+import * as ACTIONS from '../actions/feed.actions';
 
 const initialState = {
     loadingStatus: false,
@@ -9,7 +9,7 @@ const initialState = {
 
 export default function userReducer(state = initialState, action) {
     switch(action.type){
-        case ACTIONS.LOADING_STATUS_USER:
+        case ACTIONS.LOADING_STATUS_FEED:
             return{
                 ...state,
                 loadingStatus: action.payload

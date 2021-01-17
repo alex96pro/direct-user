@@ -24,7 +24,7 @@ export default function Login() {
         window.navigator.geolocation.getCurrentPosition((position) => {
             localStorage.setItem("LATITUDE",position.coords.latitude);
             localStorage.setItem("LONGITUDE",position.coords.longitude);
-            history.push("/user");
+            history.push("/feed");
         }, console.log);
     }
 

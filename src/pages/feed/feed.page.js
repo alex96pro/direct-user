@@ -1,21 +1,21 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMealsAPI } from '../../common/api/user.api';
-import { clearMeals } from '../../common/actions/user.actions';
+import { getMealsAPI } from '../../common/api/feed.api';
+import { clearMeals } from '../../common/actions/feed.actions';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../images/loader.gif';
 import { CURRENCY, DISTANCE, DEFAULT_RANGE, MEAL_FILTERS } from '../../util/consts';
 import MealModal from './meal.modal';
 import { useForm } from 'react-hook-form';
-import './user.page.scss';
+import './feed.page.scss';
 
-export default function User() {
+export default function Feed() {
 
     const dispatch = useDispatch();
     const {meals, loadingStatus, message, endOfResultsFlag} = useSelector(state => state.user);
     const [modal, setModal] = useState({show:false, selectedMeal:{}});
     const {register, handleSubmit, errors} = useForm();
-    const [state, setState] = useState({scrollCount: 1, range: DEFAULT_RANGE, tags: []});
+    const [state, setState] = useState({scrollCount: 1, range: DEFAULT_RANGE, tags: [], endOfResults: false});
     const stateRef = useRef(state);
 
     const setStateRef = data => {
@@ -36,15 +36,14 @@ export default function User() {
         }else{
             newTags = state.tags.filter(tag => tag !== event.target.value);
         }
-        console.log(newTags);
         setStateRef({...stateRef.current, scrollCount: 1, tags: newTags});
         dispatch(clearMeals());
         dispatch(getMealsAPI(1, state.range, newTags));
     }
 
-    const bottomOfPage = () => {
+    const bottomOfPage = () => { //FUNCTION THAT NEEDS TO USE stateRef
         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 2) {
-            if(localStorage.getItem("END_OF_RESULTS") === "false"){
+            if(!stateRef.current.endOfResults){
                 dispatch(getMealsAPI(stateRef.current.scrollCount + 1, stateRef.current.range, stateRef.current.tags));
                 setStateRef({...stateRef.current, scrollCount: stateRef.current.scrollCount + 1});
             }
@@ -53,16 +52,16 @@ export default function User() {
     
     useEffect(() => { // ON MOUNT
         window.addEventListener('scroll', bottomOfPage);
-        dispatch(getMealsAPI(1));
+        dispatch(clearMeals());
+        dispatch(getMealsAPI());
         return () => {
             window.removeEventListener('scroll', bottomOfPage);
-            dispatch(clearMeals());
         }
         // eslint-disable-next-line
     }, []);
     
     useEffect(() => { // ON END OF RESULTS
-        localStorage.setItem("END_OF_RESULTS", endOfResultsFlag);
+        setStateRef({...stateRef.current, endOfResults: endOfResultsFlag});
     }, [endOfResultsFlag]);
 
     const showModal = (meal) => {
@@ -74,7 +73,7 @@ export default function User() {
     }
 
     return(
-        <div className="user">
+        <div className="feed">
             <NavBar loggedIn={true}/>
                 <div className="meal-filters">
                     <form onSubmit={handleSubmit(handleChangeRange)}>
