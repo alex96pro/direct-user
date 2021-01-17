@@ -26,24 +26,20 @@ export default function User() {
     const handleChangeRange = (data) => {
         setStateRef({...stateRef.current, scrollCount: 1, range: data.range})
         dispatch(clearMeals());
-        dispatch(getMealsAPI(1, data.range, stateRef.current.tags));
+        dispatch(getMealsAPI(1, data.range, state.tags));
     }
 
     const addTag = (event) => {
         let newTags = [];
         if(event.target.checked){
-            newTags = [...stateRef.current.tags, event.target.value];
+            newTags = [...state.tags, event.target.value];
         }else{
-            newTags = stateRef.current.tags.filter(tag => tag !== event.target.value);
+            newTags = state.tags.filter(tag => tag !== event.target.value);
         }
+        console.log(newTags);
         setStateRef({...stateRef.current, scrollCount: 1, tags: newTags});
         dispatch(clearMeals());
-        if(newTags.length > 0){
-            dispatch(getMealsAPI(1, stateRef.current.range, stateRef.current.tags));
-        }else{
-            dispatch(getMealsAPI(1, stateRef.current.range));
-        }
-   
+        dispatch(getMealsAPI(1, state.range, newTags));
     }
 
     const bottomOfPage = () => {
@@ -57,13 +53,7 @@ export default function User() {
     
     useEffect(() => { // ON MOUNT
         window.addEventListener('scroll', bottomOfPage);
-        window.navigator.geolocation.getCurrentPosition((position) => {
-            localStorage.setItem("LATITUDE",position.coords.latitude);
-            localStorage.setItem("LONGITUDE",position.coords.longitude);
-            if(localStorage.getItem("END_OF_RESULTS") === "false"){
-                dispatch(getMealsAPI(1));
-            }
-        }, console.log);
+        dispatch(getMealsAPI(1));
         return () => {
             window.removeEventListener('scroll', bottomOfPage);
             dispatch(clearMeals());
