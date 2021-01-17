@@ -13,7 +13,7 @@ export default function NavBar(props) {
         dispatch(logOut());
         localStorage.clear();
         history.push('/');
-    }
+    };
 
     return(
         <nav>

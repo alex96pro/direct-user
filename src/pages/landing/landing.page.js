@@ -1,8 +1,8 @@
-import { useHistory } from 'react-router-dom';
 import './landing.page.scss';
-import NavBar from '../../components/nav-bar/nav-bar';
+import { useHistory } from 'react-router-dom';
 import { PUNCHLINES } from '../../util/consts';
 import { useState, useEffect, useRef } from 'react';
+import NavBar from '../../components/nav-bar/nav-bar';
 import GoogleStore from '../../images/google-store-icon.png';
 import AppleStore from '../../images/apple-store-icon.png';
 
@@ -10,8 +10,8 @@ export default function Landing() {
 
     const history = useHistory();
     const [currentPunchline, setCurrentPunchline] = useState(0);
-
     const currentPunchlineRef = useRef(currentPunchline);
+
     const setCurrentPunchlineRef = data => {
         currentPunchlineRef.current = data;
         setCurrentPunchline(data);
@@ -31,7 +31,7 @@ export default function Landing() {
                 element.style.opacity = 0;
             }
         }, 3000);
-    }
+    };
 
     useEffect(() => {
         changePunchline(); // show first (index 1) punchline so there is no empty punchline at the beggining for 3,5s
@@ -60,4 +60,4 @@ export default function Landing() {
             </div>
         </div>
     );
-}
+};

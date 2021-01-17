@@ -3,9 +3,8 @@ import { useState, useEffect } from 'react';
 import { changePasswordAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import Loader from '../../images/loader.gif';
-import { logOut } from '../../common/actions/auth.actions';
-import { changePasswordFailed } from '../../common/actions/auth.actions';
+import { logOut, changePasswordFailed } from '../../common/actions/auth.actions';
+import SubmitButton from '../../components/common/submit-button';
 
 export default function ChangePasswordModal(props) {
     
@@ -33,7 +32,7 @@ export default function ChangePasswordModal(props) {
         }else{
             dispatch(changePasswordAPI(data));
         }
-    }
+    };
 
     return (
         <div className="forgotten-password-modal">
@@ -54,11 +53,11 @@ export default function ChangePasswordModal(props) {
                     <div className="label-accent-color">Retype new password</div>
                     <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
                     {errors.retypeNewPassword && <p className="message-danger">Retype new password</p>}
-                    
-                    <button type="submit" className="button-long">{loadingStatus? <img src={Loader} alt="Loading..." className="loader-small"></img> : "Confirm"}</button>
+
+                    <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
                 </form>
                 {changePasswordMessage && <p className="message-danger">{changePasswordMessage}</p>}
             </div>
         </div>
     );
-}
+};

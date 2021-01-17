@@ -26,5 +26,5 @@ export function getMealsAPI(scrollCount = 1, range = DEFAULT_RANGE, tags = null,
         }catch(err){
             console.log(err);
         }
-    }
-}
+    };
+};

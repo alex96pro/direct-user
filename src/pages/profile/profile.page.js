@@ -1,11 +1,11 @@
+import './profile.page.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import NavBar from '../../components/nav-bar/nav-bar';
-import './profile.page.scss';
 import { profileAPI } from '../../common/api/auth.api';
-import ChangePasswordModal from './change-password.modal';
-import Loader from '../../images/loader.gif';
 import { useHistory } from 'react-router-dom';
+import NavBar from '../../components/nav-bar/nav-bar';
+import ChangePasswordModal from './change-password.modal';
+import Loader from '../../components/common/loader';
 
 export default function Profile() {
 
@@ -31,7 +31,7 @@ export default function Profile() {
     return (
         <div className="profile">
             <NavBar loggedIn={true}/>
-            {loadingStatusFlag ? <img src={Loader} alt="Loading..." className="loader"/>:
+            {loadingStatusFlag ? <Loader/>:
                 <div className="profile-container">
                     <h1>Profile</h1>
                     <div className="label-accent-color">Email</div>
@@ -42,4 +42,4 @@ export default function Profile() {
             }
         </div>
     );
-}
+};

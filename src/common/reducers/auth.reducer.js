@@ -84,7 +84,7 @@ export default function authReducer(state = initialState, action) {
                 ...state,
                 loadingStatus: false,
                 newPasswordMessage: action.payload
-            }
+            };
         default:
             return state;
     }

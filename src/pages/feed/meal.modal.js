@@ -32,4 +32,4 @@ export default function MealModal(props) {
             </div>
         </div>
     );
-}
+};
