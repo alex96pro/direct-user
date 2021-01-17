@@ -1,7 +1,7 @@
 @import '../../variables';
 @import '../../mixins';
 
-.user{
+.feed{
     background-color: white;
     .meals-container{
        @include flexAlign(column, center, center, nowrap);
@@ -22,6 +22,9 @@
         left:0rem;
         margin: 1rem 0rem;
     }
+    .meal-bottom-container{
+        @include flexAlign(row, space-between, flex-start, wrap);
+    }
     .meal-filter-tags{
         @include flexAlign(column, center, flex-start, nowrap);
         margin: 3rem 0rem;
@@ -33,6 +36,11 @@
         margin:0.2rem;
         padding:0.2rem;
         width:max-content;
+    }
+    .meal-delivery-tag{
+        @extend .meal-tag;
+        color:$success-color;
+        border-color: $success-color;
     }
     .meal-header{
         @include flexAlign(row, space-between, center, wrap);

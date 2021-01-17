@@ -1,21 +1,21 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getMealsAPI } from '../../common/api/user.api';
-import { clearMeals } from '../../common/actions/user.actions';
+import { getMealsAPI } from '../../common/api/feed.api';
+import { clearMeals } from '../../common/actions/feed.actions';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../images/loader.gif';
 import { CURRENCY, DISTANCE, DEFAULT_RANGE, MEAL_FILTERS } from '../../util/consts';
 import MealModal from './meal.modal';
 import { useForm } from 'react-hook-form';
-import './user.page.scss';
+import './feed.page.scss';
 
-export default function User() {
+export default function Feed() {
 
     const dispatch = useDispatch();
     const {meals, loadingStatus, message, endOfResultsFlag} = useSelector(state => state.user);
     const [modal, setModal] = useState({show:false, selectedMeal:{}});
     const {register, handleSubmit, errors} = useForm();
-    const [state, setState] = useState({scrollCount: 1, range: DEFAULT_RANGE, tags: []});
+    const [state, setState] = useState({scrollCount: 1, range: DEFAULT_RANGE, tags: [], delivery: false, endOfResults: false});
     const stateRef = useRef(state);
 
     const setStateRef = data => {
@@ -26,30 +26,32 @@ export default function User() {
     const handleChangeRange = (data) => {
         setStateRef({...stateRef.current, scrollCount: 1, range: data.range})
         dispatch(clearMeals());
-        dispatch(getMealsAPI(1, data.range, stateRef.current.tags));
+        dispatch(getMealsAPI(1, data.range, state.tags, state.delivery));
     }
 
     const addTag = (event) => {
         let newTags = [];
         if(event.target.checked){
-            newTags = [...stateRef.current.tags, event.target.value];
+            newTags = [...state.tags, event.target.value];
         }else{
-            newTags = stateRef.current.tags.filter(tag => tag !== event.target.value);
+            newTags = state.tags.filter(tag => tag !== event.target.value);
         }
         setStateRef({...stateRef.current, scrollCount: 1, tags: newTags});
         dispatch(clearMeals());
-        if(newTags.length > 0){
-            dispatch(getMealsAPI(1, stateRef.current.range, stateRef.current.tags));
-        }else{
-            dispatch(getMealsAPI(1, stateRef.current.range));
-        }
-   
+        dispatch(getMealsAPI(1, state.range, newTags, state.delivery));
     }
 
-    const bottomOfPage = () => {
+    const addDeliveryOption = (event) => {
+        let delivery = !state.delivery;
+        setStateRef({...stateRef.current, scrollCount: 1, delivery: event.target.checked ? true : false});
+        dispatch(clearMeals());
+        dispatch(getMealsAPI(1, state.range, state.tags, delivery));
+    }
+
+    const bottomOfPage = () => { //FUNCTION THAT NEEDS TO USE stateRef
         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 2) {
-            if(localStorage.getItem("END_OF_RESULTS") === "false"){
-                dispatch(getMealsAPI(stateRef.current.scrollCount + 1, stateRef.current.range, stateRef.current.tags));
+            if(!stateRef.current.endOfResults){
+                dispatch(getMealsAPI(stateRef.current.scrollCount + 1, stateRef.current.range, stateRef.current.tags, stateRef.current.delivery));
                 setStateRef({...stateRef.current, scrollCount: stateRef.current.scrollCount + 1});
             }
         }
@@ -57,22 +59,16 @@ export default function User() {
     
     useEffect(() => { // ON MOUNT
         window.addEventListener('scroll', bottomOfPage);
-        window.navigator.geolocation.getCurrentPosition((position) => {
-            localStorage.setItem("LATITUDE",position.coords.latitude);
-            localStorage.setItem("LONGITUDE",position.coords.longitude);
-            if(localStorage.getItem("END_OF_RESULTS") === "false"){
-                dispatch(getMealsAPI(1));
-            }
-        }, console.log);
+        dispatch(clearMeals());
+        dispatch(getMealsAPI());
         return () => {
             window.removeEventListener('scroll', bottomOfPage);
-            dispatch(clearMeals());
         }
         // eslint-disable-next-line
     }, []);
     
     useEffect(() => { // ON END OF RESULTS
-        localStorage.setItem("END_OF_RESULTS", endOfResultsFlag);
+        setStateRef({...stateRef.current, endOfResults: endOfResultsFlag});
     }, [endOfResultsFlag]);
 
     const showModal = (meal) => {
@@ -84,7 +80,7 @@ export default function User() {
     }
 
     return(
-        <div className="user">
+        <div className="feed">
             <NavBar loggedIn={true}/>
                 <div className="meal-filters">
                     <form onSubmit={handleSubmit(handleChangeRange)}>
@@ -95,12 +91,16 @@ export default function User() {
                         <button type="submit" className="button-small">Apply</button>
                     </form>
                     <div className="meal-filter-tags">
-                        <div className="label-accent-color">Filters</div>
+                        <div className="label-accent-color">Nutrition filters</div>
                         {MEAL_FILTERS.map((tag, index) => 
                         <div className="label-accent-color" key={index}>
                             <input type="checkbox" onChange={addTag} value={tag}/>{tag}
                         </div>
                         )}
+                    </div>
+                    <div className="meal-filter-tags">
+                        <div className="label-accent-color">Delivery options</div>
+                        <div className="label-accent-color"><input type="checkbox" value="delivery" onChange={addDeliveryOption}/>Delivery</div>
                     </div>
                 </div>
                 <div className="meals-container">
@@ -111,9 +111,16 @@ export default function User() {
                             <div className="meal-price">{meal.price}{CURRENCY}</div>
                         </div>
                         <img src={meal.photo} alt="meal" width="300px" height="300px"/>
-                        {meal.tags.map((tag, tagIndex) => 
-                            <div className="meal-tag" key={tagIndex}>{tag}</div>
-                        )}
+                        <div className="meal-bottom-container">
+                            <div className="meal-tags">
+                                {meal.tags.map((tag, tagIndex) => 
+                                    <div className="meal-tag" key={tagIndex}>{tag}</div>
+                                )}
+                            </div>
+                            <div className="delivery-tags">
+                                <div className="meal-delivery-tag">{meal.delivery ? 'Delivery' : 'Pick up'}</div>
+                            </div>
+                        </div>
                     </div>)}
                     {loadingStatus && <img src={Loader} alt="Loading..." className="loader"/>}
                     {message && !loadingStatus && 

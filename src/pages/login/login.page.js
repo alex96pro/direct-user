@@ -21,7 +21,11 @@ export default function Login() {
     }
 
     const loginSuccess = () => {
-        history.push("/user");
+        window.navigator.geolocation.getCurrentPosition((position) => {
+            localStorage.setItem("LATITUDE",position.coords.latitude);
+            localStorage.setItem("LONGITUDE",position.coords.longitude);
+            history.push("/feed");
+        }, console.log);
     }
 
     const closeModal = () => {
