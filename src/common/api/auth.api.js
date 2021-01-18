@@ -16,8 +16,8 @@ export function signUpAPI(data) {
         }catch(err){
             console.log(err);
         }
-    }
-}
+    };
+};
 
 export function logInAPI(data, loginSuccess) {
     return async (dispatch) => {
@@ -41,8 +41,8 @@ export function logInAPI(data, loginSuccess) {
                     dispatch(loginFailed("Server error"));
             }
         }
-    }
-}
+    };
+};
 
 export function verifyAccountAPI(hashedUserId) {
     return async (dispatch) => {
@@ -55,8 +55,8 @@ export function verifyAccountAPI(hashedUserId) {
         }catch(err){
             console.log(err);
         }
-    }
-}
+    };
+};
 
 export function forgottenPasswordAPI(data) {
     return async (dispatch) => {
@@ -71,8 +71,8 @@ export function forgottenPasswordAPI(data) {
                 dispatch(forgottenPasswordFailed("Email doesn't exist"));
             }
         }
-    }
-}
+    };
+};
 
 export function newPasswordAPI(data, userId) {
     return async (dispatch) => {
@@ -93,8 +93,8 @@ export function newPasswordAPI(data, userId) {
             }
             dispatch(loadingStatus(false));
         }
-    }
-}
+    };
+};
 
 export function profileAPI(unauthorised) {
     return async (dispatch) => {
@@ -109,8 +109,8 @@ export function profileAPI(unauthorised) {
                 unauthorised();
             }
         }
-    }
-}
+    };
+};
 
 export function changePasswordAPI(data) {
     return async (dispatch) => {
@@ -126,5 +126,5 @@ export function changePasswordAPI(data) {
                 dispatch(changePasswordFailed("Incorrect old password"));
             }
         }
-    }
-}
+    };
+};

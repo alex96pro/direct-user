@@ -1,11 +1,11 @@
-import { useForm } from 'react-hook-form';
 import './sign-up.page.scss';
-import NavBar from '../../components/nav-bar/nav-bar';
+import { useForm } from 'react-hook-form';
 import { signUpAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUpFailed } from '../../common/actions/auth.actions';
-import Loader from '../../images/loader.gif';
 import { useHistory } from 'react-router-dom';
+import NavBar from '../../components/nav-bar/nav-bar';
+import SubmitButton from '../../components/common/submit-button';
 
 export default function SignUp() {
 
@@ -20,7 +20,7 @@ export default function SignUp() {
         }else{
             dispatch(signUpAPI(data));
         }
-    }
+    };
 
     return (
         <div className="sign-up">
@@ -39,7 +39,7 @@ export default function SignUp() {
                         <div className="label-accent-color">Retype password</div>
                         <input type="password" name="retypePassword" ref={register({required:true})}/>
                         {errors.retypePassword && <p className="message-danger">Password is required</p>}
-                        <div><button type="submit" className="button-long">{loadingStatus?<img src={Loader} className="loader-small" alt="Loading..."></img>:"Sign Up"}</button></div>
+                        <SubmitButton loadingStatus={loadingStatus} text="Sign Up"/>
                     </form>
                 {signUpMessage && <p className="message-danger">{signUpMessage}</p>}
                 </div>
@@ -48,4 +48,4 @@ export default function SignUp() {
             {signUpMessage && signUpSuccess && <p className="label-accent-color">{signUpMessage}</p>}
         </div>
     );
-}
+};

@@ -1,13 +1,13 @@
+import './feed.page.scss';
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMealsAPI } from '../../common/api/feed.api';
 import { clearMeals } from '../../common/actions/feed.actions';
-import NavBar from '../../components/nav-bar/nav-bar';
-import Loader from '../../images/loader.gif';
+import { useForm } from 'react-hook-form';
 import { CURRENCY, DISTANCE, DEFAULT_RANGE, MEAL_FILTERS } from '../../util/consts';
 import MealModal from './meal.modal';
-import { useForm } from 'react-hook-form';
-import './feed.page.scss';
+import NavBar from '../../components/nav-bar/nav-bar';
+import Loader from '../../components/common/loader';
 
 export default function Feed() {
 
@@ -24,10 +24,10 @@ export default function Feed() {
     };
 
     const handleChangeRange = (data) => {
-        setStateRef({...stateRef.current, scrollCount: 1, range: data.range})
+        setStateRef({...stateRef.current, scrollCount: 1, range: data.range});
         dispatch(clearMeals());
         dispatch(getMealsAPI(1, data.range, state.tags, state.delivery));
-    }
+    };
 
     const addTag = (event) => {
         let newTags = [];
@@ -39,14 +39,14 @@ export default function Feed() {
         setStateRef({...stateRef.current, scrollCount: 1, tags: newTags});
         dispatch(clearMeals());
         dispatch(getMealsAPI(1, state.range, newTags, state.delivery));
-    }
+    };
 
     const addDeliveryOption = (event) => {
         let delivery = !state.delivery;
         setStateRef({...stateRef.current, scrollCount: 1, delivery: event.target.checked ? true : false});
         dispatch(clearMeals());
         dispatch(getMealsAPI(1, state.range, state.tags, delivery));
-    }
+    };
 
     const bottomOfPage = () => { //FUNCTION THAT NEEDS TO USE stateRef
         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 2) {
@@ -77,7 +77,7 @@ export default function Feed() {
 
     const closeModal = () => {
         setModal({show: false, selectedMeal: {}});
-    }
+    };
 
     return(
         <div className="feed">
@@ -103,14 +103,15 @@ export default function Feed() {
                         <div className="label-accent-color"><input type="checkbox" value="delivery" onChange={addDeliveryOption}/>Delivery</div>
                     </div>
                 </div>
+                
                 <div className="meals-container">
-                    {meals.map((meal, index) => 
-                    <div className="meal-container" key={index} onClick={() => showModal(meal)}>
+                    {meals.map(meal => 
+                    <div className="meal-container" key={meal.mealId} onClick={() => showModal(meal)}>
                         <div className="meal-header">
                             <div className="meal-name">{meal.mealName}</div>
                             <div className="meal-price">{meal.price}{CURRENCY}</div>
                         </div>
-                        <img src={meal.photo} alt="meal" width="300px" height="300px"/>
+                        <img src={meal.photo} alt="meal" className="meal-photo"/>
                         <div className="meal-bottom-container">
                             <div className="meal-tags">
                                 {meal.tags.map((tag, tagIndex) => 
@@ -122,7 +123,7 @@ export default function Feed() {
                             </div>
                         </div>
                     </div>)}
-                    {loadingStatus && <img src={Loader} alt="Loading..." className="loader"/>}
+                    {loadingStatus && <Loader/>}
                     {message && !loadingStatus && 
                     <div className="user-bottom-page"><p className="message-success">{message}</p>
                     {state.scrollCount > 2 && <button onClick={() => window.scroll(0,0)} className="button-small">Go top</button>}</div>}
@@ -130,4 +131,4 @@ export default function Feed() {
                 </div>
         </div>
     );
-}
+};

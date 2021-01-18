@@ -1,0 +1,58 @@
+@import '../../mixins';
+@import '../../variables';
+.cart{
+    @include flexAlign(column, center, center, nowrap);
+    .cart-container{
+        @include flexAlign(row,center,flex-start,wrap);
+        margin:1rem;
+        padding:2rem;
+        background-color:$wrapper-color;
+    }
+    .cart-meal{
+        margin: 1rem;
+        padding: 1rem;
+        background-color: $accent-color;
+    }
+    .cart-meal-header{
+        @include flexAlign(row,space-between, center, wrap);
+        color:white;
+        font-size:1.8rem;
+        .cart-meal-x{
+            background-color: $accent-color-2;
+            color:white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 0.2rem 0.6rem;
+            margin: 0.2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            outline:none;
+            &:hover{
+                background-color: white;
+                color:$accent-color-2;
+            }
+        }
+    }
+    .cart-description{
+        background-color: inherit;
+        color:white;
+        font-size: 1.8rem;
+        text-decoration: underline;
+        cursor: pointer;
+        &:hover{
+            color:$accent-color-2;
+        }
+    }
+    .cart-meal-photo{
+        width:15rem;
+        height:15rem;
+    }
+    .cart-no-meals{
+        @include flexAlign(column,center,center,wrap);
+    }
+    .cart-total{
+        background-color: $wrapper-color;
+        padding:2rem;
+        margin: 4rem;
+    }
+}

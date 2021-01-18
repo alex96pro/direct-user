@@ -1,11 +1,11 @@
+import './verify-account.page.scss';
 import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { newPasswordAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../images/loader.gif';
-import NavBar from '../../components/nav-bar/nav-bar';
-import './verify-account.page.scss';
 import { useForm } from 'react-hook-form';
+import SubmitButton from '../../components/common/submit-button';
+import NavBar from '../../components/nav-bar/nav-bar';
 
 export default function ForgottenPassword() {
 
@@ -23,7 +23,7 @@ export default function ForgottenPassword() {
             setMessage('');
             dispatch(newPasswordAPI(data, params.id));
         }
-    }
+    };
 
     return (
         <div className="verify-account">
@@ -37,7 +37,7 @@ export default function ForgottenPassword() {
                         <div className="label-accent-color">Retype new password</div>
                         <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
                         {errors.retypeNewPassword && <p className="message-danger">Retype new password</p>}
-                        <button type="submit" className="button-long">{loadingStatus? <img src={Loader} alt="Loading..." className="loader-small"></img> : "Confirm"}</button>
+                        <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
                         {message && <p className="message-danger">{message}</p>}
                     </form> :   
                         <div>
@@ -48,4 +48,4 @@ export default function ForgottenPassword() {
                 </div>
         </div>
     );
-}
+};

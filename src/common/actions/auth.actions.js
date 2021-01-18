@@ -12,49 +12,49 @@ export const CHANGE_PASSWORD_SUCCESS = "CHANGE_PASSWORD_SUCCESS";
 export const CHANGE_PASSWORD_FAILED = "CHANGE_PASSWORD_FAILED";
 export const NEW_PASSWORD_SUCCESS = "NEW_PASSWORD_SUCCESS";
 
-export function loginFailed(payload){
+export function loginFailed(payload) {
     return {
         type: LOG_IN_FAILED,
         payload
     };
 };
-export function loadingStatus(payload){
+export function loadingStatus(payload) {
     return {
         type: LOADING_STATUS_AUTH,
         payload
     };
 };
-export function signUpSuccess(payload){
+export function signUpSuccess(payload) {
     return {
         type: SIGN_UP_SUCCESS,
         payload
     };
 };
-export function signUpFailed(payload){
+export function signUpFailed(payload) {
     return{
         type: SIGN_UP_FAILED,
         payload
     };
 };
-export function logOut(payload){
+export function logOut(payload) {
     return{
         type: LOGOUT,
         payload
     };
 };
-export function verifiedAccount(payload){
+export function verifiedAccount(payload) {
     return{
         type: VERIFIED_ACCOUNT,
         payload
     };
 };
-export function forgottenPasswordFailed(payload){
+export function forgottenPasswordFailed(payload) {
     return{
         type: FORGOTTEN_PASSWORD_FAILED,
         payload
     };
 };
-export function forgottenPasswordSuccess(payload){
+export function forgottenPasswordSuccess(payload) {
     return{
         type: FORGOTTEN_PASSWORD_SUCCESS,
         payload
@@ -66,21 +66,21 @@ export function profile(payload){
         payload
     };
 };
-export function changePasswordSuccess(payload){
+export function changePasswordSuccess(payload) {
     return{
         type: CHANGE_PASSWORD_SUCCESS,
         payload
     };
 };
-export function changePasswordFailed(payload){
+export function changePasswordFailed(payload) {
     return{
         type: CHANGE_PASSWORD_FAILED,
         payload
     };
 };
-export function newPasswordSuccess(payload){
+export function newPasswordSuccess(payload) {
     return{
         type: NEW_PASSWORD_SUCCESS,
         payload
-    }
-}
+    };
+};

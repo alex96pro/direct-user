@@ -13,7 +13,7 @@ export default function userReducer(state = initialState, action) {
             return{
                 ...state,
                 loadingStatus: action.payload
-            }
+            };
         case ACTIONS.GET_MEALS:
             let newArray = state.meals.concat(action.payload.meals);
             return{
@@ -29,14 +29,14 @@ export default function userReducer(state = initialState, action) {
                 loadingStatus: false,
                 message: action.payload,
                 endOfResultsFlag: true
-            }
+            };
         case ACTIONS.CLEAR_MEALS:
             return{
                 ...state,
                 meals:[],
                 message:'',
                 endOfResultsFlag: false
-            }
+            };
         default:
             return state;
     }
