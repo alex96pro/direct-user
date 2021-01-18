@@ -6,6 +6,7 @@ import Feed from './pages/feed/feed.page';
 import VerifyAccount from './pages/verification/verify-account.page';
 import ForgottenPassword from './pages/verification/forgotten-password.page';
 import Profile from './pages/profile/profile.page';
+import Cart from './pages/cart/cart.page';
 import './App.scss';
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/feed" exact component={Feed}></Route>
           <Route path="/verify-account/:id" exact component={VerifyAccount}></Route>
           <Route path="/forgotten-password/:id" exact component={ForgottenPassword}></Route>
+          <Route path="/cart" exact component={Cart}></Route>
       </Router>
     );
 }

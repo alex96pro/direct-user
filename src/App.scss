@@ -15,22 +15,6 @@ body{
     background-size: cover;
     height: 100%;
 }
-.button-main{
-    background-color:inherit;
-    color:white;
-    font-size:2rem;
-    font-weight: bold;
-    width:10rem;
-    border:0.2rem solid $accent-color;
-    margin:0.8rem;
-    padding:0.8rem;
-    cursor: pointer;
-    transition: 0.2s;
-    &:hover{
-        background-color:$accent-color;
-        color:white;
-    }
-}
 .button-link{
     background-color: transparent;
     color:$accent-color;
@@ -45,8 +29,8 @@ body{
         color:$accent-color-2;
     }
 }
-.button-long{
-    width:100%;
+.button-normal{
+    width:max-content;
     background-color:$accent-color;
     padding:1rem;
     margin-top:1rem;
@@ -59,11 +43,14 @@ body{
     }
 }
 .button-small{
-    @extend .button-long;
-    width: max-content;
+    @extend .button-normal;
     font-size: 1.2rem;
     padding: 0.8rem;
     margin: 0.2rem 0rem;
+}
+.button-long{
+    @extend .button-normal;
+    width:100%;
 }
 .wrapper-container{
     background-color:$wrapper-color;
@@ -101,9 +88,15 @@ input[type=text], input[type=password], input[type=email]{
         box-shadow: 0 0 0.8rem rgba(17, 90, 110, 0.753);
     }
 }
+textarea{
+    @extend input[type=text];
+    height: 7rem;
+    padding: 0.4rem 1rem;
+    resize: none;
+}
 input[type=number]{
     @extend input[type=text];
-    width:25%;
+    width:6rem;
 }
 .message-danger{
     color:rgb(243, 76, 76);
@@ -121,14 +114,12 @@ input[type=number]{
     margin:0.2rem;
 }
 .label-accent-color{
-    font-size:1.8rem;
+    @extend .label-white;
     color:$accent-color;
-    margin:0.2rem;
 }
 .label-accent-color-2{
-    font-size:1.8rem;
+    @extend .label-white;
     color:$accent-color-2;
-    margin:0.2rem;
 }
 .modal-overlay{
     position:fixed;
@@ -154,8 +145,14 @@ h1{
     text-align: center;
 }
 .header-accent-color{
+    @extend .header-white;
     color:$accent-color;
-    margin: 1rem 1rem;
-    font-size: 3rem;
-    text-align: center;
+}
+.header-accent-color-2{
+    @extend .header-white;
+    color:$accent-color-2;
+}
+.meal-photo{
+    width: 30rem;
+    height: 30rem;
 }

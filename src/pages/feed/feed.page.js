@@ -82,7 +82,6 @@ export default function Feed() {
     return(
         <div className="feed">
             <NavBar loggedIn={true}/>
-
                 <div className="meal-filters">
                     <form onSubmit={handleSubmit(handleChangeRange)}>
                         <div className="label-accent-color">Range</div>
@@ -106,13 +105,13 @@ export default function Feed() {
                 </div>
                 
                 <div className="meals-container">
-                    {meals.map((meal, index) => 
-                    <div className="meal-container" key={index} onClick={() => showModal(meal)}>
+                    {meals.map(meal => 
+                    <div className="meal-container" key={meal.mealId} onClick={() => showModal(meal)}>
                         <div className="meal-header">
                             <div className="meal-name">{meal.mealName}</div>
                             <div className="meal-price">{meal.price}{CURRENCY}</div>
                         </div>
-                        <img src={meal.photo} alt="meal" width="300px" height="300px"/>
+                        <img src={meal.photo} alt="meal" className="meal-photo"/>
                         <div className="meal-bottom-container">
                             <div className="meal-tags">
                                 {meal.tags.map((tag, tagIndex) => 
