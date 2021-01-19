@@ -15,11 +15,7 @@ export default function cartReducer(state = initialState, action) {
                 cartSize: +state.cartSize + +action.payload.amount
             };
         case ACTIONS.REMOVE_FROM_CART:
-            for(let i = 0; i < state.meals.length; i++){
-                if(i !== action.payload){
-                    newMeals.push(state.meals[i]);
-                }
-            }
+            newMeals = state.meals.filter((meal, index) => index !== action.payload);
             return{
                 ...state,
                 meals: newMeals,
