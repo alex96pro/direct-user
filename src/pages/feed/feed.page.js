@@ -112,16 +112,23 @@ export default function Feed() {
                             <div className="meal-price">{meal.price}{CURRENCY}</div>
                         </div>
                         <img src={meal.photo} alt="meal" className="meal-photo"/>
-                        <div className="meal-bottom-container">
+                        <div className="restaurant-name">{meal.restaurantName}</div>
+                                {meal.delivery ? 
+                                <div className="delivery-tags">
+                                <div className="delivery-tag">Delivery</div>
+                                <div className="delivery-tag">Minimum {meal["delivery-minimum"]}{CURRENCY}</div>
+                                </div>
+                                :
+                                <div className="delivery-tags">
+                                <div className="delivery-tag">Pickup</div>
+                                <div className="delivery-tag">Distance {meal.distance.toFixed(2)}{DISTANCE}</div>
+                                </div>
+                                }
                             <div className="meal-tags">
                                 {meal.tags.map((tag, tagIndex) => 
-                                    <div className="meal-tag" key={tagIndex}>{tag}</div>
+                                    <div className="meal-tag" key={tagIndex}>#{tag}</div>
                                 )}
                             </div>
-                            <div className="delivery-tags">
-                                <div className="meal-delivery-tag">{meal.delivery ? 'Delivery' : 'Pick up'}</div>
-                            </div>
-                        </div>
                     </div>)}
                     {loadingStatus && <Loader/>}
                     {message && !loadingStatus && 

@@ -1,5 +1,5 @@
 @import './variables';
-
+@import './mixins';
 *{
     margin:0;
     padding:0;
@@ -155,4 +155,39 @@ h1{
 .meal-photo{
     width: 30rem;
     height: 30rem;
+}
+.modal{
+    .modal-container{
+        position:fixed;
+        background-color: white;
+        width:35rem;
+        padding:1rem;
+        left:50vw;
+        top:50vh;
+        transform: translate(-50%, -50%);
+        opacity:0;
+        transition:1.2s;
+    }
+    .modal-body{
+        margin: 2rem 0rem;
+    }
+    .modal-header{
+        margin: 2rem 0rem;
+    }
+    .modal-x-container{
+        @include flexAlign(row,flex-end,center,nowrap);
+        .modal-x{
+            background-color: $accent-color;
+            color:white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding: 0.4rem 0.8rem;
+            margin-bottom:0.6rem;
+            cursor: pointer;
+            transition: 0.2s;
+            &:hover{
+                background-color: $accent-color-2;
+            }
+        }
+    } 
 }

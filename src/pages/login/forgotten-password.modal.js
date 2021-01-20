@@ -1,4 +1,3 @@
-import './forgotten-password.modal.scss';
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { forgottenPasswordAPI } from '../../common/api/auth.api';
@@ -21,7 +20,7 @@ export default function ForgottenPasswordModal(props) {
     };
 
     return (
-        <div className="forgotten-password-modal">
+        <div className="modal">
             <div className="modal-overlay" onClick={() => props.closeModal()}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-x-container">

@@ -41,7 +41,7 @@ export default function Cart() {
                             <input type="number" min="1" value={meal.amount} onChange={(event) => handleChangeAmount(event, index)}/>
                         </div>
                         <div>
-                            {meal.description && <button onClick={() => alert(meal.description)} className="cart-description">See description</button>}
+                            {meal.notes && <button onClick={() => alert(meal.notes)} className="cart-notes">See notes</button>}
                         </div>
                     </div>
                 )}
