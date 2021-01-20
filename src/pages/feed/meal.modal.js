@@ -14,7 +14,8 @@ export default function MealModal(props) {
     }, []);
 
     const handleAddToCart = (data) => {
-        dispatch(addToCart({amount:data.amount, notes:data.notes, restaurantName:props.meal.restaurantName, mealName:props.meal.mealName, price:props.meal.price, photo:props.meal.photo}));
+        dispatch(addToCart({amount:data.amount, notes:data.notes, 
+            restaurantName:props.meal.restaurantName, mealName:props.meal.mealName, price:props.meal.price, photo:props.meal.photo, restaurantId:props.meal.restaurantId, deliveryMinimum:props.meal["delivery-minimum"]}));
         props.closeModal();
     };
 

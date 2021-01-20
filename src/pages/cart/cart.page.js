@@ -2,15 +2,15 @@ import './cart.page.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import {CURRENCY} from '../../util/consts';
 import NavBar from '../../components/nav-bar/nav-bar';
-import { removeFromCart } from '../../common/actions/cart.actions';
 import { useHistory } from 'react-router-dom';
-import { changeAmount } from '../../common/actions/cart.actions';
-import { useState } from 'react';
+import { changeAmount, removeFromCart, minimumDeliveryCheck } from '../../common/actions/cart.actions';
+import { useState, useEffect } from 'react';
+import {checkDeliveryMinimumsForCart} from '../../util/functions';
 
 export default function Cart() {
 
     const dispatch = useDispatch();
-    const {meals} = useSelector(state => state.cart);
+    const {meals, minimumDeliveryConflicts} = useSelector(state => state.cart);
     const history = useHistory();
     const [notesAccordion, setNotesAccordion] = useState({notes:'', show:false, top:0, left:0});
 
@@ -39,6 +39,16 @@ export default function Cart() {
             setNotesAccordion({notes:meals[index].notes, show:true, top: top + height, left:left});
         }
     }
+
+    const checkDeliveryMinimums = () => {
+        let deliveryMinimumsConflicts = checkDeliveryMinimumsForCart(meals);
+        dispatch(minimumDeliveryCheck(deliveryMinimumsConflicts));
+    };
+
+    useEffect(() => {
+        checkDeliveryMinimums();
+        // eslint-disable-next-line
+    }, [meals]);
 
     return(
         <div className="cart">
@@ -84,12 +94,21 @@ export default function Cart() {
                     <button onClick={() => history.push('/feed')} className="button-normal">Go back to feed</button>
                 </div>
             }
+            {minimumDeliveryConflicts.length > 0 && 
+            <div className="wrapper-container">
+                {minimumDeliveryConflicts.map((conflict, index) => 
+                <div className="message-danger" key={index}>
+                    {`Minimum delivery for restaurant "${conflict.restaurantName}" is ${conflict.deliveryMinimum}${CURRENCY}`}
+                </div>
+            )}
+            </div>}
+            
             {meals.length !== 0 && 
                 <div className="cart-total">
                     <div className="header-accent-color-2">
                         Total: {(Math.round(meals.reduce((sum, current) => sum + current.price * current.amount, 0)*100) / 100).toFixed(2)}{CURRENCY}
                         </div>
-                    <button className="button-normal">Proceed to checkout</button>
+                    <button className={minimumDeliveryConflicts.length > 0 ? "button-normal-disabled" : "button-normal"}>Proceed to checkout</button>
                 </div>
             }
         </div>

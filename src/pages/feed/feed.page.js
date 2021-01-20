@@ -116,7 +116,9 @@ export default function Feed() {
                             <div className="meal-price">{meal.price}{CURRENCY}</div>
                         </div>
                         <img src={meal.photo} alt="meal" className="meal-feed-photo"/>
+                        
                         <div className="restaurant-name">{meal.restaurantName}</div>
+                        <div className="label-accent-color">See menu</div>
                                 {meal.delivery ? 
                                 <div className="delivery-tags">
                                 <div className="delivery-tag">Delivery</div>

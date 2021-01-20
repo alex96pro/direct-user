@@ -42,6 +42,12 @@ body{
         background-color: $accent-color-2;
     }
 }
+.button-normal-disabled{
+    @extend .button-normal;
+    background-color: gray;
+    pointer-events: none;
+    cursor:none;
+}
 .button-small{
     @extend .button-normal;
     font-size: 1.2rem;
@@ -105,7 +111,7 @@ input[type=number]{
 }
 .message-danger{
     color:rgb(243, 76, 76);
-    font-size:1.8rem;
+    font-size:2rem;
     margin:1rem;
 }
 .message-success{
