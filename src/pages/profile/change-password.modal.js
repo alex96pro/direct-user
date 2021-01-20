@@ -35,7 +35,7 @@ export default function ChangePasswordModal(props) {
     };
 
     return (
-        <div className="forgotten-password-modal">
+        <div className="modal">
             <div className="modal-overlay" onClick={() => props.closeModal()}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-x-container">

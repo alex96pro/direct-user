@@ -2,7 +2,8 @@ import * as ACTIONS from '../actions/cart.actions';
 
 const initialState = {
     meals: [],
-    cartSize: 0
+    cartSize: 0,
+    minimumDeliveryConflicts: []
 };
 
 export default function cartReducer(state = initialState, action) {
@@ -15,11 +16,7 @@ export default function cartReducer(state = initialState, action) {
                 cartSize: +state.cartSize + +action.payload.amount
             };
         case ACTIONS.REMOVE_FROM_CART:
-            for(let i = 0; i < state.meals.length; i++){
-                if(i !== action.payload){
-                    newMeals.push(state.meals[i]);
-                }
-            }
+            newMeals = state.meals.filter((meal, index) => index !== action.payload);
             return{
                 ...state,
                 meals: newMeals,
@@ -37,6 +34,11 @@ export default function cartReducer(state = initialState, action) {
                 ...state,
                 meals: newMeals,
                 cartSize: state.cartSize - state.meals[action.payload.index].amount + +action.payload.newAmount
+            }
+        case ACTIONS.MINIMUM_DELIVERY_CHECK:
+            return {
+                ...state,
+                minimumDeliveryConflicts: action.payload
             }
         default:
             return state;

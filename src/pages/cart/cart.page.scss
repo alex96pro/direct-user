@@ -17,35 +17,36 @@
         @include flexAlign(row,space-between, center, wrap);
         color:white;
         font-size:1.8rem;
-        .cart-meal-x{
-            background-color: $accent-color-2;
-            color:white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            padding: 0.2rem 0.6rem;
-            margin: 0.2rem;
-            cursor: pointer;
-            transition: 0.2s;
-            outline:none;
-            &:hover{
-                background-color: white;
-                color:$accent-color-2;
-            }
-        }
     }
-    .cart-description{
-        background-color: inherit;
+    .cart-meal-x{
+        background-color: $accent-color-2;
         color:white;
-        font-size: 1.8rem;
-        text-decoration: underline;
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 0.2rem 0.6rem;
+        margin: 0.2rem;
         cursor: pointer;
+        transition: 0.2s;
+        outline:none;
         &:hover{
+            background-color: white;
             color:$accent-color-2;
         }
     }
+    .cart-notes-button{
+        background-color: inherit;
+        color:$accent-color-2;
+        font-size: 1.8rem;
+        text-decoration: underline;
+        cursor: pointer;
+        outline:none;
+        &:hover{
+            color:white;
+        }
+    }
     .cart-meal-photo{
-        width:15rem;
-        height:15rem;
+        width:20rem;
+        height:20rem;
     }
     .cart-no-meals{
         @include flexAlign(column,center,center,wrap);
@@ -54,5 +55,13 @@
         background-color: $wrapper-color;
         padding:2rem;
         margin: 4rem;
+    }
+    .notes-accordion{
+        background-color: white;
+        color:$accent-color;
+        font-size:1.8rem;
+        position:absolute;
+        width:22rem;
+        padding:1rem;
     }
 }

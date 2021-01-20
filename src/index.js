@@ -2,14 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import thunkMiddleware from 'redux-thunk';
-import rootReducer from './common/reducers/allReducers';
+import configureStore from './store';
 
-const myStore = createStore(rootReducer,
-    composeWithDevTools(applyMiddleware(thunkMiddleware))
-);
+const myStore = configureStore(); 
 
 // const MyStore = createStore(rootReducer, applyMiddleware(thunkMiddleware)); //PRODUCTION
 
