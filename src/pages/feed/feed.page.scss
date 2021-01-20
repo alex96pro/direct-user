@@ -13,32 +13,24 @@
         cursor: pointer;
         width:32rem;
     }
-    .meal-filters{
-        position: fixed;
-        width:max-content;
-        height:100vh;
-        background-color: $wrapper-color;
-        padding: 3rem;
-        top:5rem;
-        left:0rem;
-        margin: 1rem 0rem;
+    .meal-name{
+        color:$accent-color;
+        font-size:2rem;
     }
-    .meal-bottom-container{
-        @include flexAlign(row, space-between, flex-start, wrap);
+    .meal-price{
+        color:$accent-color;
+        font-size: 2rem;
     }
-    .meal-filter-tags{
-        @include flexAlign(column, center, flex-start, nowrap);
-        margin: 3rem 0rem;
+    .meal-feed-photo{
+        width: 30rem;
+        height: 30rem;
     }
-    .meal-tags{
-        margin-top:2rem;
-    }
-    .meal-tag{
-        display:inline-block;
+    .restaurant-name{
         color:$accent-color;
         font-size:1.8rem;
-        margin:0.2rem;
-        padding:0.2rem;
+        margin: 1rem 0rem;
+        border-bottom: 1px solid $accent-color;
+        border-radius: 0;
     }
     .delivery-tags{
         @include flexAlign(row,space-between,flex-start,wrap);
@@ -51,28 +43,51 @@
         color:$success-color;
         font-size: 1.8rem;
     }
+    .meal-tags{
+        margin-top:1rem;
+    }
+    .meal-tag{
+        display:inline-block;
+        color:$accent-color;
+        font-size:1.8rem;
+        margin:0.2rem;
+        padding:0.2rem;
+    }
+    .meal-range{
+        padding:0.5rem;
+        margin:1rem 0.2rem;
+    }
+    .meal-filters{
+        position: fixed;
+        width:max-content;
+        height:100vh;
+        background-color: $wrapper-color;
+        padding: 3rem;
+        top:5rem;
+        left:0rem;
+        margin: 1rem 0rem;
+    }
+    .meal-filter-tags{
+        padding:0.5rem;
+        margin:1rem 0.2rem;
+    }
+    .feed-nutrition-filter{
+        margin:1.2rem 0rem;
+    }
+    .feed-filter-heading{
+        font-size:2rem;
+        color:$accent-color;
+        margin: 1rem 0rem;
+    }
     .meal-header{
         @include flexAlign(row, space-between, center, wrap);
         margin: 1rem 0rem;
     }
-    .meal-name{
-        color:$accent-color;
-        font-size:2rem;
-    }
-    .meal-price{
-        color:$accent-color;
-        font-size: 2rem;
-    }
-    .user-bottom-page{
+
+    .feed-bottom{
         text-align: center;
     }
-    .restaurant-name{
-        color:$accent-color;
-        font-size:1.8rem;
-        margin: 1rem 0rem;
-        border-bottom: 1px solid $accent-color;
-        border-radius: 0;
-    }
+    
     .tags-container{
         width:100%;
         @include flexAlign(row, space-between, flex-start, wrap);

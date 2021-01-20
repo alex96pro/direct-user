@@ -5,20 +5,40 @@ import NavBar from '../../components/nav-bar/nav-bar';
 import { removeFromCart } from '../../common/actions/cart.actions';
 import { useHistory } from 'react-router-dom';
 import { changeAmount } from '../../common/actions/cart.actions';
+import { useState } from 'react';
 
 export default function Cart() {
 
     const dispatch = useDispatch();
     const {meals} = useSelector(state => state.cart);
     const history = useHistory();
+    const [notesAccordion, setNotesAccordion] = useState({notes:'', show:false, top:0, left:0});
 
     const removeMealFromCart = (index) => {
+        setNotesAccordion({...notesAccordion, show:false});
         dispatch(removeFromCart(index));
     };
 
     const handleChangeAmount = (event, index) => {
         dispatch(changeAmount({newAmount: event.target.value, index: index}));
     };
+
+    const changeMealOpacity = (index, opacity) => {
+        let element = document.getElementsByClassName('cart-meal')[index];
+        if(element){
+            element.style.opacity = opacity;
+        }
+    }
+
+    const showNotesAccordion = (index) => {
+        let element = document.getElementsByClassName('cart-meal')[index];
+        if(element){
+            let top = (element.getClientRects()[0].top);
+            let height = element.offsetHeight;
+            let left = (element.getClientRects()[0].left);
+            setNotesAccordion({notes:meals[index].notes, show:true, top: top + height, left:left});
+        }
+    }
 
     return(
         <div className="cart">
@@ -28,11 +48,19 @@ export default function Cart() {
                 {meals.map((meal, index) =>
                     <div className="cart-meal" key={index}>
                         <div className="cart-meal-header">
-                            {meal.mealName}<button onClick={() => removeMealFromCart(index)} className="cart-meal-x">x</button>
+                            {meal.mealName}
+                            <button onClick={() => removeMealFromCart(index)} className="cart-meal-x" 
+                            onMouseEnter={() => changeMealOpacity(index, 0.6)}
+                            onMouseLeave={() => changeMealOpacity(index, 1)}>
+                            x
+                            </button>
                         </div>
 
                         <img src={meal.photo} alt="meal" className="cart-meal-photo"/>
 
+                        <div className="label-accent-color-2">
+                            {meal.restaurantName}
+                        </div>
                         <div className="label-white">
                             {(Math.round(meal.price * meal.amount * 100) / 100).toFixed(2)}{CURRENCY}
                         </div>
@@ -41,10 +69,14 @@ export default function Cart() {
                             <input type="number" min="1" value={meal.amount} onChange={(event) => handleChangeAmount(event, index)}/>
                         </div>
                         <div>
-                            {meal.notes && <button onClick={() => alert(meal.notes)} className="cart-notes">See notes</button>}
+                            {meal.notes && <button onClick={() => showNotesAccordion(index)} className="cart-notes-button">See notes</button>}
                         </div>
                     </div>
                 )}
+                {notesAccordion.show && <div className="notes-accordion" style={{top:notesAccordion.top, left:notesAccordion.left}}>
+                    <button onClick={() => setNotesAccordion({...notesAccordion, show:false})} className="cart-meal-x">x</button>
+                    <div className="label-accent-color">{notesAccordion.notes}</div>
+                </div>}
                 </div>
                 :
                 <div className="cart-no-meals">

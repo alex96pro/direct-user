@@ -14,7 +14,7 @@ export default function MealModal(props) {
     }, []);
 
     const handleAddToCart = (data) => {
-        dispatch(addToCart({amount:data.amount, notes:data.notes, mealId:props.meal.mealId, mealName:props.meal.mealName, price:props.meal.price, photo:props.meal.photo}));
+        dispatch(addToCart({amount:data.amount, notes:data.notes, restaurantName:props.meal.restaurantName, mealName:props.meal.mealName, price:props.meal.price, photo:props.meal.photo}));
         props.closeModal();
     };
 
@@ -49,7 +49,8 @@ export default function MealModal(props) {
                         <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})}/>
                         {errors.amount && <p className="message-danger">Amount is required</p>}
                         <div className="label-accent-color">Notes (optional)</div>
-                        <textarea name="notes" ref={register()}/>
+                        <textarea name="notes" ref={register({maxLength: 200})}/>
+                        {errors.notes && <p className="message-danger">Notes are limited to 200 characters</p>}
                         <button type="submit" className="button-long">Add to cart</button>
                     </form>
                 </div>

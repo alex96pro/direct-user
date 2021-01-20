@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMealsAPI } from '../../common/api/feed.api';
 import { clearMeals } from '../../common/actions/feed.actions';
 import { useForm } from 'react-hook-form';
-import { CURRENCY, DISTANCE, DEFAULT_RANGE, MEAL_FILTERS } from '../../util/consts';
+import { CURRENCY, DISTANCE, DEFAULT_RANGE, MEAL_TAGS } from '../../util/consts';
 import MealModal from './meal.modal';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../components/common/loader';
@@ -83,24 +83,28 @@ export default function Feed() {
         <div className="feed">
             <NavBar loggedIn={true}/>
                 <div className="meal-filters">
-                    <form onSubmit={handleSubmit(handleChangeRange)}>
-                        <div className="label-accent-color">Range</div>
-                        <input type="number" defaultValue='5' ref={register({required: true})} name="range"/>
-                        <label className="label-accent-color">{DISTANCE}</label>
-                        {errors.range && <p className="message-danger">Range is required</p>}
-                        <button type="submit" className="button-small">Apply</button>
-                    </form>
+                    <div className="meal-range">
+                        <form onSubmit={handleSubmit(handleChangeRange)}>
+                            <div className="label-accent-color">Range</div>
+                            <input type="number" defaultValue='5' ref={register({required: true})} name="range"/>
+                            <label className="label-accent-color">{DISTANCE}</label>
+                            {errors.range && <p className="message-danger">Range is required</p>}
+                            <button type="submit" className="button-small">Apply</button>
+                        </form>
+                    </div>
                     <div className="meal-filter-tags">
-                        <div className="label-accent-color">Nutrition filters</div>
-                        {MEAL_FILTERS.map((tag, index) => 
-                        <div className="label-accent-color" key={index}>
-                            <input type="checkbox" onChange={addTag} value={tag}/>{tag}
+                        <div className="feed-filter-heading">Nutrition filters</div>
+                        {MEAL_TAGS.map((tag, index) => 
+                        <div className="feed-nutrition-filter" key={index}>
+                            <input type="checkbox" onChange={addTag} value={tag.value}/>
+                            <label className="label-accent-color">{tag.name}</label>
                         </div>
                         )}
                     </div>
                     <div className="meal-filter-tags">
-                        <div className="label-accent-color">Delivery options</div>
-                        <div className="label-accent-color"><input type="checkbox" value="delivery" onChange={addDeliveryOption}/>Delivery</div>
+                        <div className="feed-filter-heading">Delivery options</div>
+                        <input type="checkbox" value="delivery" onChange={addDeliveryOption}/>
+                        <label className="label-accent-color">Delivery</label>
                     </div>
                 </div>
                 
@@ -111,7 +115,7 @@ export default function Feed() {
                             <div className="meal-name">{meal.mealName}</div>
                             <div className="meal-price">{meal.price}{CURRENCY}</div>
                         </div>
-                        <img src={meal.photo} alt="meal" className="meal-photo"/>
+                        <img src={meal.photo} alt="meal" className="meal-feed-photo"/>
                         <div className="restaurant-name">{meal.restaurantName}</div>
                                 {meal.delivery ? 
                                 <div className="delivery-tags">
@@ -132,7 +136,7 @@ export default function Feed() {
                     </div>)}
                     {loadingStatus && <Loader/>}
                     {message && !loadingStatus && 
-                    <div className="user-bottom-page"><p className="message-success">{message}</p>
+                    <div className="feed-bottom"><p className="message-success">{message}</p>
                     {state.scrollCount > 2 && <button onClick={() => window.scroll(0,0)} className="button-small">Go top</button>}</div>}
                     {modal.show && <MealModal closeModal={closeModal} meal={modal.selectedMeal}/>}
                 </div>
