@@ -68,7 +68,7 @@ export default function Cart() {
 
                         <img src={meal.photo} alt="meal" className="cart-meal-photo"/>
 
-                        <div className="label-accent-color-2">
+                        <div className="cart-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>
                             {meal.restaurantName}
                         </div>
                         <div className="label-white">
@@ -83,10 +83,11 @@ export default function Cart() {
                         </div>
                     </div>
                 )}
-                {notesAccordion.show && <div className="notes-accordion" style={{top:notesAccordion.top, left:notesAccordion.left}}>
-                    <button onClick={() => setNotesAccordion({...notesAccordion, show:false})} className="cart-meal-x">x</button>
-                    <div className="label-accent-color">{notesAccordion.notes}</div>
-                </div>}
+                    {notesAccordion.show && 
+                    <div className="notes-accordion" style={{top:notesAccordion.top, left:notesAccordion.left}}>
+                        <button onClick={() => setNotesAccordion({...notesAccordion, show:false})} className="cart-meal-x">x</button>
+                        <div className="label-accent-color">{notesAccordion.notes}</div>
+                    </div>}
                 </div>
                 :
                 <div className="cart-no-meals">

@@ -14,6 +14,7 @@ export function getMealsAPI(scrollCount = 1, range = DEFAULT_RANGE, tags = null,
             if(tags && tags.length === 0){
                 tags = null;
             }
+            console.log(tags);
             let response = await axios.get(
             `${BACKEND_API}/user/feed?scrollCount=${scrollCount}&lat=${lat}&lon=${lon}&range=${range}&tags=${tags}&delivery=${delivery}`,
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN")}`}});
