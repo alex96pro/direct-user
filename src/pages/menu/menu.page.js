@@ -1,10 +1,10 @@
 import './menu.page.scss';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Meals from '../../components/meals/meals.component';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import MealModal from '../feed/meal.modal';
 import Loader from '../../components/common/loader';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { getMealsFromMenuAPI } from '../../common/api/menu.api';
 import { clearMenu } from '../../common/actions/menu.actions';
@@ -15,7 +15,7 @@ export default function Menu() {
     const [modal, setModal] = useState({show:false, selectedMeal:{}});
     const dispatch = useDispatch();
     const params = useParams();
-    const {meals, loadingStatus} = useSelector((state => state.menu));
+    const {meals, loadingStatus, message} = useSelector((state => state.menu));
     const history = useHistory();
 
     const showModal = (meal) => {
@@ -46,6 +46,7 @@ export default function Menu() {
                 <Meals meals={meals} showModal={showModal}/>
                 }
             </div>
+            {message && <div className="header-accent-color">{message}</div>}
             {modal.show && <MealModal closeModal={closeModal} meal={modal.selectedMeal}/>}
             {!loadingStatus && <button onClick={() => history.push('/feed')} className="button-normal">Back to feed</button>}
         </div>

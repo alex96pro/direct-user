@@ -2,7 +2,8 @@ import * as ACTIONS from '../actions/menu.actions';
 
 const initialState = {
     loadingStatus: false,
-    meals:[]
+    meals:[],
+    message:''
 };
 
 export default function menuReducer(state = initialState, action) {
@@ -23,6 +24,12 @@ export default function menuReducer(state = initialState, action) {
                 ...state,
                 loadingStatus: false,
                 meals: []
+            };
+        case ACTIONS.NO_MEALS_IN_MENU:
+            return{
+                ...state,
+                loadingStatus: false,
+                message: action.payload
             }
         default:
             return state;
