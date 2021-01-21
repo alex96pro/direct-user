@@ -6,57 +6,6 @@
     .meals-container{
        @include flexAlign(column, center, center, nowrap);
     }
-    .meal-container{
-        margin: 1rem 1rem;
-        padding: 1rem 1rem;
-        background-color: $wrapper-color;
-        cursor: pointer;
-        width:32rem;
-    }
-    .meal-name{
-        color:$accent-color;
-        font-size:2rem;
-    }
-    .meal-price{
-        color:$accent-color;
-        font-size: 2rem;
-    }
-    .meal-feed-photo{
-        width: 30rem;
-        height: 30rem;
-    }
-    .restaurant-name{
-        color:$accent-color;
-        font-size:1.8rem;
-        margin: 1rem 0rem;
-        border-bottom: 1px solid $accent-color;
-        border-radius: 0;
-    }
-    .delivery-tags{
-        @include flexAlign(row,space-between,flex-start,wrap);
-        border-bottom: 1px solid $success-color;
-        border-radius: 0;
-    }
-    .delivery-tag{
-        margin:0;
-        padding:0;
-        color:$success-color;
-        font-size: 1.8rem;
-    }
-    .meal-tags{
-        margin-top:1rem;
-    }
-    .meal-tag{
-        display:inline-block;
-        color:$accent-color;
-        font-size:1.8rem;
-        margin:0.2rem;
-        padding:0.2rem;
-    }
-    .meal-range{
-        padding:0.5rem;
-        margin:1rem 0.2rem;
-    }
     .meal-filters{
         position: fixed;
         width:max-content;
@@ -79,11 +28,6 @@
         color:$accent-color;
         margin: 1rem 0rem;
     }
-    .meal-header{
-        @include flexAlign(row, space-between, center, wrap);
-        margin: 1rem 0rem;
-    }
-
     .feed-bottom{
         text-align: center;
     }

@@ -48,6 +48,19 @@
         width:20rem;
         height:20rem;
     }
+    .cart-restaurant-name{
+        font-size: 1.8rem;
+        font-weight: bold;
+        color:$accent-color-2;
+        padding: 0.4rem 0.2rem;
+        width:max-content;
+        transition:0.2s;
+        cursor: pointer;
+        &:hover{
+            background-color: $accent-color-2;
+            color:white;
+        }
+    }
     .cart-no-meals{
         @include flexAlign(column,center,center,wrap);
     }

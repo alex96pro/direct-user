@@ -1,0 +1,17 @@
+@import '../../variables';
+@import '../../mixins';
+
+.menu{
+    @include flexAlign(column,center,center,nowrap);
+    .meals-menu{
+        @include flexAlign(row,center,flex-start,wrap);
+    }
+    .menu-header{
+        text-align: center;
+    }
+    .menu-delivery-minimum{
+        color:$accent-color;
+        font-size: 2.4rem;
+        margin: 1rem 0rem;
+    }
+}

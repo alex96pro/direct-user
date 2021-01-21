@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getMealsAPI } from '../../common/api/feed.api';
 import { clearMeals } from '../../common/actions/feed.actions';
 import { useForm } from 'react-hook-form';
-import { CURRENCY, DISTANCE, DEFAULT_RANGE, MEAL_TAGS } from '../../util/consts';
+import { DISTANCE, DEFAULT_RANGE, MEAL_TAGS } from '../../util/consts';
 import MealModal from './meal.modal';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../components/common/loader';
+import Meals from '../../components/meals/meals.component';
 
 export default function Feed() {
 
@@ -109,33 +110,7 @@ export default function Feed() {
                 </div>
                 
                 <div className="meals-container">
-                    {meals.map(meal => 
-                    <div className="meal-container" key={meal.mealId} onClick={() => showModal(meal)}>
-                        <div className="meal-header">
-                            <div className="meal-name">{meal.mealName}</div>
-                            <div className="meal-price">{meal.price}{CURRENCY}</div>
-                        </div>
-                        <img src={meal.photo} alt="meal" className="meal-feed-photo"/>
-                        
-                        <div className="restaurant-name">{meal.restaurantName}</div>
-                        <div className="label-accent-color">See menu</div>
-                                {meal.delivery ? 
-                                <div className="delivery-tags">
-                                <div className="delivery-tag">Delivery</div>
-                                <div className="delivery-tag">Minimum {meal["delivery-minimum"]}{CURRENCY}</div>
-                                </div>
-                                :
-                                <div className="delivery-tags">
-                                <div className="delivery-tag">Pickup</div>
-                                <div className="delivery-tag">Distance {meal.distance.toFixed(2)}{DISTANCE}</div>
-                                </div>
-                                }
-                            <div className="meal-tags">
-                                {meal.tags.map((tag, tagIndex) => 
-                                    <div className="meal-tag" key={tagIndex}>#{tag}</div>
-                                )}
-                            </div>
-                    </div>)}
+                    <Meals meals={meals} showModal={showModal} feed={true}/>
                     {loadingStatus && <Loader/>}
                     {message && !loadingStatus && 
                     <div className="feed-bottom"><p className="message-success">{message}</p>
