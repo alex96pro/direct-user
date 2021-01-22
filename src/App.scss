@@ -9,12 +9,6 @@
     font-family:$main-font;
     border-radius: 0.8rem;
 }
-body{
-    background-image: url("images/cover.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-}
 .button-link{
     background-color: transparent;
     color:$accent-color;
@@ -84,7 +78,7 @@ body{
 input[type=text], input[type=password], input[type=email]{
     border:1px solid $accent-color;
     width:100%;
-    height:3rem;
+    height:3.3rem;
     font-size: 1.5rem;
     border-radius: 0.6rem;
     padding: 0rem 1rem;
@@ -107,7 +101,7 @@ textarea{
 }
 input[type=number]{
     @extend input[type=text];
-    width:6rem;
+    width:9rem;
 }
 .message-danger{
     color:rgb(243, 76, 76);

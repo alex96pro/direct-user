@@ -44,19 +44,27 @@ export default function Landing() {
 
     return (
         <div className="landing">
-            <NavBar loggedIn={false}/>
-            <div className="landing-box">
-                <div className="landing-heading">Welcome to Daily Specials !</div>
-                <div className="landing-heading">Ideal place for your hunger</div>
-                <div className="landing-punchline" id="landing-punchline">
-                    {PUNCHLINES[currentPunchline]}
+            <div className="landing-first-page">
+                <NavBar loggedIn={false}/>
+                <div className="landing-box">
+                    <div className="landing-heading">Welcome to Daily Specials !</div>
+                    <div className="landing-heading">Ideal place for your hunger</div>
+                    <div className="landing-punchline" id="landing-punchline">
+                        {PUNCHLINES[currentPunchline]}
+                    </div>
+                    <button onClick={() => history.push('/login')} className="button-landing">Log In</button>
+                    <button onClick={() => history.push('/sign-up')} className="button-landing">Sign up</button>
                 </div>
-                <button onClick={() => history.push('/login')} className="button-landing">Log In</button>
-                <button onClick={() => history.push('/sign-up')} className="button-landing">Sign up</button>
+                <div className="landing-get-apps">
+                    <img src={GoogleStore} alt="google-store" className="get-app-icon"/>
+                    <img src={AppleStore} alt="apple-store" className="get-app-icon"/>
+                </div>
             </div>
-            <div className="landing-get-apps">
-                <img src={GoogleStore} alt="google-store" className="get-app-icon"/>
-                <img src={AppleStore} alt="apple-store" className="get-app-icon"/>
+            <div className="landing-second-page">
+                <div className="restaurant-landing-box">
+                    <button type="button" onClick={() => history.push('/sign-up-restaurant')} className="button-landing-restaurant">Register your restaurant</button>
+                    <button type="button" onClick={() => history.push('/login-restaurant')} className="button-landing-restaurant">Log In to your restaurant</button>
+                </div>
             </div>
         </div>
     );
