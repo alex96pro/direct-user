@@ -23,7 +23,7 @@ export function logInAPI(data, loginSuccess) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/auth/login`,data);
+            let response = await axios.get(`${BACKEND_API}/auth/login?email=${data.email}&password=${data.password}`);
             if(response.status === 200){
                 localStorage.setItem("ACCESS_TOKEN", response.data.accessToken);
                 localStorage.setItem("USER_ID", response.data.userId);
@@ -67,8 +67,15 @@ export function forgottenPasswordAPI(data) {
                 dispatch(forgottenPasswordSuccess("We sent you a link for changing password on your email !"));
             }
         }catch(err){
-            if(err.response.status === 401){
-                dispatch(forgottenPasswordFailed("Email doesn't exist"));
+            switch(err.response.status){
+                case 401:
+                    dispatch(forgottenPasswordFailed("Email doesn't exist"));
+                    break;
+                case 400:
+                    dispatch(forgottenPasswordFailed('We already sent you a link'));
+                    break;
+                default:
+                    dispatch(forgottenPasswordFailed('Server error'));
             }
         }
     };
@@ -78,8 +85,6 @@ export function newPasswordAPI(data, userId) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            console.log(data);
-            console.log(userId);
             let response = await axios.post(`${BACKEND_API}/auth/new-password`,{newPassword: data.newPassword, userId: userId});
             if(response.status === 200){
                 dispatch(newPasswordSuccess("Successfuly created new password"));

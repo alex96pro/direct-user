@@ -1,8 +1,20 @@
 @import '../../variables';
+@import '../../mixins';
 
 .landing{
-    text-align: left;
-
+    //FIRST PAGE
+    .landing-first-page{
+        height: 100vh;
+        background-image: url("../../images/cover1.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .landing-second-page{
+        height:100vh;
+        background-image: url("../../images/cover2.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
     .landing-box{
         margin: 10rem 15rem;
     }
@@ -28,18 +40,61 @@
         padding:0.8rem;
         cursor: pointer;
         transition: 0.2s;
-        animation:button-glow 4s infinite;
         &:hover{
             background-color:$accent-color;
             color:white;
         }
     }
-    @keyframes button-glow {
-        
-    }
     .landing-get-apps{
+        margin-left: 16rem;
+        margin-top:16rem;
+    }
+    // SECOND PAGE
+    .restaurant-landing-box{
+        @include flexAlign(row, center, center, wrap);
         position:absolute;
-        left:16rem;
-        bottom:6rem;
+        top:150vh;
+        left:50vw;
+        transform: translate(-50%, -50%);
+    }
+    .button-landing-restaurant{
+        background-color: $accent-color;
+        color:white;
+        width:30rem;
+        font-size: 2rem;
+        padding:1.8rem;
+        margin:1rem;
+        transition: 0.2s;
+        cursor: pointer;
+        &:hover{
+            background-color: $accent-color-2;
+        }
+    }
+    @media (max-width: 750px){
+        .landing-heading{
+            font-size: 3rem;
+        }
+        .landing-punchline{
+            font-size: 2rem;
+        }
+        .landing-get-apps{
+            margin-left: 8rem;
+            margin-top:8rem;
+        }
+        .button-landing{
+            width:8rem;
+            font-size:1.2rem;
+        }
+    }
+    @media (max-width: 500px){
+        .landing-heading{
+            font-size: 2rem;
+        }
+        .landing-punchline{
+            font-size:2rem;
+        }
+        .landing-box{
+            margin: 1rem;
+        }
     }
 }
