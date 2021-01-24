@@ -11,21 +11,22 @@ import NavBar from '../../components/nav-bar/nav-bar';
 export default function Login() {
 
     const {register, handleSubmit, errors} = useForm();
-    const { logInMessage, loadingStatus }  = useSelector(state => state.authentication);
+    const {loadingStatus}  = useSelector(state => state.authentication);
+    const [message, setMessage] = useState('');
     const dispatch = useDispatch();
     const history = useHistory();
     const [showModal, setShowModal] = useState(false);
 
+    const setNewMessage = (newMessage) => {
+        setMessage(newMessage);
+    }
+
     const login = (data) => {
-        dispatch(logInAPI(data, loginSuccess));
+        dispatch(logInAPI(data, loginSuccess, setNewMessage));
     };
 
     const loginSuccess = () => {
-        window.navigator.geolocation.getCurrentPosition((position) => {
-            localStorage.setItem("LATITUDE",position.coords.latitude);
-            localStorage.setItem("LONGITUDE",position.coords.longitude);
-            history.push("/feed");
-        }, console.log);
+        history.push("/feed");
     };
 
     const closeModal = () => {
@@ -47,7 +48,7 @@ export default function Login() {
                         {errors.password && <p className="message-danger">Password is required</p>}
                         <SubmitButton loadingStatus={loadingStatus} text="Log In"/>
                     </form>
-                    {logInMessage && <p className="message-danger">{logInMessage}</p>}
+                    {message && <p className="message-danger">{message}</p>}
                     {history.location.message && <p className="message-success">{history.location.message}</p>}
                 </div>
                 <div><button type="button" onClick={() => setShowModal(true)} className="button-link">Forgot password?</button></div>

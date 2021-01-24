@@ -62,8 +62,8 @@ export default function Landing() {
             </div>
             <div className="landing-second-page">
                 <div className="restaurant-landing-box">
-                    <button type="button" onClick={() => history.push('/sign-up-restaurant')} className="button-landing-restaurant">Register your restaurant</button>
-                    <button type="button" onClick={() => history.push('/login-restaurant')} className="button-landing-restaurant">Log In to your restaurant</button>
+                    <button type="button" className="button-landing-restaurant">Register your restaurant</button>
+                    <button type="button" className="button-landing-restaurant">Log In to your restaurant</button>
                 </div>
             </div>
         </div>

@@ -4,23 +4,28 @@ import thunkMiddleware from 'redux-thunk';
 import rootReducer from './common/reducers/allReducers';
 
 const loadState = () => {
-    const cartProperties = JSON.parse(localStorage.getItem("cart"));
-    let cart;
-    if(cartProperties !== null){
-        cart = {cart: cartProperties};
+    const store = JSON.parse(localStorage.getItem("store"));
+    let storeObject;
+    if(store !== null){
+        storeObject = {
+            authentication: store.authentication,
+            feed: store.feed,
+            cart: store.cart,
+            menu: store.menu
+        };
     }
-    return cart;
+    return storeObject;
 };
 
-const saveState = (cart) => {
-    localStorage.setItem("cart", JSON.stringify(cart));
+const saveState = (state) => {
+    localStorage.setItem("store", JSON.stringify(state));
 };
 
 export default function configureStore() {
     const state = loadState();
     const store = createStore(rootReducer, state, composeWithDevTools(applyMiddleware(thunkMiddleware)));
     store.subscribe(() => {
-        saveState(store.getState().cart);
+        saveState(store.getState());
     });
     return store;
 }

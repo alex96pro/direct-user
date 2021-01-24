@@ -1,25 +1,29 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
-import { forgottenPasswordFailed, forgottenPasswordSuccess, loadingStatus, loginFailed, newPasswordSuccess } from '../actions/auth.actions';
-import { signUpSuccess, signUpFailed, verifiedAccount, profile, changePasswordSuccess, changePasswordFailed } from '../actions/auth.actions';
+import { loadingStatus, profile } from '../actions/auth.actions';
+import { putAdressesInFeed } from '../actions/feed.actions';
 
-export function signUpAPI(data) {
+export function signUpAPI(data, message) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/auth/sign-up`,data);
             if(response.data.length){
-                dispatch(signUpSuccess(`Signed up successfully! Please check your email: ${data.email} to verify your account`));
+                dispatch(loadingStatus(false));
+                message(`Signed up successfully! Please check your email: ${data.email} to verify your account`, true);
+                localStorage.clear();
             }else{
-                dispatch(signUpFailed('e-mail already in use'));
+                dispatch(loadingStatus(false));
+                message('e-mail already in use');
             }
         }catch(err){
+            dispatch(loadingStatus(false));
             console.log(err);
         }
     };
 };
 
-export function logInAPI(data, loginSuccess) {
+export function logInAPI(data, loginSuccess, message) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
@@ -27,18 +31,22 @@ export function logInAPI(data, loginSuccess) {
             if(response.status === 200){
                 localStorage.setItem("ACCESS_TOKEN", response.data.accessToken);
                 localStorage.setItem("USER_ID", response.data.userId);
+                //localStorage.setItem("CURRENT_ADDRESS", JSON.stringify(response.data.addresses[0]));
+                dispatch(loadingStatus(false));
+                dispatch(putAdressesInFeed(response.data.addresses));
                 loginSuccess();
             }
         }catch(err){
+            dispatch(loadingStatus(false));
             switch(err.response.status){
                 case 401:
-                    dispatch(loginFailed("Incorrect username or password"));
+                    message("Incorrect username or password");
                     break;
                 case 403:
-                    dispatch(loginFailed("Please check your email and verify your account"));
+                    message("Please check your email and verify your account");
                     break;
                 default:
-                    dispatch(loginFailed("Server error"));
+                    message("Server error");
             }
         }
     };
@@ -50,53 +58,61 @@ export function verifyAccountAPI(hashedUserId) {
             dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/auth/verify-account`,{hashedUserId:hashedUserId});
             if(response.status === 200){
-                dispatch(verifiedAccount());
+                dispatch(loadingStatus(false));
             }
         }catch(err){
-            console.log(err);
-        }
-    };
-};
-
-export function forgottenPasswordAPI(data) {
-    return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/auth/forgotten-password`,data);
-            if(response.status === 200){
-                dispatch(forgottenPasswordSuccess("We sent you a link for changing password on your email !"));
-            }
-        }catch(err){
-            switch(err.response.status){
-                case 401:
-                    dispatch(forgottenPasswordFailed("Email doesn't exist"));
-                    break;
-                case 400:
-                    dispatch(forgottenPasswordFailed('We already sent you a link'));
-                    break;
-                default:
-                    dispatch(forgottenPasswordFailed('Server error'));
-            }
-        }
-    };
-};
-
-export function newPasswordAPI(data, userId) {
-    return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/auth/new-password`,{newPassword: data.newPassword, userId: userId});
-            if(response.status === 200){
-                dispatch(newPasswordSuccess("Successfuly created new password"));
-            }
-        }catch(err){
-            console.log(err);
             if(err.response.status === 401){
                 alert("UNAUTHORIZED");
             }else{
                 alert("SERVER ERROR");
             }
+            console.log(err);
+        }
+    };
+};
+
+export function forgottenPasswordAPI(data, message) {
+    return async (dispatch) => {
+        try{
+            dispatch(loadingStatus(true));
+            let response = await axios.post(`${BACKEND_API}/auth/forgotten-password`,data);
+            if(response.status === 200){
+                dispatch(loadingStatus(false));
+                message("We sent you a link for changing password on your email !", true);
+            }
+        }catch(err){
             dispatch(loadingStatus(false));
+            switch(err.response.status){
+                case 401:
+                    message("Email doesn't exist");
+                    break;
+                case 400:
+                    message('We already sent you a link');
+                    break;
+                default:
+                    message('Server error');
+            }
+        }
+    };
+};
+
+export function newPasswordAPI(data, userId, message) {
+    return async (dispatch) => {
+        dispatch(loadingStatus(false));
+        try{
+            dispatch(loadingStatus(true));
+            let response = await axios.post(`${BACKEND_API}/auth/new-password`,{newPassword: data.newPassword, userId: userId});
+            if(response.status === 200){
+                dispatch(loadingStatus(false));
+                message("Successfuly created new password", true);
+            }
+        }catch(err){
+            dispatch(loadingStatus(false));
+            if(err.response.status === 401){
+                alert("UNAUTHORIZED");
+            }else{
+                alert("SERVER ERROR");
+            }
         }
     };
 };
@@ -108,8 +124,8 @@ export function profileAPI(unauthorised) {
             let response = await axios.get(`${BACKEND_API}/auth/profile`,{headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN")}`}});
             dispatch(profile(response.data));
         }catch(err){
+            dispatch(loadingStatus(false));
             if(err.response.status === 401){
-                dispatch(loadingStatus(false));
                 alert("UNAUTHORIZED");
                 unauthorised();
             }
@@ -117,18 +133,20 @@ export function profileAPI(unauthorised) {
     };
 };
 
-export function changePasswordAPI(data) {
+export function changePasswordAPI(data, message) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/auth/change-password`, {oldPassword: data.oldPassword, newPassword: data.newPassword}, 
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN")}`}});
             if(response.status === 200){
-                dispatch(changePasswordSuccess());
+                dispatch(loadingStatus(false));
+                message("Sucessfully changed your password", true);
             }
         }catch(err){
+            dispatch(loadingStatus(false));
             if(err.response.status === 400){
-                dispatch(changePasswordFailed("Incorrect old password"));
+                message("Incorrect old password");
             }
         }
     };
