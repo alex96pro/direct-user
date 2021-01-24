@@ -8,7 +8,7 @@ import { LOGOUT } from '../actions/auth.actions';
 const allReducers = combineReducers(
     {
         authentication: authReducer,
-        user: feedReducer,
+        feed: feedReducer,
         cart: cartReducer,
         menu: menuReducer
     }
@@ -17,6 +17,7 @@ const allReducers = combineReducers(
 const rootReducer = (state, action) => {
     if (action.type === LOGOUT) {
         state = undefined;
+        localStorage.clear();
     }
     return allReducers(state, action);
 };

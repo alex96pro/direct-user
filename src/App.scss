@@ -92,16 +92,20 @@ input[type=checkbox]{
     height:1.8rem;
     width:1.8rem;
 }
-
+input[type=number]{
+    @extend input[type=text];
+    width:9rem;
+}
+select, option{
+    width:30rem;
+    font-size:1.5rem;
+    padding:0.8rem;
+}
 textarea{
     @extend input[type=text];
     height: 7rem;
     padding: 0.4rem 1rem;
     resize: none;
-}
-input[type=number]{
-    @extend input[type=text];
-    width:9rem;
 }
 .message-danger{
     color:rgb(243, 76, 76);

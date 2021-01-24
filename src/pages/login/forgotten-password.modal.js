@@ -8,15 +8,20 @@ export default function ForgottenPasswordModal(props) {
     
     const {register, handleSubmit, errors} = useForm();
     const [modalOpacity, setModalOpacity] = useState(0);
-    const {forgottenPasswordSuccess, forgottenPasswordMessage, loadingStatus} = useSelector(state => state.authentication);
+    const {loadingStatus} = useSelector(state => state.authentication);
+    const [message, setMessage] = useState({text: '', success: false});
     const dispatch = useDispatch();
 
     useEffect(() => {
         setModalOpacity(1);
     }, []);
 
+    const setNewMessage = (newMessage, newSuccess = false) => {
+        setMessage({text: newMessage, success: newSuccess});
+    };
+
     const submitEmail = (data) => {
-        dispatch(forgottenPasswordAPI(data));
+        dispatch(forgottenPasswordAPI(data, setNewMessage));
     };
 
     return (
@@ -26,7 +31,7 @@ export default function ForgottenPasswordModal(props) {
                 <div className="modal-x-container">
                     <button onClick={() => props.closeModal()} className="modal-x">x</button>
                 </div>
-                {!forgottenPasswordSuccess && 
+                {!message.success && 
                     <form onSubmit={handleSubmit(submitEmail)}>
                         <div className="label-accent-color">Please enter your e-mail address and we will send you a link to change your password</div>
                         <input type="email" name="email" ref={register({required:true})}/>
@@ -34,8 +39,8 @@ export default function ForgottenPasswordModal(props) {
                         <SubmitButton loadingStatus={loadingStatus} text="Send"/>
                     </form>
                 }
-                {forgottenPasswordMessage && <p className={forgottenPasswordSuccess? "message-success" : "message-danger"}>{forgottenPasswordMessage}</p>}
-                {forgottenPasswordSuccess && <button onClick={() => props.closeModal()} className="button-long">OK</button>}
+                {message.text && <p className={message.success? "message-success" : "message-danger"}>{message.text}</p>}
+                {message.success && <button onClick={() => props.closeModal()} className="button-long">OK</button>}
             </div>
         </div>
     );

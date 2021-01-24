@@ -3,14 +3,15 @@ import { useState, useEffect } from 'react';
 import { changePasswordAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { logOut, changePasswordFailed } from '../../common/actions/auth.actions';
+import { logOut } from '../../common/actions/auth.actions';
 import SubmitButton from '../../components/common/submit-button';
 
 export default function ChangePasswordModal(props) {
     
     const {register, handleSubmit, errors} = useForm();
     const [modalOpacity, setModalOpacity] = useState(0);
-    const {loadingStatus,changePasswordMessage,changePasswordSuccess} = useSelector(state => state.authentication);
+    const [message, setMessage] = useState({text: '', success: false});
+    const {loadingStatus} = useSelector(state => state.authentication);
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -18,19 +19,22 @@ export default function ChangePasswordModal(props) {
         setModalOpacity(1);
     }, []);
 
+    const setNewMessage = (newMessage, newSuccess = false) => {
+        setMessage({text: newMessage, success: newSuccess});
+    }
+
     useEffect(() => {
-        if(changePasswordSuccess){
+        if(message.success){
             history.push({pathname:'/login', message:'Successfully changed your password !'});
             dispatch(logOut());
-            localStorage.clear();
         }
-    }, [changePasswordSuccess, history, dispatch]);
+    }, [message.success, history, dispatch]);
 
     const handleChangePassword = (data) => {
         if(data.newPassword !== data.retypeNewPassword){
-            dispatch(changePasswordFailed("Passwords don't match"));
+            setMessage({text: "Passwords don't match", success: false});
         }else{
-            dispatch(changePasswordAPI(data));
+            dispatch(changePasswordAPI(data, setNewMessage));
         }
     };
 
@@ -56,7 +60,7 @@ export default function ChangePasswordModal(props) {
 
                     <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
                 </form>
-                {changePasswordMessage && <p className="message-danger">{changePasswordMessage}</p>}
+                {message.text && <p className="message-danger">{message.text}</p>}
             </div>
         </div>
     );
