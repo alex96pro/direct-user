@@ -11,8 +11,7 @@ export default function Profile() {
 
     const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();
-    const user = useSelector(state => state.authentication.user);
-    const loadingStatusFlag = useSelector(state => state.authentication.loadingStatus);
+    const {user, loadingStatus} = useSelector(state => state.authentication);
     const history = useHistory();
 
     const closeModal = () => {
@@ -31,15 +30,27 @@ export default function Profile() {
     return (
         <div className="profile">
             <NavBar loggedIn={true}/>
-            {loadingStatusFlag ? <Loader/>:
-                <div className="profile-container">
-                    <h1>Profile</h1>
-                    <div className="label-accent-color">Email</div>
+            {loadingStatus ? <Loader/>:
+            <div className="profile-container">
+                <div className="profile-container-header">Your Profile</div>
+                <div className="profile-info">
+                    <div className="profile-header-small">Email</div>
                     <div className="label-accent-color">{user.email}</div>
-                    <button onClick={() => setShowModal(true)} className="button-link">Change password</button>
-                    {showModal && <ChangePasswordModal closeModal={closeModal}/>}
+                    <div className="profile-header-small">Addresses</div>
+                        {user.addresses.map((adr, index) =>
+                            <div className="label-accent-color" key={index}>
+                                <button className="profile-button-danger">
+                                Remove
+                                </button>
+                                {index + 1} : {adr}
+                            </div>
+                        )}
+                    <button className="button-small">Add new address</button>
                 </div>
+                <button onClick={() => setShowModal(true)} className="button-link">Change password</button>
+            </div>
             }
+            {showModal && <ChangePasswordModal closeModal={closeModal}/>}
         </div>
     );
 };

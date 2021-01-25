@@ -10,7 +10,7 @@ nav{
     left:0;
     @include flexAlign(row, flex-end, center, nowrap);
 
-    .nav-link{
+    .nav-bar-link{
         background-color: inherit;
         color:white;
         margin: 0rem 1rem;
@@ -22,11 +22,11 @@ nav{
             color:$accent-color;
         }
     }
-    .nav-container{
+    .nav-bar-container{
         display:flex;
         align-items: center;
     }
-    .logo{
+    .nav-bar-logo{
         position: absolute;
         top:0;
         left:2rem;

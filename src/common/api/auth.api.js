@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
 import { loadingStatus, profile } from '../actions/auth.actions';
-import { putAdressesInFeed } from '../actions/feed.actions';
+import { putAddressesInFeed } from '../actions/feed.actions';
 
 export function signUpAPI(data, message) {
     return async (dispatch) => {
@@ -31,9 +31,7 @@ export function logInAPI(data, loginSuccess, message) {
             if(response.status === 200){
                 localStorage.setItem("ACCESS_TOKEN", response.data.accessToken);
                 localStorage.setItem("USER_ID", response.data.userId);
-                //localStorage.setItem("CURRENT_ADDRESS", JSON.stringify(response.data.addresses[0]));
-                dispatch(loadingStatus(false));
-                dispatch(putAdressesInFeed(response.data.addresses));
+                dispatch(putAddressesInFeed(response.data));
                 loginSuccess();
             }
         }catch(err){

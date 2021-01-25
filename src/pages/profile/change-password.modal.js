@@ -21,14 +21,11 @@ export default function ChangePasswordModal(props) {
 
     const setNewMessage = (newMessage, newSuccess = false) => {
         setMessage({text: newMessage, success: newSuccess});
-    }
-
-    useEffect(() => {
-        if(message.success){
+        if(newSuccess){
             history.push({pathname:'/login', message:'Successfully changed your password !'});
             dispatch(logOut());
         }
-    }, [message.success, history, dispatch]);
+    };
 
     const handleChangePassword = (data) => {
         if(data.newPassword !== data.retypeNewPassword){

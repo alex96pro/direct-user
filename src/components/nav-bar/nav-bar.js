@@ -19,20 +19,20 @@ export default function NavBar(props) {
     return(
         <nav>
             {props.loggedIn ?
-            <div className="nav-container">
+            <div className="nav-bar-container">
                 {cartSize > 0 && <p className="label-white">{cartSize}</p>}
                 <img src={CartIcon} alt="Cart icon" onClick={() => history.push('/cart')}/>
-                <button onClick={() => history.push('/cart')} className="nav-link">Cart</button>
-                <button onClick={() => history.push('/profile')} className="nav-link">Profile</button> 
-                <button onClick={handleLogout} className="nav-link">Logout</button>
+                <button onClick={() => history.push('/cart')} className="nav-bar-link">Cart</button>
+                <button onClick={() => history.push('/profile')} className="nav-bar-link">Profile</button> 
+                <button onClick={handleLogout} className="nav-bar-link">Logout</button>
             </div>
             :
-            <div className="nav-container">
-                <button className="nav-link">How it works</button> 
-                <button className="nav-link">About</button>
+            <div className="nav-bar-container">
+                <button className="nav-bar-link">How it works</button> 
+                <button className="nav-bar-link">About</button>
             </div>
             }
-            <img src={Logo} alt="logo" className="logo"/>
+            <img src={Logo} alt="logo" className="nav-bar-logo"/>
         </nav>
     );
 };

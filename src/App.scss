@@ -65,6 +65,9 @@
     background-color: $wrapper-color;
     padding:3rem;
 }
+.flex-column-container{
+    @include flexAlign(column,center,center,nowrap);
+}
 .loader{
     width:8rem;
     height:8rem;
@@ -108,12 +111,12 @@ textarea{
     resize: none;
 }
 .message-danger{
-    color:rgb(243, 76, 76);
+    color:$danger-color;
     font-size:2rem;
     margin:1rem;
 }
 .message-success{
-    color:rgb(55, 182, 38);
+    color:$success-color;
     font-size:2rem;
     margin:1rem;
 }
@@ -137,11 +140,6 @@ textarea{
     top:0;
     bottom:0;
     background-color: rgba(0, 0, 0, 0.6);
-}
-h1{
-    color:$accent-color;
-    font-size:2.5rem;
-    margin: 1rem 0rem;
 }
 .get-app-icon{
     height:5.3rem;

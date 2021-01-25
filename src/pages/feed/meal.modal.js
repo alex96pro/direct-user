@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../common/actions/cart.actions';
+import MessageDanger from '../../components/common/message-danger';
 
 export default function MealModal(props) {
     
     const [modalOpacity, setModalOpacity] = useState(0);
     const {register, handleSubmit, errors} = useForm();
+    const {currentAddress} = useSelector(state => state.feed);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -14,8 +16,8 @@ export default function MealModal(props) {
     }, []);
 
     const handleAddToCart = (data) => {
-        dispatch(addToCart({amount:data.amount, notes:data.notes, 
-            restaurantName:props.meal.restaurantName, mealName:props.meal.mealName, price:props.meal.price, photo:props.meal.photo, restaurantId:props.meal.restaurantId, deliveryMinimum:props.meal["delivery-minimum"]}));
+        dispatch(addToCart({amount:data.amount, notes:data.notes, restaurantName:props.meal.restaurantName, mealName:props.meal.mealName, price:props.meal.price, 
+        photo:props.meal.photo, restaurantId:props.meal.restaurantId, deliveryMinimum:props.meal["delivery-minimum"], deliveryAddress: currentAddress.address}));
         props.closeModal();
     };
 
@@ -45,6 +47,9 @@ export default function MealModal(props) {
                 
                 {props.meal.delivery ? 
                 <div className="modal-body">
+                    {currentAddress.address === 'CURRENT_LOCATION' ?
+                    <MessageDanger text='Delivery is disabled when using current location'/>
+                    :
                     <form onSubmit={handleSubmit(handleAddToCart)}>
                         <div className="label-accent-color">Amount</div>
                         <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})}/>
@@ -52,8 +57,10 @@ export default function MealModal(props) {
                         <div className="label-accent-color">Notes (optional)</div>
                         <textarea name="notes" ref={register({maxLength: 200})}/>
                         {errors.notes && <p className="message-danger">Notes are limited to 200 characters</p>}
+
                         <button type="submit" className="button-long">Add to cart</button>
                     </form>
+                    }
                 </div>
                 :
                 <button className="button-long">Get directions</button>

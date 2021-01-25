@@ -1,4 +1,3 @@
-import './verify-account.page.scss';
 import { useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { newPasswordAPI } from '../../common/api/auth.api';
@@ -30,7 +29,7 @@ export default function ForgottenPassword() {
     };
 
     return (
-        <div className="verify-account">
+        <div className="flex-column-container">
             <NavBar loggedIn={false}/>
                 <div className="wrapper-container">
                     {!message.success ?
