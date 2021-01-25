@@ -9,13 +9,16 @@ import MealModal from './meal.modal';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../components/common/loader';
 import Meals from '../../components/meals/meals.component';
+import MessageDanger from '../../components/common/message-danger';
 
 export default function Feed() {
 
     const dispatch = useDispatch();
     const {meals, addresses, loadingStatus, message, endOfResultsFlag} = useSelector(state => state.feed);
     const {currentAddress, range, tags, delivery, scrollCount} = useSelector(state => state.feed);
+    const {deliveryAddress} = useSelector(state => state.cart);
     const [modal, setModal] = useState({show:false, selectedMeal:{}});
+    const [messageDeliveryAddress, setMessageDeliveryAddress] = useState('');
     const {register, handleSubmit, errors} = useForm();
 
     const showModal = (meal) => {
@@ -29,11 +32,18 @@ export default function Feed() {
     const handleChangeAddress = (event) => {
         if(event.target.value === "currentLocation"){
             window.navigator.geolocation.getCurrentPosition((position) => {
-            dispatch(changeAddress({address:'Current location', lat: position.coords.latitude, lon: position.coords.longitude}));
+            dispatch(changeAddress({address:'CURRENT_LOCATION', lat: position.coords.latitude, lon: position.coords.longitude}));
             }, console.log);
         }else{
             let adr = JSON.parse(event.target.value);
-            dispatch(changeAddress(adr));
+            //check if user has items in cart, then he can't change delivery address untill he clears cart
+            if(deliveryAddress !== '' && deliveryAddress !== adr.address && adr.address !== 'CURRENT_LOCATION'){
+                setMessageDeliveryAddress(`You already have meals in your cart for address "${deliveryAddress}"`);
+            }else{
+                setMessageDeliveryAddress('');
+                dispatch(changeAddress(adr));
+            }
+            
         }
     };
 
@@ -57,7 +67,7 @@ export default function Feed() {
         }
     };
 
-    const bottomOfPageHandler = () => { //FUNCTION THAT NEEDS TO USE stateRef
+    const bottomOfPageHandler = () => {
         if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 2) {
             dispatch(bottomOfPage());
         }
@@ -72,52 +82,55 @@ export default function Feed() {
         // eslint-disable-next-line
     }, []);
     useEffect(() => {
-        if(currentAddress.address && !endOfResultsFlag){ // store loaded into component and not end of results
+        if(currentAddress.address && !endOfResultsFlag){ // store loaded into component AND not end of results
             dispatch(getMealsAPI(currentAddress, range, tags, delivery, scrollCount));
         }
     },[currentAddress, range, tags, delivery, scrollCount, endOfResultsFlag, dispatch]);
 
-
     return(
         <div className="feed">
             <NavBar loggedIn={true}/>
-                <div className="meal-filters">
-                        <div className="label-accent-color">Current address</div>
-                            <select onChange={handleChangeAddress}>
-                                {addresses.map(a =>
-                                <option value={JSON.stringify(a)}>
-                                    {a.address}
-                                </option>)}
-                                <option value="currentLocation">
-                                    Current Location
-                                </option>
-                            </select>
-                    <div className="meal-range">
-                        <form onSubmit={handleSubmit(handleChangeRange)}>
-                            <div className="label-accent-color">Range</div>
-                            <input type="number" defaultValue={range} ref={register({required: true})} name="range"/>
-                            <label className="label-accent-color">{DISTANCE}</label>
-                            {errors.range && <p className="message-danger">Range is required</p>}
-                            <button type="submit" className="button-small">Apply</button>
-                        </form>
-                    </div>
-                    <div className="meal-filter-tags">
-                        <div className="feed-filter-heading">Nutrition filters</div>
+                <div className="feed-filters">
+                    <div className="label-accent-color">Current address</div>
+                    <select onChange={handleChangeAddress} defaultValue={currentAddress.address}>
+                        {addresses.map((a, index) =>
+                        <option value={JSON.stringify(a)} key={index}>
+                            {a.address}
+                        </option>)}
+                        <option value="currentLocation">
+                            Current location
+                        </option>
+                    </select>
+                    {currentAddress.address === 'CURRENT_LOCATION' && 
+                    <p className="label-accent-color">Delivery is disabled when using current location</p>}
+                    {messageDeliveryAddress && <MessageDanger text={messageDeliveryAddress}/>}
+                
+                    <form onSubmit={handleSubmit(handleChangeRange)}>
+                        <div className="label-accent-color">Range</div>
+                        <input type="number" defaultValue={range} ref={register({required: true})} name="range"/>
+                        <label className="label-accent-color">{DISTANCE}</label>
+                        {errors.range && <p className="message-danger">Range is required</p>}
+                        <button type="submit" className="button-small">Apply</button>
+                    </form>
+                
+                    <div className="feed-filters-container">
+                        <div className="feed-filters-heading">Nutrition filters</div>
                         {MEAL_TAGS.map((tag, index) => 
-                        <div className="feed-nutrition-filter" key={index}>
+                        <div className="feed-filters-nutrition" key={index}>
                             <input type="checkbox" onChange={handleChangeTag} value={tag.value}/>
                             <label className="label-accent-color">{tag.name}</label>
                         </div>
                         )}
                     </div>
-                    <div className="meal-filter-tags">
-                        <div className="feed-filter-heading">Delivery options</div>
+                    
+                    <div className="feed-filters-container">
+                        <div className="feed-filters-heading">Delivery options</div>
                         <input type="checkbox" value="delivery" onChange={addDeliveryOption}/>
                         <label className="label-accent-color">Delivery</label>
                     </div>
                 </div>
                 
-                <div className="meals-container">
+                <div className="feed-meals-container">
                     <Meals meals={meals} showModal={showModal} feed={true}/>
                     {loadingStatus && <Loader/>}
                     {message && !loadingStatus && 

@@ -10,7 +10,7 @@ import {checkDeliveryMinimumsForCart} from '../../util/functions';
 export default function Cart() {
 
     const dispatch = useDispatch();
-    const {meals, minimumDeliveryConflicts} = useSelector(state => state.cart);
+    const {meals, minimumDeliveryConflicts, deliveryAddress} = useSelector(state => state.cart);
     const history = useHistory();
     const [notesAccordion, setNotesAccordion] = useState({notes:'', show:false, top:0, left:0});
 
@@ -53,6 +53,7 @@ export default function Cart() {
     return(
         <div className="cart">
             <NavBar loggedIn={true}/>
+            {meals.length !== 0 && <div className="header-accent-color">Your cart</div>}
             {meals.length !== 0 ?
                 <div className="cart-container">
                 {meals.map((meal, index) =>
@@ -84,14 +85,14 @@ export default function Cart() {
                     </div>
                 )}
                     {notesAccordion.show && 
-                    <div className="notes-accordion" style={{top:notesAccordion.top, left:notesAccordion.left}}>
+                    <div className="cart-notes-accordion" style={{top:notesAccordion.top, left:notesAccordion.left}}>
                         <button onClick={() => setNotesAccordion({...notesAccordion, show:false})} className="cart-meal-x">x</button>
                         <div className="label-accent-color">{notesAccordion.notes}</div>
                     </div>}
                 </div>
                 :
                 <div className="cart-no-meals">
-                    <p className="header-white">You don't have any meals in your cart</p>
+                    <p className="header-accent-color">You don't have any meals in your cart</p>
                     <button onClick={() => history.push('/feed')} className="button-normal">Go back to feed</button>
                 </div>
             }
@@ -106,6 +107,7 @@ export default function Cart() {
             
             {meals.length !== 0 && 
                 <div className="cart-total">
+                    {deliveryAddress && <p className="label-accent-color">Delivery address: {deliveryAddress}</p>}
                     <div className="header-accent-color-2">
                         Total: {(Math.round(meals.reduce((sum, current) => sum + current.price * current.amount, 0)*100) / 100).toFixed(2)}{CURRENCY}
                         </div>

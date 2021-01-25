@@ -23,10 +23,10 @@ export default function Landing() {
         }else{
             setCurrentPunchlineRef(currentPunchlineRef.current + 1);
         }
-        let element = document.getElementById('landing-punchline');
+        let element = document.getElementById('landing-1-punchline');
         element.style.opacity = 1;
         setTimeout(() => {
-            let element = document.getElementById('landing-punchline');
+            let element = document.getElementById('landing-1-punchline');
             if(element){
                 element.style.opacity = 0;
             }
@@ -44,26 +44,26 @@ export default function Landing() {
 
     return (
         <div className="landing">
-            <div className="landing-first-page">
+            <div className="landing-1">
                 <NavBar loggedIn={false}/>
-                <div className="landing-box">
-                    <div className="landing-heading">Welcome to Daily Specials !</div>
-                    <div className="landing-heading">Ideal place for your hunger</div>
-                    <div className="landing-punchline" id="landing-punchline">
+                <div className="landing-1-container">
+                    <div className="landing-1-heading">Welcome to Daily Specials !</div>
+                    <div className="landing-1-heading">Ideal place for your hunger</div>
+                    <div className="landing-1-punchline" id="landing-1-punchline">
                         {PUNCHLINES[currentPunchline]}
                     </div>
-                    <button onClick={() => history.push('/login')} className="button-landing">Log In</button>
-                    <button onClick={() => history.push('/sign-up')} className="button-landing">Sign up</button>
+                    <button onClick={() => history.push('/login')} className="landing-1-button">Log In</button>
+                    <button onClick={() => history.push('/sign-up')} className="landing-1-button">Sign up</button>
                 </div>
-                <div className="landing-get-apps">
+                <div className="landing-1-get-apps">
                     <img src={GoogleStore} alt="google-store" className="get-app-icon"/>
                     <img src={AppleStore} alt="apple-store" className="get-app-icon"/>
                 </div>
             </div>
-            <div className="landing-second-page">
-                <div className="restaurant-landing-box">
-                    <button type="button" className="button-landing-restaurant">Register your restaurant</button>
-                    <button type="button" className="button-landing-restaurant">Log In to your restaurant</button>
+            <div className="landing-2">
+                <div className="landing-2-container">
+                    <button type="button" className="landing-2-button">Register your restaurant</button>
+                    <button type="button" className="landing-2-button">Log In to your restaurant</button>
                 </div>
             </div>
         </div>

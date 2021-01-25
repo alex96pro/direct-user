@@ -1,4 +1,3 @@
-import './verify-account.page.scss';
 import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { verifyAccountAPI } from '../../common/api/auth.api';
@@ -20,11 +19,11 @@ export default function VerifyAccount() {
     }, [params.id, dispatch]);
     
     return (
-        <div className="verify-account">
+        <div className="flex-column-container">
             <NavBar loggedIn={false}/>
             {loadingStatus? <Loader/>:
                 <div className="wrapper-container">
-                    <div className="verify-header">Congratulations ! You are ready to go !</div>
+                    <div className="header-accent-color">Congratulations ! You are ready to go !</div>
                     <button className="button-long" onClick={() => history.push('/login')}>Log In</button>
                 </div>
             }

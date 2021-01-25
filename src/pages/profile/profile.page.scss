@@ -4,9 +4,33 @@
 .profile{
     @include flexAlign(column, center, center, wrap);
     .profile-container{
+        transform: translateY(calc(50vh - 50% - 6rem));
+        text-align: center;
+        .profile-container-header{
+            color:$accent-color-2;
+            font-size:2.4rem;
+            margin:1rem 0rem;
+            text-align: center;
+        }
+    }
+    .profile-info{
         @include flexAlign(column,center,flex-start,wrap);
         background-color:$wrapper-color;
-        margin: 1rem;
+        margin: 1rem 0rem;
         padding: 1rem;
+    }
+    .profile-header-small{
+        @extend .profile-container-header;
+        font-size: 2rem;
+    }
+    .profile-button-danger{
+        background-color: $danger-color;
+        color:white;
+        font-size:1.4rem;
+        padding: 0.3rem 0.7rem;
+        margin:0.8rem;
+        &:hover{
+            background-color: $accent-color-2;
+        }
     }
 }

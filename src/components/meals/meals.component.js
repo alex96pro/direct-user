@@ -17,7 +17,7 @@ export default function Meals(props) {
     return (
         <React.Fragment>
         {props.meals.map((meal, index) => 
-            <div className="meal-container" key={meal.mealId}>
+            <div className="meal" key={index}>
                 <div className="meal-header" onClick={() => props.showModal(meal)} 
                     onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}>
                     <div className="meal-name">{meal.mealName}</div>
@@ -28,16 +28,16 @@ export default function Meals(props) {
                 
                 {props.feed && 
                 <div>
-                    <div className="restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
-                    <div className="see-menu" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>See menu</div>
+                    <div className="meal-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
+                    <div className="meal-see-menu" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>See menu</div>
                     {meal.delivery ? 
-                        <div className="delivery-tags">
-                            <div className="delivery-tag-minimum"><label className="delivery-tag">Delivery minimum </label>{meal["delivery-minimum"]}{CURRENCY}</div>
+                        <div className="meal-delivery-tags">
+                            <div className="meal-delivery-tag-minimum"><label className="meal-delivery-tag">Delivery minimum </label>{meal["delivery-minimum"]}{CURRENCY}</div>
                         </div>
                         :
-                        <div className="delivery-tags">
-                            <div className="delivery-tag">Pickup only</div>
-                            {meal.distance && <div className="delivery-tag">Distance {meal.distance.toFixed(2)}{DISTANCE}</div>}
+                        <div className="meal-delivery-tags">
+                            <div className="meal-delivery-tag">Pickup only</div>
+                            {meal.distance && <div className="meal-delivery-tag">Distance {meal.distance.toFixed(2)}{DISTANCE}</div>}
                         </div>
                     }
                 </div>

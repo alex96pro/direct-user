@@ -21,7 +21,8 @@ export default function authReducer(state = initialState, action) {
         case ACTIONS.PROFILE:
             return{
                 ...state,
-                user: {...state.user, email: action.payload.email}
+                user: action.payload,
+                loadingStatus: false
             }
         default:
             return state;

@@ -3,100 +3,74 @@
 
 .landing{
     //FIRST PAGE
-    .landing-first-page{
+    .landing-1{
         height: 100vh;
         background-image: url("../../images/cover1.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 0;
+
+        .landing-1-container{
+            margin: 10rem 15rem;
+        }
+        .landing-1-heading{
+            font-size: 5rem;
+            color:white;
+        }
+        .landing-1-punchline{
+            font-size: 4rem;
+            color:$accent-color-2;
+            margin: 6rem 0rem;
+            transition:0.3s;
+            opacity: 0;
+        }
+        .landing-1-get-apps{
+            margin-left: 16rem;
+            margin-top:16rem;
+        }
+        .landing-1-button{
+            background-color:inherit;
+            color:$accent-color;
+            font-size:2rem;
+            font-weight: bold;
+            width:12rem;
+            border:0.2rem solid $accent-color;
+            margin:0.8rem;
+            padding:0.8rem;
+            cursor: pointer;
+            transition: 0.2s;
+            &:hover{
+                background-color:$accent-color;
+                color:white;
+            }
+        }
     }
-    .landing-second-page{
+    //SECOND PAGE
+    .landing-2{
         height:100vh;
         background-image: url("../../images/cover2.jpg");
         background-repeat: no-repeat;
         background-size: cover;
         border-radius: 0;
-    }
-    .landing-box{
-        margin: 10rem 15rem;
-    }
-    .landing-heading{
-        font-size: 5rem;
-        color:white;
-    }
-    .landing-punchline{
-        font-size: 4rem;
-        color:$accent-color-2;
-        margin: 6rem 0rem;
-        transition:0.3s;
-        opacity: 0;
-    }
-    .button-landing{
-        background-color:inherit;
-        color:$accent-color;
-        font-size:2rem;
-        font-weight: bold;
-        width:12rem;
-        border:0.2rem solid $accent-color;
-        margin:0.8rem;
-        padding:0.8rem;
-        cursor: pointer;
-        transition: 0.2s;
-        &:hover{
-            background-color:$accent-color;
+        .landing-2-container{
+            @include flexAlign(row, center, center, wrap);
+            position:absolute;
+            top:150vh;
+            left:50vw;
+            transform: translate(-50%, -50%);
+        }
+        .landing-2-button{
+            background-color: $accent-color;
             color:white;
-        }
-    }
-    .landing-get-apps{
-        margin-left: 16rem;
-        margin-top:16rem;
-    }
-    // SECOND PAGE
-    .restaurant-landing-box{
-        @include flexAlign(row, center, center, wrap);
-        position:absolute;
-        top:150vh;
-        left:50vw;
-        transform: translate(-50%, -50%);
-    }
-    .button-landing-restaurant{
-        background-color: $accent-color;
-        color:white;
-        width:30rem;
-        font-size: 2rem;
-        padding:1.8rem;
-        margin:1rem;
-        transition: 0.2s;
-        cursor: pointer;
-        &:hover{
-            background-color: $accent-color-2;
-        }
-    }
-    @media (max-width: 750px){
-        .landing-heading{
-            font-size: 3rem;
-        }
-        .landing-punchline{
+            width:30rem;
             font-size: 2rem;
-        }
-        .landing-get-apps{
-            margin-left: 8rem;
-            margin-top:8rem;
-        }
-        .button-landing{
-            width:8rem;
-            font-size:1.2rem;
-        }
-    }
-    @media (max-width: 500px){
-        .landing-heading{
-            font-size: 2rem;
-        }
-        .landing-punchline{
-            font-size:2rem;
-        }
-        .landing-box{
-            margin: 1rem;
+            padding:1.8rem;
+            margin:1rem;
+            transition: 0.2s;
+            cursor: pointer;
+            &:hover{
+                background-color: $accent-color-2;
+            }
         }
     }
 }
