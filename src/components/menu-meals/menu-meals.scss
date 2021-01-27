@@ -1,0 +1,87 @@
+@import '../../variables';
+@import '../../mixins';
+
+.menu-meals{
+    @include flexAlign(row, flex-start, center, wrap);
+    &-meal{
+        @include flexAlign(column, flex-end, center, wrap);
+        background-color: $accent-color-2;
+        margin:0.2rem;
+        border-radius: 0;
+    }
+    &-meal-header{
+        width:100%;
+        @include flexAlign(row, space-between, center, nowrap);
+        padding:0.2rem 0.4rem;
+        cursor: pointer;
+    }
+    &-meal-name{
+        color:white;
+        font-size:1.8rem;
+    }
+    &-meal-price{
+        color:white;
+        font-size: 1.8rem;
+    }
+    &-meal-photo{
+        width: 25rem;
+        height: 25rem;
+        border-radius: 0;
+        cursor: pointer;
+        
+    }
+    .meal-restaurant-name{
+        color:$success-color;
+        font-size:2.2rem;
+        margin: 1rem 0rem;
+        padding: 0.2rem;
+        transition:0.2s;
+        width:max-content;
+        cursor: pointer;
+        &:hover{
+            color:white;
+            background-color: $accent-color;
+        }
+    }
+    .meal-see-menu{
+        font-size: 1.8rem;
+        color:$accent-color;
+        transition:0.2s;
+        padding:0.2rem 0.4rem;
+        width:max-content;
+        cursor: pointer;
+        &:hover{
+            color:white;
+            background-color: $accent-color;
+        }
+    
+    }
+    .meal-delivery-tags{
+        @include flexAlign(row,space-between,flex-start,wrap);
+        margin: 0.2rem;
+    }
+    .meal-delivery-tag{
+        margin:0;
+        padding:0;
+        font-size: 1.8rem;
+        color:$accent-color;
+    }
+    .meal-delivery-tag-minimum{
+        @extend .meal-delivery-tag;
+        font-size: 2.2rem;
+    }
+    .meal-tags{
+        margin-top:1rem;
+    }
+    .meal-tag{
+        display:inline-block;
+        color:$accent-color;
+        font-size:1.8rem;
+        margin:0.2rem;
+        padding:0.2rem;
+    }
+    .meal-range{
+        padding:0.5rem;
+        margin:1rem 0.2rem;
+    }
+}
