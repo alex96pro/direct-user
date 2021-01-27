@@ -6,7 +6,7 @@ import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import NavBar from '../../components/nav-bar/nav-bar';
 import SubmitButton from '../../components/common/submit-button';
-import MessageDanger from '../../components/common/message-danger';
+import InputError from '../../components/common/input-error';
 
 export default function SignUp() {
 
@@ -58,18 +58,18 @@ export default function SignUp() {
                     <form onSubmit={handleSubmit(signUp)}>
                         <div className="label-accent-color">Email</div>
                         <input type="email" name="email" ref={register({required:true})}/>
-                        {errors.email && <MessageDanger text='Email is required'/>}
+                        {errors.email && <InputError text={'Email is required'}/>}
 
                         <div className="label-accent-color">Delivery address</div>
                         <input type="text" name="address" id="search-google-maps" ref={register({required:true})} placeholder="Your adress"/>
-                        {errors.address && <MessageDanger text='Address is required'/>}
+                        {errors.address && <InputError text={'Address is required'}/>}
 
                         <div className="label-accent-color">Password</div>
                         <input type="password" name="password" ref={register({required:true})}/>
-                        {errors.password && <MessageDanger text='Password is required'/>}
+                        {errors.password && <InputError text={'Password is required'}/>}
                         <div className="label-accent-color">Retype password</div>
                         <input type="password" name="retypePassword" ref={register({required:true})}/>
-                        {errors.retypePassword && <MessageDanger text='Retype password'/>}
+                        {errors.retypePassword && <InputError text={'Retype password'}/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Sign Up"/>
                     </form>
                 {message.text && <p className="message-danger">{message.text}</p>}

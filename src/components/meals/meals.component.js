@@ -8,7 +8,7 @@ export default function Meals(props) {
     const history = useHistory();
 
     const changeColor = (index, color) => {
-        let element = document.getElementsByClassName('meal-container')[index];
+        let element = document.getElementsByClassName('meal')[index];
         if(element){
             color ? element.style.backgroundColor = '#d8d8d8' : element.style.backgroundColor = '#e7e7e7';
         }
@@ -26,7 +26,6 @@ export default function Meals(props) {
                 <img src={meal.photo} alt="meal" className="meal-photo" onClick={() => props.showModal(meal)}
                 onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}/>
                 
-                {props.feed && 
                 <div>
                     <div className="meal-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
                     <div className="meal-see-menu" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>See menu</div>
@@ -41,7 +40,6 @@ export default function Meals(props) {
                         </div>
                     }
                 </div>
-                }
                 <div className="meal-tags" onClick={() => props.showModal(meal)}>
                     {meal.tags.map((tag, tagIndex) => 
                         <div className="meal-tag" key={tagIndex}>#{tag}</div>

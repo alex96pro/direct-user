@@ -3,8 +3,25 @@
 
 .menu{
     @include flexAlign(column,center,center,nowrap);
-    .meals-menu{
-        @include flexAlign(row,center,flex-start,wrap);
+
+    .menu-container{
+        @include flexAlign(row, space-between, flex-start, nowrap);
+    }
+    .menu-categories{
+        width:80rem;
+        background-color: $wrapper-color;
+        padding: 3rem;
+        margin-right:2rem;
+    }
+    .menu-category{
+        color:$accent-color;
+        margin:2rem 1rem;
+        font-size: 2rem;
+    }
+    .menu-category-header{
+        color:$accent-color;
+        margin:2rem 1rem;
+        font-size: 3rem;
     }
     .menu-header{
         text-align: center;

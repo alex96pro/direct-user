@@ -91,7 +91,7 @@ export default function feedReducer(state = initialState, action) {
                 meals:[],
                 message:'',
                 endOfResultsFlag: false,
-                scrollCount: 1
+                scrollCount: 1,
             };
         default:
             return state;

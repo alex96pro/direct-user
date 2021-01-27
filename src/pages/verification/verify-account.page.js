@@ -19,10 +19,10 @@ export default function VerifyAccount() {
     }, [params.id, dispatch]);
     
     return (
-        <div className="flex-column-container">
+        <div className="verify-account">
             <NavBar loggedIn={false}/>
             {loadingStatus? <Loader/>:
-                <div className="wrapper-container">
+                <div className="verify-account-container">
                     <div className="header-accent-color">Congratulations ! You are ready to go !</div>
                     <button className="button-long" onClick={() => history.push('/login')}>Log In</button>
                 </div>
