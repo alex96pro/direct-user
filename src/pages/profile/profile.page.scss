@@ -16,7 +16,7 @@
     .profile-info{
         @include flexAlign(column,center,flex-start,wrap);
         background-color:$wrapper-color;
-        width:70rem;
+        width:60rem;
         margin: 1rem 0rem;
         padding: 1rem;
     }
@@ -24,18 +24,29 @@
         @extend .profile-container-header;
         font-size: 2rem;
     }
+    .profile-new-address{
+        width:100%;
+        margin: 1.2rem 0rem;
+        @include flexAlign(row,flex-start, center, wrap);
+    }
     .profile-address-row{
         width:100%;
         @include flexAlign(row,space-between, center, nowrap);
     }
-    .profile-button-danger{
-        background-color: $danger-color;
+    .profile-button{
+        align-self:flex-end;
+        background-color: $accent-color;
         color:white;
+        width:8rem;
         font-size:1.4rem;
         padding: 0.3rem 0.7rem;
         margin:0.8rem;
         &:hover{
             background-color: $accent-color-2;
         }
+    }
+    .profile-button-danger{
+        @extend .profile-button;
+        background-color: $danger-color;
     }
 }

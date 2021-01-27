@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
-import { loadingStatus, profile } from '../actions/auth.actions';
+import { loadingStatus, getProfileData, updateAddresses } from '../actions/auth.actions';
 import { putAddressesInFeed } from '../actions/feed.actions';
 
 export function signUpAPI(data, message) {
@@ -31,7 +31,8 @@ export function logInAPI(data, loginSuccess, message) {
             if(response.status === 200){
                 localStorage.setItem("ACCESS_TOKEN", response.data.accessToken);
                 localStorage.setItem("USER_ID", response.data.userId);
-                dispatch(putAddressesInFeed(response.data));
+                dispatch(getProfileData({email: response.data.email, addresses: response.data.addresses}));
+                dispatch(putAddressesInFeed(response.data.addresses));
                 loginSuccess();
             }
         }catch(err){
@@ -116,22 +117,35 @@ export function newPasswordAPI(data, userId, message) {
     };
 };
 
-export function profileAPI(unauthorised) {
+export function addNewAddressAPI() {
     return async (dispatch) => {
         try{
+            const position = JSON.parse(localStorage.getItem('POSITION'));
+            const address = localStorage.getItem('ADDRESS');
+
             dispatch(loadingStatus(true));
-            let response = await axios.get(`${BACKEND_API}/auth/profile`,{headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN")}`}});
-            dispatch(profile(response.data));
+            let response = await axios.post(`${BACKEND_API}/auth/add-new-address`,{
+                userId:localStorage.getItem('USER_ID'), address, lat:position.lat, lon:position.lon
+            });
+            dispatch(updateAddresses(response.data));
+            dispatch(putAddressesInFeed(response.data));
         }catch(err){
             dispatch(loadingStatus(false));
-            if(err.response.status === 401){
-                alert("UNAUTHORIZED");
-                unauthorised();
-            }
         }
     };
 };
-
+export function removeAddressAPI(address) {
+    return async (dispatch) => {
+        try{
+            dispatch(loadingStatus(true));
+            let response = await axios.delete(`${BACKEND_API}/auth/remove-address/${localStorage.getItem('USER_ID')}/${address}`,);
+            dispatch(updateAddresses(response.data));
+            dispatch(putAddressesInFeed(response.data));
+        }catch(err){
+            dispatch(loadingStatus(false));
+        }
+    };
+}
 export function changePasswordAPI(data, message) {
     return async (dispatch) => {
         try{

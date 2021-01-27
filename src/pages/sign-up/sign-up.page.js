@@ -3,10 +3,11 @@ import { useForm } from 'react-hook-form';
 import { signUpAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import NavBar from '../../components/nav-bar/nav-bar';
 import SubmitButton from '../../components/common/submit-button';
 import InputError from '../../components/common/input-error';
+import GoogleAutocomplete from '../../components/common/google-autocomplete';
 
 export default function SignUp() {
 
@@ -24,29 +25,10 @@ export default function SignUp() {
             setMessage({text: "Passwords don't match", success: false});
         }else{
             const position = JSON.parse(localStorage.getItem('POSITION'));
-            dispatch(signUpAPI({...data, lat: position.lat, lon: position.lon}, setNewMessage));
+            const address = localStorage.getItem('ADDRESS');
+            dispatch(signUpAPI({...data, address, lat: position.lat, lon: position.lon}, setNewMessage));
         }
     };
-
-    useEffect(() => {
-        const googleMapsScript = document.getElementById('google-maps-script');
-        if(!googleMapsScript){
-            const script1 = document.createElement('script');
-            script1.src = "./initMap.js";
-            document.body.appendChild(script1);
-            script1.onload = () => {
-                const script2 = document.createElement('script');
-                script2.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API_KEY}&callback=initMap&libraries=places&v=weekly`;
-                //script2.async = 'async';
-                //script2.defer = 'defer';
-                script2.id = 'google-maps-script';
-                document.body.appendChild(script2);
-            }
-        }else{
-            history.go(0);
-        }
-        // eslint-disable-next-line
-    }, []);
 
     return (
         <div className="sign-up">
@@ -61,8 +43,8 @@ export default function SignUp() {
                         {errors.email && <InputError text={'Email is required'}/>}
 
                         <div className="label-accent-color">Delivery address</div>
-                        <input type="text" name="address" id="search-google-maps" ref={register({required:true})} placeholder="Your adress"/>
-                        {errors.address && <InputError text={'Address is required'}/>}
+                        <GoogleAutocomplete placeholder='Your address'/>
+                        {errors.deliveryAddress && <InputError text={'Delivery address is required'}/>}
 
                         <div className="label-accent-color">Password</div>
                         <input type="password" name="password" ref={register({required:true})}/>

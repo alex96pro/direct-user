@@ -2,7 +2,7 @@ import * as ACTIONS from '../actions/auth.actions';
 
 const initialState = {
     loadingStatus: false,
-    user: {}
+    user: {},
 };
 
 export default function authReducer(state = initialState, action) {
@@ -13,12 +13,18 @@ export default function authReducer(state = initialState, action) {
                 loadingStatus: action.payload,
                 signUpMessage:''
             };
-        case ACTIONS.PROFILE:
+        case ACTIONS.GET_PROFILE_DATA:
             return{
                 ...state,
                 user: action.payload,
                 loadingStatus: false
-            }
+            };
+        case ACTIONS.UPDATE_ADDRESSES:
+            return{
+                loadingStatus: false,
+                user: {...state.user, addresses: action.payload},
+                currentAddress: action.payload[0] ? action.payload[0]: ''
+            };
         default:
             return state;
     }
