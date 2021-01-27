@@ -13,11 +13,6 @@ export default function authReducer(state = initialState, action) {
                 loadingStatus: action.payload,
                 signUpMessage:''
             };
-        case ACTIONS.LOGIN:
-            return{
-                ...state,
-                user: action.payload
-            }
         case ACTIONS.PROFILE:
             return{
                 ...state,

@@ -1,6 +1,6 @@
 import './menu.page.scss';
 import NavBar from '../../components/nav-bar/nav-bar';
-import Meals from '../../components/meals/meals.component';
+import MenuMeals from '../../components/menu-meals/menu-meals';
 import MealModal from '../feed/meal.modal';
 import Loader from '../../components/common/loader';
 import { useState, useEffect } from 'react';
@@ -37,13 +37,20 @@ export default function Menu() {
             <NavBar loggedIn={true}/>
             {meals.length > 0 && 
             <div className="menu-header">
-                <div className="header-white">{meals[0].restaurantName}'s menu</div>
+                <div className="header-accent-color">{meals[0].restaurantName}'s menu</div>
                 {meals[0].delivery && <div className="menu-delivery-minimum">Delivery minimum {meals[0]["delivery-minimum"]}{CURRENCY}</div>}
             </div>}
-            <div className="meals-menu">
+            <div className="menu-container">
+                <div className="menu-categories">
+                    <div className="menu-category-header">Categories</div>
+                    <div className="menu-category"><input type="checkbox"/>Burgers</div>
+                    <div className="menu-category"><input type="checkbox"/>Hot Dogs</div>
+                    <div className="menu-category"><input type="checkbox"/>Ribs</div>
+                    <div className="menu-category"><input type="checkbox"/>Pancakes</div>
+                </div>
                 {loadingStatus ? <Loader/>
                 :
-                <Meals meals={meals} showModal={showModal}/>
+                <MenuMeals meals={meals} showModal={showModal}/>
                 }
             </div>
             {message && <div className="header-accent-color">{message}</div>}

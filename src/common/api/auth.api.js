@@ -59,6 +59,7 @@ export function verifyAccountAPI(hashedUserId) {
                 dispatch(loadingStatus(false));
             }
         }catch(err){
+            dispatch(loadingStatus(false));
             if(err.response.status === 401){
                 alert("UNAUTHORIZED");
             }else{

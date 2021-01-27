@@ -16,12 +16,17 @@
     .profile-info{
         @include flexAlign(column,center,flex-start,wrap);
         background-color:$wrapper-color;
+        width:70rem;
         margin: 1rem 0rem;
         padding: 1rem;
     }
     .profile-header-small{
         @extend .profile-container-header;
         font-size: 2rem;
+    }
+    .profile-address-row{
+        width:100%;
+        @include flexAlign(row,space-between, center, nowrap);
     }
     .profile-button-danger{
         background-color: $danger-color;

@@ -7,6 +7,7 @@ import { useState } from 'react';
 import ForgottenPasswordModal from './forgotten-password.modal';
 import SubmitButton from '../../components/common/submit-button';
 import NavBar from '../../components/nav-bar/nav-bar';
+import InputError from '../../components/common/input-error';
 
 export default function Login() {
 
@@ -42,10 +43,10 @@ export default function Login() {
                     <form onSubmit={handleSubmit(login)}>
                         <div className="label-accent-color">Email</div>
                         <input type="email" name="email" ref={register({required:true})}/>
-                        {errors.email && <p className="message-danger">Email is required</p>}
+                        {errors.email && <InputError text={'Email is required'}/>}
                         <div className="label-accent-color">Password</div>
                         <input type="password" name="password" ref={register({required:true})}/>
-                        {errors.password && <p className="message-danger">Password is required</p>}
+                        {errors.password && <InputError text={'Password is required'}/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Log In"/>
                     </form>
                     {message && <p className="message-danger">{message}</p>}

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../common/actions/cart.actions';
 import MessageDanger from '../../components/common/message-danger';
+import InputError from '../../components/common/input-error';
 
 export default function MealModal(props) {
     
@@ -53,10 +54,10 @@ export default function MealModal(props) {
                     <form onSubmit={handleSubmit(handleAddToCart)}>
                         <div className="label-accent-color">Amount</div>
                         <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})}/>
-                        {errors.amount && <p className="message-danger">Amount is required</p>}
+                        {errors.amount && <InputError text={'Amount is required'}/>}
                         <div className="label-accent-color">Notes (optional)</div>
                         <textarea name="notes" ref={register({maxLength: 200})}/>
-                        {errors.notes && <p className="message-danger">Notes are limited to 200 characters</p>}
+                        {errors.notes && <InputError text={'Notes are limited to 200 characters'}/>}
 
                         <button type="submit" className="button-long">Add to cart</button>
                     </form>

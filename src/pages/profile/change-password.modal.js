@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logOut } from '../../common/actions/auth.actions';
 import SubmitButton from '../../components/common/submit-button';
+import InputError from '../../components/common/input-error';
 
 export default function ChangePasswordModal(props) {
     
@@ -45,15 +46,15 @@ export default function ChangePasswordModal(props) {
                 <form onSubmit={handleSubmit(handleChangePassword)}>
                     <div className="label-accent-color">Old password</div>
                     <input type="password" name="oldPassword" ref={register({required:true})}/>
-                    {errors.oldPassword && <p className="message-danger">Old password is required</p>}
+                    {errors.oldPassword && <InputError text={'Old password is required'}/>}
 
                     <div className="label-accent-color">New password</div>
                     <input type="password" name="newPassword" ref={register({required:true})}/>
-                    {errors.newPassword && <p className="message-danger">New password is required</p>}
+                    {errors.newPassword && <InputError text={'New password is required'}/>}
 
                     <div className="label-accent-color">Retype new password</div>
                     <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
-                    {errors.retypeNewPassword && <p className="message-danger">Retype new password</p>}
+                    {errors.retypeNewPassword && <InputError text={'Retype new password'}/>}
 
                     <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
                 </form>

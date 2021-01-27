@@ -38,12 +38,15 @@ export default function Profile() {
                     <div className="label-accent-color">{user.email}</div>
                     <div className="profile-header-small">Addresses</div>
                         {user.addresses.map((adr, index) =>
-                            <div className="label-accent-color" key={index}>
-                                <button className="profile-button-danger">
-                                Remove
-                                </button>
+                        <div className="profile-address-row" key={index}>
+                            <div className="label-accent-color">
                                 {index + 1} : {adr}
                             </div>
+                            <button className="profile-button-danger">
+                                Remove
+                            </button>
+                        </div>
+                            
                         )}
                     <button className="button-small">Add new address</button>
                 </div>
