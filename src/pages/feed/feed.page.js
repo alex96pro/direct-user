@@ -2,7 +2,8 @@ import './feed.page.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMealsAPI } from '../../common/api/feed.api';
-import { clearMeals, changeAddress, changeRange, changeTag, addDelivery, bottomOfPage } from '../../common/actions/feed.actions';
+import { clearMeals, changeRange, changeTag, addDelivery, bottomOfPage } from '../../common/actions/feed.actions';
+import { changeAddress } from '../../common/actions/feed.actions';
 import { useForm } from 'react-hook-form';
 import { DISTANCE, MEAL_TAGS } from '../../util/consts';
 import MealModal from './meal.modal';
@@ -15,8 +16,8 @@ import InputError from '../../components/common/input-error';
 export default function Feed() {
 
     const dispatch = useDispatch();
-    const {meals, addresses, loadingStatus, message, endOfResultsFlag} = useSelector(state => state.feed);
-    const {currentAddress, range, tags, delivery, scrollCount} = useSelector(state => state.feed);
+    const {meals, loadingStatus, message, endOfResultsFlag} = useSelector(state => state.feed);
+    const {addresses, currentAddress, range, tags, delivery, scrollCount} = useSelector(state => state.feed);
     const {deliveryAddress} = useSelector(state => state.cart);
     const [modal, setModal] = useState({show:false, selectedMeal:{}});
     const [messageDeliveryAddress, setMessageDeliveryAddress] = useState('');

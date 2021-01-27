@@ -1,6 +1,7 @@
 export const LOADING_STATUS_AUTH = "LOADING_STATUS_AUTH";
 export const LOGOUT = "LOGOUT";
-export const PROFILE = "PROFILE";
+export const GET_PROFILE_DATA = "GET_PROFILE_DATA";
+export const UPDATE_ADDRESSES = "UPDATE_ADDRESSES";
 
 export function loadingStatus(payload) {
     return {
@@ -14,9 +15,15 @@ export function logOut(payload) {
         payload
     };
 };
-export function profile(payload) {
+export function getProfileData(payload) {
     return {
-        type: PROFILE,
+        type: GET_PROFILE_DATA,
+        payload
+    }
+}
+export function updateAddresses(payload) {
+    return {
+        type: UPDATE_ADDRESSES,
         payload
     };
 };

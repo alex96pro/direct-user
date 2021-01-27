@@ -40,6 +40,8 @@ export default function Menu() {
                 <div className="header-accent-color">{meals[0].restaurantName}'s menu</div>
                 {meals[0].delivery && <div className="menu-delivery-minimum">Delivery minimum {meals[0]["delivery-minimum"]}{CURRENCY}</div>}
             </div>}
+            {loadingStatus ? <Loader/>
+            :
             <div className="menu-container">
                 <div className="menu-categories">
                     <div className="menu-category-header">Categories</div>
@@ -48,11 +50,10 @@ export default function Menu() {
                     <div className="menu-category"><input type="checkbox"/>Ribs</div>
                     <div className="menu-category"><input type="checkbox"/>Pancakes</div>
                 </div>
-                {loadingStatus ? <Loader/>
-                :
+                
                 <MenuMeals meals={meals} showModal={showModal}/>
-                }
             </div>
+            }
             {message && <div className="header-accent-color">{message}</div>}
             {modal.show && <MealModal closeModal={closeModal} meal={modal.selectedMeal}/>}
             {!loadingStatus && <button onClick={() => history.push('/feed')} className="button-normal">Back to feed</button>}

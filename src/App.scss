@@ -27,7 +27,7 @@
     width:max-content;
     background-color:$accent-color;
     padding:1rem;
-    margin-top:1rem;
+    margin:0.6rem;
     color:white;
     font-size: 1.8rem;
     transition: 0.2s;
@@ -46,11 +46,12 @@
     @extend .button-normal;
     font-size: 1.2rem;
     padding: 0.8rem;
-    margin: 0.2rem 0rem;
+    margin: 0.2rem;
 }
 .button-long{
     @extend .button-normal;
     width:100%;
+    margin: 1rem 0rem;
 }
 .wrapper-container{
     background-color:$wrapper-color;

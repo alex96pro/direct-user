@@ -5,7 +5,7 @@ const initialState = {
     meals: [],
     endOfResultsFlag: false,
     addresses: [],
-    currentAddress: '',
+    currentAddress:'',
     range: 5,
     tags: [],
     delivery: false,
@@ -32,11 +32,11 @@ export default function feedReducer(state = initialState, action) {
         case ACTIONS.PUT_ADDRESSES_IN_FEED:
             return{
                 ...state,
-                addresses: action.payload.addresses,
-                currentAddress: action.payload.addresses[0]
+                addresses: action.payload,
+                currentAddress: action.payload[0]
             };
         case ACTIONS.CHANGE_ADDRESS:
-            return{
+            return {
                 ...state,
                 meals:[],
                 scrollCount: 1,
