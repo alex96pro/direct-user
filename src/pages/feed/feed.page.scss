@@ -10,9 +10,9 @@
         position: fixed;
         width:max-content;
         height:100vh;
-        width:35rem;
+        width:20%;
         background-color: $wrapper-color;
-        padding: 3rem;
+        padding:1.4rem;
         top:5rem;
         left:0rem;
         margin: 1rem 0rem;
@@ -31,5 +31,11 @@
     }
     .feed-bottom{
         text-align: center;
+    }
+}
+
+@media (max-width: 700px){
+    .feed-filters{
+        display: none;
     }
 }

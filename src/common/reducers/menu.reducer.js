@@ -2,7 +2,15 @@ import * as ACTIONS from '../actions/menu.actions';
 
 const initialState = {
     loadingStatus: false,
-    meals:[],
+    meals: [],
+    restaurant: {
+        restaurantId:'',
+        restaurantName:'',
+        deliveryMinimum:'',
+        phone:'',
+        delivery:'',
+        categories:[]
+    },
     message:''
 };
 
@@ -17,13 +25,23 @@ export default function menuReducer(state = initialState, action) {
             return{
                 ...state,
                 loadingStatus: false,
-                meals: action.payload
+                meals: action.payload.meals,
+                restaurant: action.payload.restaurant
             };
         case ACTIONS.CLEAR_MENU:
             return{
                 ...state,
                 loadingStatus: false,
-                meals: []
+                meals: [],
+                message:'',
+                restaurant: {
+                    restaurantId:'',
+                    restaurantName:'',
+                    deliveryMinimum:'',
+                    phone:'',
+                    delivery:'',
+                    categories:[]
+                },  
             };
         case ACTIONS.NO_MEALS_IN_MENU:
             return{
