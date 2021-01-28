@@ -1,11 +1,22 @@
-import './meals.component.scss';
+import './meals-feed.scss';
 import { useHistory } from 'react-router-dom';
 import { CURRENCY, DISTANCE } from '../../util/consts';
-import React from 'react';
+import MealModal from '../../components/meal-modal/meal.modal';
+import React, { useState } from 'react';
 
-export default function Meals(props) {
+export default function MealsFeed(props) {
 
     const history = useHistory();
+    const [modal, setModal] = useState({show: false, selectedMeal:{}});
+
+    const showModal = (meal) => {
+        console.log(meal);
+        setModal({show: true, selectedMeal: meal});
+    }
+
+    const closeModal = () => {
+        setModal({show: false, selectedMeal: {}});
+    };
 
     const changeColor = (index, color) => {
         let element = document.getElementsByClassName('meal')[index];
@@ -18,12 +29,12 @@ export default function Meals(props) {
         <React.Fragment>
         {props.meals.map((meal, index) => 
             <div className="meal" key={index}>
-                <div className="meal-header" onClick={() => props.showModal(meal)} 
+                <div className="meal-header" onClick={() => showModal(meal)} 
                     onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}>
                     <div className="meal-name">{meal.mealName}</div>
                     <div className="meal-price">{meal.price}{CURRENCY}</div>
                 </div>
-                <img src={meal.photo} alt="meal" className="meal-photo" onClick={() => props.showModal(meal)}
+                <img src={meal.photo} alt="meal" className="meal-photo" onClick={() => showModal(meal)}
                 onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}/>
                 
                 <div>
@@ -40,12 +51,13 @@ export default function Meals(props) {
                         </div>
                     }
                 </div>
-                <div className="meal-tags" onClick={() => props.showModal(meal)}>
+                <div className="meal-tags" onClick={() => showModal(meal)}>
                     {meal.tags.map((tag, tagIndex) => 
                         <div className="meal-tag" key={tagIndex}>#{tag}</div>
                     )}
                 </div>
             </div>)}
+            {modal.show && <MealModal meal={modal.selectedMeal} closeModal={closeModal} feed={true}/>}
         </React.Fragment>
     );
 }

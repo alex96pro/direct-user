@@ -2,15 +2,14 @@
 @import '../../mixins';
 
 .menu{
-    @include flexAlign(column,center,center,nowrap);
-
     .menu-container{
-        @include flexAlign(row, space-between, flex-start, nowrap);
+        margin-top:2rem;
+        @include flexAlign(row, flex-start, flex-start, nowrap);
+        width:100%;
     }
     .menu-categories{
-        width:80rem;
-        background-color: $wrapper-color;
-        padding: 3rem;
+        width:20%;
+        background-color:$wrapper-color;
         margin-right:2rem;
     }
     .menu-category{
@@ -21,14 +20,20 @@
     .menu-category-header{
         color:$accent-color;
         margin:2rem 1rem;
-        font-size: 3rem;
+        font-size: 2.2rem;
     }
     .menu-header{
-        text-align: center;
+        background-color: $accent-color;
+        padding: 1rem;
+        .menu-restaurant-name{
+            color:white;
+            font-size: 2.4rem;
+        }
+        .menu-restaurant-info{
+            margin:1.4rem 0rem;
+            color:white;
+            font-size: 2rem;
+        }
     }
-    .menu-delivery-minimum{
-        color:$accent-color;
-        font-size: 2.4rem;
-        margin: 1rem 0rem;
-    }
+    
 }

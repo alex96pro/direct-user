@@ -8,12 +8,14 @@ export function getMealsFromMenuAPI(id) {
         try{
             dispatch(loadingStatus(true));
             let response = await axios.get(`${BACKEND_API}/user/menu/${id}`);
-            if(response.data && response.data.length > 0){
-                dispatch(getMealsFromMenu(response.data));
+            if(response.data.meals && response.data.meals.length > 0){
+                dispatch(getMealsFromMenu({meals: response.data.meals, restaurant: response.data.restaurant}));
             }else{
                 dispatch(noMealsInMenu('This restaurant has no meals in menu'));
             }
+            console.log(response.data);
         }catch(err){
+            dispatch(loadingStatus(false));
             console.log(err);
         }
     };

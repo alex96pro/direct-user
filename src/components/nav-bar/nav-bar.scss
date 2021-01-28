@@ -6,6 +6,7 @@ nav{
     width:100%;
     border-radius: 0;
     position:sticky;
+    z-index: 1;
     top:0;
     left:0;
     @include flexAlign(row, flex-end, center, nowrap);

@@ -6,10 +6,9 @@ import { clearMeals, changeRange, changeTag, addDelivery, bottomOfPage } from '.
 import { changeAddress } from '../../common/actions/feed.actions';
 import { useForm } from 'react-hook-form';
 import { DISTANCE, MEAL_TAGS } from '../../util/consts';
-import MealModal from './meal.modal';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../components/common/loader';
-import Meals from '../../components/meals/meals.component';
+import MealsFeed from '../../components/meals-feed/meals-feed';
 import MessageDanger from '../../components/common/message-danger';
 import InputError from '../../components/common/input-error';
 
@@ -19,18 +18,9 @@ export default function Feed() {
     const {meals, loadingStatus, message, endOfResultsFlag} = useSelector(state => state.feed);
     const {addresses, currentAddress, range, tags, delivery, scrollCount} = useSelector(state => state.feed);
     const {deliveryAddress} = useSelector(state => state.cart);
-    const [modal, setModal] = useState({show:false, selectedMeal:{}});
     const [messageDeliveryAddress, setMessageDeliveryAddress] = useState('');
     const [currentLocationSelected, setCurrentLocationSelected] = useState(false);
     const {register, handleSubmit, errors} = useForm();
-
-    const showModal = (meal) => {
-        setModal({show: true, selectedMeal: meal});
-    };
-
-    const closeModal = () => {
-        setModal({show: false, selectedMeal: {}});
-    };
 
     const handleChangeAddress = (event) => {
         let selectedAddress = event.target.value;
@@ -58,7 +48,9 @@ export default function Feed() {
     };
 
     const handleChangeRange = (data) => {
-        dispatch(changeRange(data.range));
+        if(data.range !== range){
+            dispatch(changeRange(data.range));
+        }
     };
 
     const handleChangeTag = (event) => {
@@ -142,12 +134,11 @@ export default function Feed() {
                 </div>
                 
                 <div className="feed-meals-container">
-                    <Meals meals={meals} showModal={showModal}/>
+                    <MealsFeed meals={meals}/>
                     {loadingStatus && <Loader/>}
                     {message && !loadingStatus && 
                     <div className="feed-bottom"><p className="message-success">{message}</p>
                     {scrollCount > 2 && <button onClick={() => window.scroll(0,0)} className="button-small">Go top</button>}</div>}
-                    {modal.show && <MealModal closeModal={closeModal} meal={modal.selectedMeal}/>}
                 </div>
         </div>
     );

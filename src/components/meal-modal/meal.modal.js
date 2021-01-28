@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../common/actions/cart.actions';
-import MessageDanger from '../../components/common/message-danger';
-import InputError from '../../components/common/input-error';
+import MessageDanger from '../common/message-danger';
+import InputError from '../common/input-error';
 
 export default function MealModal(props) {
     
@@ -17,8 +17,14 @@ export default function MealModal(props) {
     }, []);
 
     const handleAddToCart = (data) => {
-        dispatch(addToCart({amount:data.amount, notes:data.notes, restaurantName:props.meal.restaurantName, mealName:props.meal.mealName, price:props.meal.price, 
-        photo:props.meal.photo, restaurantId:props.meal.restaurantId, deliveryMinimum:props.meal["delivery-minimum"], deliveryAddress: currentAddress.address}));
+
+        if(props.restaurant){ // add to cart from menu
+            dispatch(addToCart({amount:data.amount, notes:data.notes, restaurantName:props.restaurant.restaurantName, mealName:props.meal.mealName, price:props.meal.price, 
+            photo:props.meal.photo, restaurantId:props.restaurant.restaurantId, deliveryMinimum:props.restaurant.deliveryMinimum, deliveryAddress: currentAddress.address}));
+        }else{ //add to cart from feed
+            dispatch(addToCart({amount:data.amount, notes:data.notes, restaurantName:props.meal.restaurantName, mealName:props.meal.mealName, price:props.meal.price, 
+            photo:props.meal.photo, restaurantId:props.meal.restaurantId, deliveryMinimum:props.meal["delivery-minimum"], deliveryAddress: currentAddress.address}));
+        }
         props.closeModal();
     };
 
@@ -34,19 +40,27 @@ export default function MealModal(props) {
                         Meal: {props.meal.mealName}
                     </div>
                     <div className="label-accent-color">
+                        Description: {props.meal.description}
+                    </div>
+                    
+                    {props.feed &&
+                    <div>
+                        <div className="label-accent-color">
                         Restaurant: {props.meal.restaurantName}
-                    </div>
-                    <div className="label-accent-color">
-                        Location: {props.meal.location}
-                    </div>
-                    {!props.meal.delivery &&
-                    <div className="label-accent-color">
-                        Phone: {props.meal.phone}
+                        </div>
+                        <div className="label-accent-color">
+                            Location: {props.meal.location}
+                        </div>
+                        {!props.meal.delivery &&
+                        <div className="label-accent-color">
+                            Phone: {props.meal.phone}
+                        </div>}
                     </div>
                     }
+                    
                 </div>
                 
-                {props.meal.delivery ? 
+                {props.meal.delivery || (props.restaurant && props.restaurant.delivery) ? //feed || menu
                 <div className="modal-body">
                     {currentAddress.address === 'CURRENT_LOCATION' ?
                     <MessageDanger text='Delivery is disabled when using current location'/>
