@@ -9,18 +9,21 @@ export function addToCart(payload) {
         payload
     };
 };
+
 export function removeFromCart(payload) {
     return {
         type: REMOVE_FROM_CART,
         payload
     };
 };
+
 export function changeAmount(payload) {
     return {
         type: CHANGE_AMOUNT,
         payload
     };
 };
+
 export function minimumDeliveryCheck(payload) {
     return {
         type: MINIMUM_DELIVERY_CHECK,

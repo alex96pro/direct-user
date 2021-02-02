@@ -11,16 +11,18 @@ import Loader from '../../components/common/loader';
 import MealsFeed from '../../components/meals-feed/meals-feed';
 import MessageDanger from '../../components/common/message-danger';
 import InputError from '../../components/common/input-error';
+import { useHistory } from 'react-router-dom';
 
 export default function Feed() {
 
     const dispatch = useDispatch();
-    const {meals, loadingStatus, message, endOfResultsFlag} = useSelector(state => state.feed);
-    const {addresses, currentAddress, range, tags, delivery, scrollCount} = useSelector(state => state.feed);
+    const {meals, loadingStatus, message, scrollCount, endOfResultsFlag} = useSelector(state => state.feed);
+    const {addresses, currentAddress, range, tags, delivery} = useSelector(state => state.feed);
     const {deliveryAddress} = useSelector(state => state.cart);
     const [messageDeliveryAddress, setMessageDeliveryAddress] = useState('');
     const [currentLocationSelected, setCurrentLocationSelected] = useState(false);
     const {register, handleSubmit, errors} = useForm();
+    const history = useHistory();
 
     const handleChangeAddress = (event) => {
         let selectedAddress = event.target.value;
@@ -70,22 +72,22 @@ export default function Feed() {
     };
 
     const handleBottomOfPage = () => {
-        if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight - 2) {
+        if((window.innerHeight + window.scrollY) > document.body.scrollHeight - 2) {
             dispatch(bottomOfPage());
+            console.log("innerHeight = "+window.innerHeight);
+            console.log("scrollY = "+window.scrollY);
+            console.log("scrollHeight = "+document.body.scrollHeight);
         }
     };
-    
+     
     useEffect(() => { // ON MOUNT AND UNMOUNT
-        dispatch(clearMeals());
+        //window.scrollTo(0,0);
         window.addEventListener('scroll', handleBottomOfPage);
-        return () => {
-            window.removeEventListener('scroll', handleBottomOfPage);
-            dispatch(clearMeals());
-        }
-        // eslint-disable-next-line
-    }, []);
+    },[]);
+    
     useEffect(() => { // ON UPDATES
-        if(currentAddress.address && !endOfResultsFlag){ // store loaded into component AND not end of results
+        console.log("AAAAAAAAAA");
+        if(!endOfResultsFlag){
             dispatch(getMealsAPI(currentAddress, range, tags, delivery, scrollCount));
         }
     },[currentAddress, range, tags, delivery, scrollCount, endOfResultsFlag, dispatch]);

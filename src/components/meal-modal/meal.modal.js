@@ -9,15 +9,14 @@ export default function MealModal(props) {
     
     const [modalOpacity, setModalOpacity] = useState(0);
     const {register, handleSubmit, errors} = useForm();
-    const {currentAddress} = useSelector(state => state.feed);
     const dispatch = useDispatch();
+    const {currentAddress} = useSelector(state => state.feed);
 
     useEffect(() => {
         setModalOpacity(1);
     }, []);
 
     const handleAddToCart = (data) => {
-
         if(props.restaurant){ // add to cart from menu
             dispatch(addToCart({amount:data.amount, notes:data.notes, restaurantName:props.restaurant.restaurantName, mealName:props.meal.mealName, price:props.meal.price, 
             photo:props.meal.photo, restaurantId:props.restaurant.restaurantId, deliveryMinimum:props.restaurant.deliveryMinimum, deliveryAddress: currentAddress.address}));
@@ -42,7 +41,6 @@ export default function MealModal(props) {
                     <div className="label-accent-color">
                         Description: {props.meal.description}
                     </div>
-                    
                     {props.feed &&
                     <div>
                         <div className="label-accent-color">
@@ -57,9 +55,7 @@ export default function MealModal(props) {
                         </div>}
                     </div>
                     }
-                    
                 </div>
-                
                 {props.meal.delivery || (props.restaurant && props.restaurant.delivery) ? //feed || menu
                 <div className="modal-body">
                     {currentAddress.address === 'CURRENT_LOCATION' ?

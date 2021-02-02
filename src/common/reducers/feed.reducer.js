@@ -76,7 +76,7 @@ export default function feedReducer(state = initialState, action) {
         case ACTIONS.BOTTOM_OF_PAGE:
             return{
                 ...state,
-                scrollCount: state.endOfResultsFlag ? state.scrollCount : state.scrollCount + 1
+                scrollCount: state.endOfResultsFlag ? 1 : state.scrollCount + 1
             }
         case ACTIONS.END_OF_RESULTS:
             return{
@@ -84,14 +84,6 @@ export default function feedReducer(state = initialState, action) {
                 loadingStatus: false,
                 message: action.payload,
                 endOfResultsFlag: true
-            };
-        case ACTIONS.CLEAR_MEALS:
-            return{
-                ...state,
-                meals:[],
-                message:'',
-                endOfResultsFlag: false,
-                scrollCount: 1,
             };
         default:
             return state;

@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
 import { loadingStatus, getMealsFromMenu, noMealsInMenu } from '../actions/menu.actions';
@@ -13,7 +12,6 @@ export function getMealsFromMenuAPI(id) {
             }else{
                 dispatch(noMealsInMenu('This restaurant has no meals in menu'));
             }
-            console.log(response.data);
         }catch(err){
             dispatch(loadingStatus(false));
             console.log(err);

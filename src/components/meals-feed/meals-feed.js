@@ -10,7 +10,6 @@ export default function MealsFeed(props) {
     const [modal, setModal] = useState({show: false, selectedMeal:{}});
 
     const showModal = (meal) => {
-        console.log(meal);
         setModal({show: true, selectedMeal: meal});
     }
 
@@ -36,7 +35,6 @@ export default function MealsFeed(props) {
                 </div>
                 <img src={meal.photo} alt="meal" className="meal-photo" onClick={() => showModal(meal)}
                 onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}/>
-                
                 <div>
                     <div className="meal-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
                     <div className="meal-see-menu" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>See menu</div>

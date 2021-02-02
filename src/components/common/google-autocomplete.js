@@ -20,6 +20,7 @@ export default function GoogleAutocomplete(props) {
                 document.body.appendChild(script2);
             }
         }else{
+            // GOOGLE MAP isnt working when redirected to page, it needs page refresh
             history.go(0);
         }
         // eslint-disable-next-line
