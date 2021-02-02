@@ -8,7 +8,6 @@ export default function ConfirmModal(props) {
         setModalOpacity(1);
     }, []);
 
-
     return (
         <div className="modal">
             <div className="modal-overlay" onClick={() => props.closeModal()}></div>

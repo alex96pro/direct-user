@@ -14,55 +14,57 @@ export function loadingStatus(payload) {
         type: LOADING_STATUS_FEED,
         payload
     };
-}
+};
+
 export function getMeals(payload) {
     return {
         type: GET_MEALS,
         payload
     };
 };
+
 export function endOfResults(payload) {
     return {
         type: END_OF_RESULTS,
         payload
     };
 };
-export function clearMeals(payload) {
-    return {
-        type: CLEAR_MEALS,
-        payload
-    };
-};
+
 export function putAddressesInFeed(payload) {
     return {
         type: PUT_ADDRESSES_IN_FEED,
         payload
-    }
-}
+    };
+};
+
 export function changeAddress(payload) {
     return {
         type: CHANGE_ADDRESS,
         payload
     };
 };
+
 export function changeRange(payload) {
     return {
         type: CHANGE_RANGE,
         payload
     };
 };
+
 export function changeTag(payload) {
     return {
         type: CHANGE_TAG,
         payload
     };
 };
+
 export function addDelivery(payload) {
     return {
         type: ADD_DELIVERY,
         payload
     };
 };
+
 export function bottomOfPage(payload) {
     return {
         type: BOTTOM_OF_PAGE,

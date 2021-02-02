@@ -56,6 +56,7 @@ export default function Profile() {
                 setMessage("You already have that address");
             }else{
                 setMessage("");
+                document.getElementById('search-google-maps').value = '';
                 dispatch(addNewAddressAPI());
             }
             localStorage.removeItem('POSITION');

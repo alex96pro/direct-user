@@ -2,7 +2,7 @@ import './menu.page.scss';
 import NavBar from '../../components/nav-bar/nav-bar';
 import MealsMenu from '../../components/meals-menu/meals-menu';
 import Loader from '../../components/common/loader';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { getMealsFromMenuAPI } from '../../common/api/menu.api';
@@ -14,6 +14,7 @@ export default function Menu() {
     const dispatch = useDispatch();
     const params = useParams();
     const {meals, restaurant, loadingStatus, message} = useSelector((state => state.menu));
+    const [selectedCategories, setSelectedCategories] = useState([]);
     const history = useHistory();
 
     useEffect(() => {
@@ -22,6 +23,15 @@ export default function Menu() {
             dispatch(clearMenu());
         }
     }, [dispatch, params.id]);
+
+    const addCategory = (event) => {
+        if(event.target.checked){
+            setSelectedCategories([...selectedCategories, event.target.value]);
+        }else{
+            let newCategories = selectedCategories.filter(category => category !== event.target.value);
+            setSelectedCategories(newCategories);
+        }
+    }
 
     return(
         <div className="menu">
@@ -41,12 +51,12 @@ export default function Menu() {
                     }
                     </div>}
                     <div className="menu-category-header">Categories</div>
-                    {restaurant.categories.map((category, index) => <div>
-                        <div className="menu-category" key={index}><input type="checkbox"/>{category}</div>
+                    {restaurant.categories.map((category, index) => <div key={index}>
+                        <div className="menu-category"><input type="checkbox" value={category} onChange={addCategory}/>{category}</div>
                     </div>)}
                     <button onClick={() => history.push('/feed')} className="button-normal">Back to feed</button>
                 </div>
-                <MealsMenu meals={meals}/>
+                <MealsMenu meals={meals} categories={selectedCategories.length ? selectedCategories : restaurant.categories}/>
             </div>
             }
             {message && <div className="header-accent-color">{message}</div>}

@@ -23,12 +23,12 @@ export default function Cart() {
         dispatch(changeAmount({newAmount: event.target.value, index: index}));
     };
 
-    const changeMealOpacity = (index, opacity) => {
-        let element = document.getElementsByClassName('cart-meal')[index];
-        if(element){
-            element.style.opacity = opacity;
-        }
-    }
+    const reduceMealOpacity = (index) => {
+        document.getElementsByClassName('cart-meal')[index].style.opacity = 0.7;
+    };
+    const increaseMealOpacity = (index) => {
+        document.getElementsByClassName('cart-meal')[index].style.opacity = 1;
+    };
 
     const showNotesAccordion = (index) => {
         let element = document.getElementsByClassName('cart-meal')[index];
@@ -38,7 +38,7 @@ export default function Cart() {
             let left = (element.getClientRects()[0].left);
             setNotesAccordion({notes:meals[index].notes, show:true, top: top + height, left:left});
         }
-    }
+    };
 
     const checkDeliveryMinimums = () => {
         let deliveryMinimumsConflicts = checkDeliveryMinimumsForCart(meals);
@@ -61,8 +61,8 @@ export default function Cart() {
                         <div className="cart-meal-header">
                             {meal.mealName}
                             <button onClick={() => removeMealFromCart(index)} className="cart-meal-x" 
-                            onMouseEnter={() => changeMealOpacity(index, 0.6)}
-                            onMouseLeave={() => changeMealOpacity(index, 1)}>
+                            onMouseEnter={() => reduceMealOpacity(index)}
+                            onMouseLeave={() => increaseMealOpacity(index)}>
                             x
                             </button>
                         </div>

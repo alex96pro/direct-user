@@ -95,6 +95,12 @@ input[type=checkbox]{
 input[type=number]{
     @extend input[type=text];
     width:9rem;
+    -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 select, option{
     width:100%;
@@ -115,6 +121,7 @@ textarea{
 .input-error{
     color:$danger-color;
     font-size:1.4rem;
+    margin-top:0.5rem;
 }
 .message-success{
     color:$success-color;

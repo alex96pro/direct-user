@@ -14,9 +14,9 @@ export default function Login() {
     const {register, handleSubmit, errors} = useForm();
     const {loadingStatus}  = useSelector(state => state.authentication);
     const [message, setMessage] = useState('');
+    const [showModal, setShowModal] = useState(false);
     const dispatch = useDispatch();
     const history = useHistory();
-    const [showModal, setShowModal] = useState(false);
 
     const setNewMessage = (newMessage) => {
         setMessage(newMessage);

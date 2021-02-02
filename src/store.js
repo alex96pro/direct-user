@@ -9,7 +9,7 @@ const loadState = () => {
     if(store !== null){
         storeObject = {
             authentication: store.authentication,
-            feed: store.feed,
+            feed: { ...store.feed, endOfResultsFlag: false, meals:[], scrollCount: 1 },
             cart: store.cart,
             menu: store.menu
         };

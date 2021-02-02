@@ -9,6 +9,10 @@ export default function MealsMenu(props) {
     const [showMealModal, setShowMealModal] = useState({show:false, selectedMeal:{}});
     const { restaurant } = useSelector(state => state.menu);
 
+    const filteredMeals = props.meals.filter(meal => 
+        props.categories.includes(meal.category)
+    );
+
     const handleShowMealModal = (meal) => {
         setShowMealModal({show: true, selectedMeal: meal});
     };
@@ -23,15 +27,15 @@ export default function MealsMenu(props) {
     const hideHiddenDiv = (index) => {
         document.getElementsByClassName('menu-meals-hidden-description')[index].style.opacity = 0;
     };
+
     return (
         <div className="menu-meals">
-            {props.meals.map((meal, index) => <div className="menu-meals-meal" key={index} onClick={() => handleShowMealModal(meal)}>
+            {filteredMeals.map((meal, index) => <div className="menu-meals-meal" key={meal.mealId} onClick={() => handleShowMealModal(meal)}>
                 <div className="menu-meals-meal-header">
                     <div className="menu-meals-meal-name">{meal.mealName}</div>
                     <div className="menu-meals-meal-price">{meal.price}{CURRENCY}</div>
                 </div>
                 <img src={meal.photo} className="menu-meals-meal-photo" alt="meal-menu"/>
-                
                 <div className="menu-meals-hidden-description"
                     onMouseEnter={() => showHiddenDiv(index)}
                     onMouseLeave={() => hideHiddenDiv(index)}>

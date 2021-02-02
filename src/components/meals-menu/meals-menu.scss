@@ -8,8 +8,8 @@
         @include flexAlign(column, flex-end, center, nowrap);
         position: relative; // this is not needed when container is flex, his child with absolute position will position relative to flex container
         background-color: $wrapper-color;
-        margin:0.2rem;
-        
+        margin:0.2rem 0rem;
+        border-radius: 0;
     }
     &-meal-header{
         width:100%;
@@ -24,11 +24,13 @@
     &-meal-price{
         color:$accent-color;
         font-size: 1.8rem;
+        font-weight: bold;
     }
     &-meal-photo{
         width: 25rem;
         height: 25rem;
         transition: 0.2s;
+        border-radius: 0;
         cursor: pointer;
     }
     &-hidden-description{
@@ -40,6 +42,7 @@
         height: 25rem;
         text-align: center;
         transition: 0.2s;
+        border-radius: 0;
         cursor: pointer;
     }
     &-description{

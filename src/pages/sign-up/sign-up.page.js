@@ -20,6 +20,7 @@ export default function SignUp() {
     const setNewMessage = (newMessage, newSuccess = false) => {
         setMessage({text: newMessage, success: newSuccess});
     };
+    
     const signUp = (data) => {
         if(data.password !== data.retypePassword){
             setMessage({text: "Passwords don't match", success: false});

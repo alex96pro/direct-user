@@ -120,10 +120,9 @@ export function newPasswordAPI(data, userId, message) {
 export function addNewAddressAPI() {
     return async (dispatch) => {
         try{
+            dispatch(loadingStatus(true));
             const position = JSON.parse(localStorage.getItem('POSITION'));
             const address = localStorage.getItem('ADDRESS');
-
-            dispatch(loadingStatus(true));
             let response = await axios.post(`${BACKEND_API}/auth/add-new-address`,{
                 userId:localStorage.getItem('USER_ID'), address, lat:position.lat, lon:position.lon
             });
@@ -134,6 +133,7 @@ export function addNewAddressAPI() {
         }
     };
 };
+
 export function removeAddressAPI(address) {
     return async (dispatch) => {
         try{
@@ -145,7 +145,8 @@ export function removeAddressAPI(address) {
             dispatch(loadingStatus(false));
         }
     };
-}
+};
+
 export function changePasswordAPI(data, message) {
     return async (dispatch) => {
         try{
