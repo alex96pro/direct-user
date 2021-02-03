@@ -54,7 +54,7 @@ export default function Menu() {
                     {restaurant.categories.map((category, index) => <div key={index}>
                         <div className="menu-category"><input type="checkbox" value={category} onChange={addCategory}/>{category}</div>
                     </div>)}
-                    <button onClick={() => history.push('/feed')} className="button-normal">Back to feed</button>
+                    <button onClick={() => history.go(-1)} className="button-normal">Back</button>
                 </div>
                 <MealsMenu meals={meals} categories={selectedCategories.length ? selectedCategories : restaurant.categories}/>
             </div>

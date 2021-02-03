@@ -70,11 +70,12 @@
         padding:1rem;
     }
     .cart-notes-accordion{
-        background-color: white;
-        color:$accent-color;
+        background-color: $accent-color;
+        color:white;
         font-size:1.8rem;
         position:absolute;
-        width:22rem;
+        width:20rem;
+        border-top: 0.2rem solid white;
         padding:1rem;
     }
 }

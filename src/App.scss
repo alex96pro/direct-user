@@ -94,7 +94,7 @@ input[type=checkbox]{
 }
 input[type=number]{
     @extend input[type=text];
-    width:9rem;
+    width:7rem;
     -moz-appearance: textfield;
 }
 input::-webkit-outer-spin-button,
@@ -131,7 +131,7 @@ textarea{
 .label-white{
     font-size:1.8rem;
     color:white;
-    margin:0.8rem 0rem;
+    margin:0.8rem 0.2rem;
 }
 .label-accent-color{
     @extend .label-white;

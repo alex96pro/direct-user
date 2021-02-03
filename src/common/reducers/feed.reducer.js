@@ -10,19 +10,20 @@ const initialState = {
     tags: [],
     delivery: false,
     scrollCount: 1,
+    redirectedToFeed: false,
     message:''
 };
 
 export default function feedReducer(state = initialState, action) {
     switch(action.type){
         case ACTIONS.LOADING_STATUS_FEED:
-            return{
+            return {
                 ...state,
                 loadingStatus: action.payload
             };
         case ACTIONS.GET_MEALS:
             let newArray = state.meals.concat(action.payload.meals);
-            return{
+            return {
                 ...state,
                 meals: newArray,
                 loadingStatus: false,
@@ -30,7 +31,7 @@ export default function feedReducer(state = initialState, action) {
                 message: newArray.length <= 2 ? 'End of results': ''
             };
         case ACTIONS.PUT_ADDRESSES_IN_FEED:
-            return{
+            return {
                 ...state,
                 addresses: action.payload,
                 currentAddress: action.payload[0]
@@ -41,15 +42,17 @@ export default function feedReducer(state = initialState, action) {
                 meals:[],
                 scrollCount: 1,
                 endOfResultsFlag: false,
-                currentAddress: action.payload
+                currentAddress: action.payload,
+                redirectedToFeed: false
             };
         case ACTIONS.CHANGE_RANGE:
-            return{
+            return {
                 ...state,
                 meals:[],
                 scrollCount: 1,
                 endOfResultsFlag: false,
-                range: action.payload
+                range: action.payload,
+                redirectedToFeed: false
             };
         case ACTIONS.CHANGE_TAG:
             let newTags = [];
@@ -58,32 +61,40 @@ export default function feedReducer(state = initialState, action) {
             }else{
                 newTags = state.tags.filter(tagName => tagName !== action.payload.tag)
             }
-            return{
+            return {
                 ...state,
                 meals:[],
                 scrollCount: 1,
                 endOfResultsFlag: false,
-                tags: newTags
+                tags: newTags,
+                redirectedToFeed: false
             }
         case ACTIONS.ADD_DELIVERY:
-            return{
+            return {
                 ...state,
                 meals:[],
                 scrollCount: 1,
                 endOfResultsFlag: false,
-                delivery: action.payload
+                delivery: action.payload,
+                redirectedToFeed: false
             }
         case ACTIONS.BOTTOM_OF_PAGE:
-            return{
+            return {
                 ...state,
-                scrollCount: state.endOfResultsFlag ? 1 : state.scrollCount + 1
+                scrollCount: state.endOfResultsFlag ? state.scrollCount : state.scrollCount + 1,
+                redirectedToFeed: false
             }
         case ACTIONS.END_OF_RESULTS:
-            return{
+            return {
                 ...state,
                 loadingStatus: false,
                 message: action.payload,
                 endOfResultsFlag: true
+            };
+        case ACTIONS.REDIRECT_FROM_FEED:
+            return {
+                ...state,
+                redirectedToFeed: true
             };
         default:
             return state;

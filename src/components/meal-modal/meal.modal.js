@@ -58,7 +58,7 @@ export default function MealModal(props) {
                 </div>
                 {props.meal.delivery || (props.restaurant && props.restaurant.delivery) ? //feed || menu
                 <div className="modal-body">
-                    {currentAddress.address === 'CURRENT_LOCATION' ?
+                    {currentAddress.address === 'Current location' ?
                     <MessageDanger text='Delivery is disabled when using current location'/>
                     :
                     <form onSubmit={handleSubmit(handleAddToCart)}>

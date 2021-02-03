@@ -87,7 +87,7 @@ export default function Cart() {
                     {notesAccordion.show && 
                     <div className="cart-notes-accordion" style={{top:notesAccordion.top, left:notesAccordion.left}}>
                         <button onClick={() => setNotesAccordion({...notesAccordion, show:false})} className="cart-meal-x">x</button>
-                        <div className="label-accent-color">{notesAccordion.notes}</div>
+                        <div className="label-white">{notesAccordion.notes}</div>
                     </div>}
                 </div>
                 :

@@ -12,7 +12,7 @@ export default function NavBar(props) {
     const {cartSize} = useSelector(state => state.cart);
 
     const handleLogout = () => {
-        dispatch(logOut());
+        setTimeout(() => dispatch(logOut()), 1000); // logout has to be the last action that sets the store to initial values
         history.push('/');
     };
 
