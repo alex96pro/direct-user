@@ -1,13 +1,13 @@
 export const GET_MEALS = "GET_MEALS";
 export const LOADING_STATUS_FEED = "LOADING_STATUS_FEED";
 export const END_OF_RESULTS = "END_OF_RESULTS";
-export const CLEAR_MEALS = "CLEAR_MEALS";
 export const PUT_ADDRESSES_IN_FEED = "PUT_ADDRESSES_IN_FEED";
 export const CHANGE_ADDRESS = "CHANGE_ADDRESS";
 export const CHANGE_RANGE = "CHANGE_RANGE";
 export const CHANGE_TAG = "CHANGE_TAG";
 export const ADD_DELIVERY = "ADD_DELIVERY";
 export const BOTTOM_OF_PAGE = "BOTTOM_OF_PAGE";
+export const REDIRECT_FROM_FEED = "REDIRECT_FROM_FEED";
 
 export function loadingStatus(payload) {
     return {
@@ -68,6 +68,13 @@ export function addDelivery(payload) {
 export function bottomOfPage(payload) {
     return {
         type: BOTTOM_OF_PAGE,
+        payload
+    };
+};
+
+export function redirectFromFeed(payload) {
+    return {
+        type: REDIRECT_FROM_FEED,
         payload
     };
 };

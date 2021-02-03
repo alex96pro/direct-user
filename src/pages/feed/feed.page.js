@@ -2,7 +2,7 @@ import './feed.page.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMealsAPI } from '../../common/api/feed.api';
-import { clearMeals, changeRange, changeTag, addDelivery, bottomOfPage } from '../../common/actions/feed.actions';
+import { changeRange, changeTag, addDelivery, bottomOfPage, redirectFromFeed } from '../../common/actions/feed.actions';
 import { changeAddress } from '../../common/actions/feed.actions';
 import { useForm } from 'react-hook-form';
 import { DISTANCE, MEAL_TAGS } from '../../util/consts';
@@ -11,30 +11,28 @@ import Loader from '../../components/common/loader';
 import MealsFeed from '../../components/meals-feed/meals-feed';
 import MessageDanger from '../../components/common/message-danger';
 import InputError from '../../components/common/input-error';
-import { useHistory } from 'react-router-dom';
 
 export default function Feed() {
 
     const dispatch = useDispatch();
     const {meals, loadingStatus, message, scrollCount, endOfResultsFlag} = useSelector(state => state.feed);
-    const {addresses, currentAddress, range, tags, delivery} = useSelector(state => state.feed);
+    const {addresses, currentAddress, range, tags, delivery, redirectedToFeed} = useSelector(state => state.feed);
     const {deliveryAddress} = useSelector(state => state.cart);
     const [messageDeliveryAddress, setMessageDeliveryAddress] = useState('');
     const [currentLocationSelected, setCurrentLocationSelected] = useState(false);
     const {register, handleSubmit, errors} = useForm();
-    const history = useHistory();
 
     const handleChangeAddress = (event) => {
         let selectedAddress = event.target.value;
-        if(selectedAddress === "currentLocation"){
+        if(selectedAddress === "Current location"){
             setCurrentLocationSelected(true);
             window.navigator.geolocation.getCurrentPosition((position) => {
-            dispatch(changeAddress({address:'CURRENT_LOCATION', lat: position.coords.latitude, lon: position.coords.longitude}));
+            dispatch(changeAddress({address:'Current location', lat: position.coords.latitude, lon: position.coords.longitude}));
             }, console.log);
         }else{
             setCurrentLocationSelected(false);
             //check if user has items in cart, and prevent changing delivery address untill he clears cart
-            if(deliveryAddress !== '' && deliveryAddress !== selectedAddress && selectedAddress !== 'CURRENT_LOCATION'){
+            if(deliveryAddress !== '' && deliveryAddress !== selectedAddress && selectedAddress !== 'Current location'){
                 setMessageDeliveryAddress(`You already have meals in your cart for address "${deliveryAddress}"`);
             }else{
                 setMessageDeliveryAddress('');
@@ -74,23 +72,23 @@ export default function Feed() {
     const handleBottomOfPage = () => {
         if((window.innerHeight + window.scrollY) > document.body.scrollHeight - 2) {
             dispatch(bottomOfPage());
-            console.log("innerHeight = "+window.innerHeight);
-            console.log("scrollY = "+window.scrollY);
-            console.log("scrollHeight = "+document.body.scrollHeight);
         }
     };
      
     useEffect(() => { // ON MOUNT AND UNMOUNT
-        //window.scrollTo(0,0);
         window.addEventListener('scroll', handleBottomOfPage);
+        return () => {
+            dispatch(redirectFromFeed());
+            window.removeEventListener('scroll', handleBottomOfPage);
+        }
+        //eslint-disable-next-line
     },[]);
     
     useEffect(() => { // ON UPDATES
-        console.log("AAAAAAAAAA");
-        if(!endOfResultsFlag){
+        if(!endOfResultsFlag && !redirectedToFeed){
             dispatch(getMealsAPI(currentAddress, range, tags, delivery, scrollCount));
         }
-    },[currentAddress, range, tags, delivery, scrollCount, endOfResultsFlag, dispatch]);
+    },[currentAddress, range, tags, delivery, scrollCount, endOfResultsFlag, redirectedToFeed, dispatch]);
 
     return(
         <div className="feed">
@@ -102,7 +100,7 @@ export default function Feed() {
                         <option value={addressItem.address} key={index}>
                             {addressItem.address}
                         </option>)}
-                        <option value="currentLocation">
+                        <option value="Current location">
                             Current location
                         </option>
                     </select>

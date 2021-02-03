@@ -2,11 +2,14 @@
 @import '../../mixins';
 
 .feed{
+    scroll-behavior: smooth;
     background-color: white;
     .feed-meals-container{
+        scroll-behavior: smooth;
        @include flexAlign(column, center, center, nowrap);
     }
     .feed-filters{
+        scroll-behavior: smooth;
         position: fixed;
         width:max-content;
         height:100vh;
@@ -18,6 +21,7 @@
         margin: 1rem 0rem;
     }
     .feed-filters-container{
+        scroll-behavior: smooth;
         padding:0.5rem;
         margin:1rem 0.2rem;
     }
@@ -30,6 +34,7 @@
         margin: 1rem 0rem;
     }
     .feed-bottom{
+        scroll-behavior: smooth;
         text-align: center;
     }
 }
