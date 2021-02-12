@@ -12,6 +12,7 @@
         margin: 0.4rem;
         padding: 1rem;
         background-color: $accent-color;
+        transition: 0.2s;
     }
     .cart-meal-header{
         @include flexAlign(row,space-between, center, wrap);

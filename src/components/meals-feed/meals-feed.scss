@@ -2,21 +2,25 @@
 @import '../../mixins';
 .meal{
     margin: 1rem 1rem;
-    padding: 1rem 1rem;
     background-color: $wrapper-color;
-    width:32rem;
-
+    width:60rem;
+    @include flexAlign(row, flex-start, flex-start, nowrap);
+    .meal-right-container{
+      width:30rem;
+      height:30rem;
+      padding:0rem 1rem;
+    }
     .meal-header{
-        @include flexAlign(row, space-between, center, wrap);
-        margin: 1rem 0rem;
+        @include flexAlign(row, space-between, flex-start, wrap);
         cursor: pointer;
     }
     .meal-name{
+        width:80%;
         color:$accent-color;
         font-size:2rem;
     }
     .meal-price{
-        color:$accent-color;
+        color:$accent-color-3;
         font-size: 2.2rem;
     }
     .meal-photo{
@@ -41,18 +45,16 @@
         font-size: 1.8rem;
         color:$accent-color;
         transition:0.2s;
-        padding:0.2rem 0.4rem;
+        padding:0.2rem 0rem;
         width:max-content;
         cursor: pointer;
         &:hover{
-            color:white;
-            background-color: $accent-color;
+            color:$success-color;
         }
     
     }
     .meal-delivery-tags{
         @include flexAlign(row,space-between,flex-start,wrap);
-        margin: 0.2rem;
     }
     .meal-delivery-tag{
         margin:0;
@@ -71,11 +73,17 @@
         display:inline-block;
         color:$accent-color;
         font-size:1.8rem;
-        margin:0.2rem;
+        margin:0.1rem;
         padding:0.2rem;
     }
     .meal-range{
         padding:0.5rem;
         margin:1rem 0.2rem;
+    }
+}
+@media (max-width: 760px){
+    .meal{
+        flex-direction: column;
+        width: 30rem;
     }
 }

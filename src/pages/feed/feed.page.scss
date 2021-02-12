@@ -2,7 +2,6 @@
 @import '../../mixins';
 
 .feed{
-    background-color: white;
     .feed-meals-container{
        @include flexAlign(column, center, center, nowrap);
     }
@@ -10,12 +9,12 @@
         position: fixed;
         width:max-content;
         height:100vh;
-        width:20%;
+        width:20vw;
         background-color: $wrapper-color;
         padding:1.4rem;
-        top:5rem;
+        top:6rem;
         left:0rem;
-        margin: 1rem 0rem;
+        border-radius: 0;
     }
     .feed-filters-container{
         padding:0.5rem;
@@ -23,6 +22,10 @@
     }
     .feed-filters-nutrition{
         margin:1.2rem 0rem;
+        @include flexAlign(row, flex-start, center, nowrap);
+    }
+    .feed-filters-nutrition-box{
+        @include flexAlign(row, flex-start, center, nowrap);
     }
     .feed-filters-heading{
         font-size:2rem;
@@ -31,6 +34,14 @@
     }
     .feed-bottom{
         text-align: center;
+    }
+    .feed-nutrition-icon{
+        color:$success-color;
+        width:2rem;
+        height: 2rem;
+    }
+    .fa-truck{
+        color:$success-color;
     }
 }
 
@@ -44,11 +55,14 @@
 //         display: none;
 //     }
 // }
-// @media (max-width: 760px){
-//     .feed-filters{
-//         display: none;
-//     }
-// }
+@media (max-width: 760px){
+    .feed-meals-container{
+        transform: translateX(0);
+    }
+    .feed-filters{
+        display: none;
+    }
+}
 // @media (max-width: 560px){
 //     .feed-filters{
 //         display: none;

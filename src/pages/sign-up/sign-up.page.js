@@ -47,12 +47,24 @@ export default function SignUp() {
                         <GoogleAutocomplete placeholder='Your address'/>
                         {errors.deliveryAddress && <InputError text={'Delivery address is required'}/>}
 
+                        <input type="text" name="description" ref={register({required:true})} 
+                        placeholder="floor / apartment / other" 
+                        className="sign-up-address-description"/>
+                        {errors.description && <InputError text={'This field is required'}/>}
+
+                        <div className="label-accent-color">Phone</div>
+                        <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})}/>
+                        {errors.phone && errors.phone.type === "required" && <InputError text={'Phone is required'}/>}
+                        {errors.phone && errors.phone.type === "pattern" && <InputError text={'Phone can contain numbers only'}/>}
+
                         <div className="label-accent-color">Password</div>
                         <input type="password" name="password" ref={register({required:true})}/>
                         {errors.password && <InputError text={'Password is required'}/>}
+
                         <div className="label-accent-color">Retype password</div>
                         <input type="password" name="retypePassword" ref={register({required:true})}/>
                         {errors.retypePassword && <InputError text={'Retype password'}/>}
+
                         <SubmitButton loadingStatus={loadingStatus} text="Sign Up"/>
                     </form>
                 {message.text && <p className="message-danger">{message.text}</p>}

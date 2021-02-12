@@ -1,3 +1,4 @@
+import './verify-account.page.scss';
 import { useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { verifyAccountAPI } from '../../common/api/auth.api';

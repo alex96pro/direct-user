@@ -1,22 +1,27 @@
 import './profile.page.scss';
 import { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { addNewAddressAPI, removeAddressAPI } from '../../common/api/auth.api';
+import { addNewAddressAPI } from '../../common/api/auth.api';
 import ConfirmModal from './confirm.modal';
 import NavBar from '../../components/nav-bar/nav-bar';
 import ChangePasswordModal from './change-password.modal';
-import MessageDanger from '../../components/common/message-danger';
+import InputError from '../../components/common/input-error';
 import GoogleAutocomplete from '../../components/common/google-autocomplete';
-import Loader from '../../components/common/loader';
+import SubmitButton from '../../components/common/submit-button';
 
 export default function Profile() {
 
+    const {register, handleSubmit, errors} = useForm();
     const [changePasswordModal, setChangePasswordModal] = useState(false);
-    const [confirmModal, setConfirmModal] = useState({show:false, addressToRemove:''});
-    const [message, setMessage] = useState('');
+    const [confirmModal, setConfirmModal] = useState({show:false, addressIdToRemove:''});
+    const [messageAdd, setMessageAdd] = useState('');
+    const [messageDelete, setMessageDelete] = useState({id: -1, text:''});
     const dispatch = useDispatch();
-    const {user, loadingStatus} = useSelector(state => state.authentication);
+    const {email, phone, addresses, loadingStatus} = useSelector(state => state.authentication);
     const {deliveryAddress} = useSelector(state => state.cart);
+    const {currentAddress} = useSelector(state => state.feed);
+    const [addNewAddressShow, setAddNewAddressShow] = useState(false);
 
     const closeChangePasswordModal = () => {
         setChangePasswordModal(false);
@@ -27,43 +32,37 @@ export default function Profile() {
     };
 
     const checkRemoveAddress = (address) => {
-        if(user.addresses.length === 1){
-            setMessage("You can't remove your only address. Add new one, and delete desired address");
-        }else if(address === deliveryAddress){
-            setMessage("You have meals in your cart for that address");
+        if(addresses.length === 1){
+            setMessageDelete({id: address.addressId, text: "You can't remove your only address. Add new one, and delete desired address"});
+        }else if(address.addressId === deliveryAddress.addressId){
+            setMessageDelete({id: address.addressId, text: "You have meals in your cart for this address"});
+        }else if(address.addressId === currentAddress.addressId){
+            setMessageDelete({id: address.addressId, text: "This address is currently selected on your feed, please switch to other address"});
         }else{
-            setMessage("");
-            setConfirmModal({show:true, addressToRemove:address});
+            setMessageDelete({id: -1, text: ""});
+            setConfirmModal({show:true, addressIdToRemove:address.addressId});
         }
     };
 
-    const removeAddress = () => {
-        dispatch(removeAddressAPI(confirmModal.addressToRemove));
-        closeConfirmModal();
-    };
-
-    const addNewAddress = () => {
-        let addressExists = false;
+    const addNewAddress = (data) => {
         let newAddress = JSON.parse(localStorage.getItem('POSITION'));
+        if(addresses.length === 5){
+            setMessageAdd("You can have 5 addresses maximum");
+            return;
+        }
         if(newAddress){
-            for(let i = 0; i < user.addresses.length; i++){
-                if(user.addresses[i].lat === newAddress.lat && user.addresses[i].lon === newAddress.lon){
-                    addressExists = true;
-                    break;
+            for(let i = 0; i < addresses.length; i++){
+                if(addresses[i].lat === newAddress.lat && addresses[i].lon === newAddress.lon){
+                    setMessageAdd("You already have that address");
+                    return;
                 }
             }
-            if(addressExists){
-                setMessage("You already have that address");
-            }else{
-                setMessage("");
-                document.getElementById('search-google-maps').value = '';
-                dispatch(addNewAddressAPI());
-            }
-            localStorage.removeItem('POSITION');
+            setMessageAdd("");
+            dispatch(addNewAddressAPI(data));
+            
         }else{
-            setMessage('Enter address');
+            setMessageAdd('Enter address');
         }
-        
     };
 
     return (
@@ -73,30 +72,44 @@ export default function Profile() {
                 <div className="profile-container-header">Your Profile</div>
                 <div className="profile-info">
                     <div className="profile-header-small">Email</div>
-                    <div className="label-accent-color">{user.email}</div>
+                    <div className="label-accent-color">{email}</div>
+                    <div className="profile-header-small">Phone</div>
+                    <div className="label-accent-color">{phone}</div>
                     <div className="profile-header-small">Addresses</div>
 
-                    <div className="profile-new-address">
-                        <GoogleAutocomplete placeholder='New address'/>
-                        <button onClick={addNewAddress} className="profile-button">Add</button>
-                    </div>
-                    {loadingStatus && <Loader className="loader-small"/>}
-                    {user.addresses.map((address, index) =>
-                    <div className="profile-address-row" key={index}>
+                    {addresses.map((address, index) =>
+                    <div className="profile-address-row" key={address.addressId}>
                         <div className="label-accent-color">
-                            {index + 1} : {address.address}
+                            <label className="label-accent-color-2">{index + 1}.</label>
+                            {address.address} {`(${address.description})`}
+                            {messageDelete.id === address.addressId && <InputError text={messageDelete.text}/>}
                         </div>
-                        <button onClick={() => checkRemoveAddress(address.address)} className="profile-button-danger">
-                            Remove
-                        </button>
+                        <i className="fas fa-trash fa-2x" onClick={() => checkRemoveAddress(address)}></i>
                     </div>
                     )}
-                    <MessageDanger text={message}/>
+                    {!addNewAddressShow && <button onClick={() => setAddNewAddressShow(true)} className="button-long">Add new address</button>}
+
+                    {addNewAddressShow && 
+                    <div className="profile-new-address">
+                        <form onSubmit={handleSubmit(addNewAddress)}>
+                            <GoogleAutocomplete placeholder='New address'/>
+
+                            <input type="text" name="description" ref={register({required:true})} 
+                            placeholder="floor / apartment / other" 
+                            className="profile-address-description"/>
+                            {errors.description && <InputError text={'This field is required'}/>}
+                            {messageAdd && <InputError text={messageAdd}/>}
+
+                            <SubmitButton loadingStatus={loadingStatus} small={true} text='Add'/>
+                            <button type="button" onClick={() => setAddNewAddressShow(false)} className="button-normal">Cancel</button>
+                        </form>
+                    </div>
+                    }
                 </div>
                 <button onClick={() => setChangePasswordModal(true)} className="button-link">Change password</button>
             </div>
             {changePasswordModal && <ChangePasswordModal closeModal={closeChangePasswordModal}/>}
-            {confirmModal.show && <ConfirmModal confirm={removeAddress} closeModal={closeConfirmModal}
+            {confirmModal.show && <ConfirmModal addressIdToRemove={confirmModal.addressIdToRemove} closeModal={closeConfirmModal}
             text='Are you sure you want to remove this address?'/>}
         </div>
     );

@@ -32,8 +32,8 @@ export default function Feed() {
         }else{
             setCurrentLocationSelected(false);
             //check if user has items in cart, and prevent changing delivery address untill he clears cart
-            if(deliveryAddress !== '' && deliveryAddress !== selectedAddress && selectedAddress !== 'Current location'){
-                setMessageDeliveryAddress(`You already have meals in your cart for address "${deliveryAddress}"`);
+            if(deliveryAddress !== '' && deliveryAddress.address !== selectedAddress && selectedAddress !== 'Current location'){
+                setMessageDeliveryAddress(`You already have meals in your cart for address "${deliveryAddress.address}"`);
             }else{
                 setMessageDeliveryAddress('');
                 let newAddress;
@@ -88,7 +88,7 @@ export default function Feed() {
         if(!endOfResultsFlag && !redirectedToFeed){
             dispatch(getMealsAPI(currentAddress, range, tags, delivery, scrollCount));
         }
-    },[currentAddress, range, tags, delivery, scrollCount, endOfResultsFlag, redirectedToFeed, dispatch]);
+    },[currentAddress, range, tags, delivery, scrollCount, endOfResultsFlag, redirectedToFeed, addresses, dispatch]);
 
     return(
         <div className="feed">
@@ -120,14 +120,18 @@ export default function Feed() {
                         <div className="feed-filters-heading">Nutrition filters</div>
                         {MEAL_TAGS.map((tag, index) => 
                         <div className="feed-filters-nutrition" key={index}>
-                            <input type="checkbox" onChange={handleChangeTag} value={tag.value} checked={tags.includes(tag.value)}/>
-                            <label className="label-accent-color">{tag.name}</label>
+                            <i className={tag.icon}></i>
+                            <div>
+                                <input type="checkbox" onChange={handleChangeTag} value={tag.value} checked={tags.includes(tag.value)}/>
+                                <label className="label-accent-color">{tag.name}</label>
+                            </div>
                         </div>
                         )}
                     </div>
                     
                     <div className="feed-filters-container">
                         <div className="feed-filters-heading">Delivery options</div>
+                        <i className="fas fa-truck fa-2x"></i>
                         <input type="checkbox" value="delivery" onChange={handleAddDelivery} checked={delivery}/>
                         <label className="label-accent-color">Delivery</label>
                     </div>

@@ -30,21 +30,37 @@ export default function feedReducer(state = initialState, action) {
                 endOfResultsFlag: false,
                 message: newArray.length <= 2 ? 'End of results': ''
             };
-        case ACTIONS.PUT_ADDRESSES_IN_FEED:
+        case ACTIONS.SET_FEED_ADDRESSES:
             return {
                 ...state,
                 addresses: action.payload,
                 currentAddress: action.payload[0]
             };
-        case ACTIONS.CHANGE_ADDRESS:
+        case ACTIONS.UPDATE_FEED_ADDRESSES:
+            let newFeedAddresses = [];
+            if(action.payload.type === "ADD"){
+                newFeedAddresses = [...state.addresses, action.payload.address];
+            }else{
+                newFeedAddresses = state.addresses.filter(address => address.addressId !== action.payload.addressId);
+            }
             return {
                 ...state,
-                meals:[],
-                scrollCount: 1,
-                endOfResultsFlag: false,
-                currentAddress: action.payload,
-                redirectedToFeed: false
-            };
+                addresses: newFeedAddresses
+            }
+        case ACTIONS.CHANGE_ADDRESS:
+            if(state.currentAddress !== action.payload){
+                return {
+                    ...state,
+                    meals:[],
+                    scrollCount: 1,
+                    endOfResultsFlag: false,
+                    currentAddress: action.payload,
+                    redirectedToFeed: false
+                };
+            }else{
+                return state;
+            }
+            
         case ACTIONS.CHANGE_RANGE:
             return {
                 ...state,

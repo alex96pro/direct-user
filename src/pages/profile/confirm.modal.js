@@ -1,8 +1,17 @@
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeAddressAPI } from '../../common/api/auth.api';
+import ConfirmButton from '../../components/common/confirm-button';
 
 export default function ConfirmModal(props) {
     
     const [modalOpacity, setModalOpacity] = useState(0);
+    const {loadingStatus} = useSelector(state => state.authentication);
+    const dispatch = useDispatch();
+
+    const deleteAddress = () => {
+        dispatch(removeAddressAPI(props.addressIdToRemove, props.closeModal));
+    };
 
     useEffect(() => {
         setModalOpacity(1);
@@ -10,18 +19,17 @@ export default function ConfirmModal(props) {
 
     return (
         <div className="modal">
-            <div className="modal-overlay" onClick={() => props.closeModal()}></div>
+            <div className="modal-underlay" onClick={() => props.closeModal()}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
-                <div className="modal-x-container">
+                <div className="modal-header">
                     <button onClick={() => props.closeModal()} className="modal-x">x</button>
                 </div>
-                <div className="label-accent-color">
-                    {props.text}
+                <div className="modal-body">
+                    <div className="label-accent-color">
+                        {props.text}
+                    </div>
+                    <ConfirmButton onClick={deleteAddress} loadingStatus={loadingStatus} text='Delete'/>
                 </div>
-                <button onClick={props.confirm} className="button-normal">
-                    Confirm
-                </button>
-                <button onClick={() => props.closeModal()} className="button-normal">Cancel</button>
             </div>
         </div>
     );
