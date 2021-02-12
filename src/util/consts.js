@@ -3,12 +3,12 @@ export const CURRENCY = '$';
 export const DISTANCE = 'km';
 export const DEFAULT_RANGE = 5;
 export const MEAL_TAGS = [
-    {value:'vegetarian', name:'Vegetarian'},
-    {value:'vegan', name:'Vegan'},
-    {value:'organic', name:'Organic'},
-    {value:'glutenfree', name:'Gluten free'},
-    {value:'sugarfree', name:'Sugar free'},
-    {value:'lactosefree', name:'Lactose free'},
+    {value:'vegetarian', name:'Vegetarian', icon:'fas fa-leaf fa-2x feed-nutrition-icon'},
+    {value:'vegan', name:'Vegan', icon:'fas fa-seedling fa-2x feed-nutrition-icon'},
+    {value:'organic', name:'Organic', icon:'fas fa-apple-alt fa-2x feed-nutrition-icon'},
+    {value:'glutenfree', name:'Gluten free', icon:'fas fa-bread-slice fa-2x feed-nutrition-icon'},
+    {value:'sugarfree', name:'Sugar free', icon:'fas fa-candy-cane fa-2x feed-nutrition-icon'},
+    {value:'lactosefree', name:'Lactose free', icon:'fas fa-cheese fa-2x feed-nutrition-icon'},
 ];
 export const PUNCHLINES = [
     `Quick. Easy. Tasty.`,

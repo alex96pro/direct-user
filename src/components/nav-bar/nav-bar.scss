@@ -2,7 +2,7 @@
 @import '../../mixins';
 
 nav{
-    background-color:rgba($color:$accent-color-2, $alpha: 0.9);
+    background-color:rgba($color:$accent-color-2, $alpha: 0.5);
     height:6rem;
     width:100%;
     border-radius: 0;
@@ -12,7 +12,7 @@ nav{
     left:0;
     @include flexAlign(row, flex-end, center, nowrap);
 
-    .nav-bar-link{
+    .nav-link{
         background-color: inherit;
         color:white;
         margin: 0rem 1rem;
@@ -24,14 +24,72 @@ nav{
             color:$accent-color;
         }
     }
-    .nav-bar-container{
-        display:flex;
-        align-items: center;
+    .nav-container{
+        @include flexAlign(row, flex-end, center, wrap);
+        height:100%;
     }
-    .nav-bar-logo{
-        position: absolute;
+    .nav-logo{
+        position: fixed;
         top:0;
         left:2rem;
         top: 0.8rem;
+    }
+    .nav-cart-size{
+        background-color: $accent-color-3;
+        font-size: 2rem;
+        font-weight: bold;
+        padding:0.6rem 1.6rem;
+        color:white;
+        transition:0.2s;
+        cursor: pointer;
+        &:hover{
+            background-color:$accent-color;
+        }
+    }
+    .fa-shopping-cart{
+        color:$accent-color-3;
+        margin-right:3rem;
+        margin-left:2rem;
+        transition:0.2s;
+        cursor: pointer;
+        &:hover{
+            color:$accent-color;
+        }
+    }
+    .fa-bars{
+        color:white;
+        top:0rem;
+        left:0rem;
+        margin:0rem 3rem;
+        transition:0.2s;
+        cursor: pointer;
+        &:hover{
+            color: $accent-color;
+        }
+    }
+    .drop-down{
+        position: absolute;
+        border-radius: 0;
+        top:6.2rem;
+        background-color: $accent-color-2;
+    }
+    .drop-down-item{
+        width:100%;
+        padding:2rem;
+        color:white;
+        background-color: inherit;
+        border-radius: 0;
+        font-size:1.8rem;
+        cursor: pointer;
+        &:hover{
+            background-color: $accent-color;
+        }
+    }
+    .drop-down-underlay{
+        position: absolute;
+        top:0rem;
+        left:0rem;
+        width:100vw;
+        height:100vh;
     }
 }

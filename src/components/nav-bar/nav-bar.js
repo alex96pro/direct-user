@@ -1,15 +1,16 @@
 import './nav-bar.scss';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logOut } from '../../common/actions/auth.actions';
 import Logo from '../../images/logo.png';
-import CartIcon from '../../images/cart-icon.png';
 
 export default function NavBar(props) {
 
     const dispatch = useDispatch();
     const history = useHistory();
     const {cartSize} = useSelector(state => state.cart);
+    const [dropDown, setDropDown] = useState(false);
 
     const handleLogout = () => {
         setTimeout(() => dispatch(logOut()), 1000); // logout has to be the last action that sets the store to initial values
@@ -19,20 +20,28 @@ export default function NavBar(props) {
     return(
         <nav>
             {props.loggedIn ?
-            <div className="nav-bar-container">
-                {cartSize > 0 && <p className="label-white">{cartSize}</p>}
-                <img src={CartIcon} alt="Cart icon" onClick={() => history.push('/cart')}/>
-                <button onClick={() => history.push('/cart')} className="nav-bar-link">Cart</button>
-                <button onClick={() => history.push('/profile')} className="nav-bar-link">Profile</button> 
-                <button onClick={handleLogout} className="nav-bar-link">Logout</button>
+            <div className="nav-container">
+                {cartSize > 0 && <p className="nav-cart-size" onClick={() => history.push('/cart')}>{cartSize}</p>}
+                <i className="fas fa-shopping-cart fa-3x" onClick={() => history.push('/cart')}></i>
+                <i className="fas fa-bars fa-3x" onClick={() => setDropDown(!dropDown)}></i>
+                {dropDown &&
+                <React.Fragment>
+                <div className="drop-down-underlay" onClick={() => setDropDown(false)}> </div>
+                <div className="drop-down">
+                    <div className="drop-down-item" onClick={() => history.push('/profile')}>Profile</div>
+                    <div className="drop-down-item" onClick={handleLogout}>Log out</div>
+                </div>
+                </React.Fragment>
+                }
+
             </div>
             :
-            <div className="nav-bar-container">
-                <button className="nav-bar-link">How it works</button> 
-                <button className="nav-bar-link">About</button>
+            <div className="nav-container">
+                <button className="nav-link">How it works</button> 
+                <button className="nav-link">About</button>
             </div>
             }
-            <img src={Logo} alt="logo" className="nav-bar-logo"/>
+            <img src={Logo} alt="logo" className="nav-logo"/>
         </nav>
     );
 };

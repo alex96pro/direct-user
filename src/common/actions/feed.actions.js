@@ -1,7 +1,8 @@
 export const GET_MEALS = "GET_MEALS";
 export const LOADING_STATUS_FEED = "LOADING_STATUS_FEED";
+export const SET_FEED_ADDRESSES = "SET_FEED_ADDRESSES";
+export const UPDATE_FEED_ADDRESSES = "UPDATE_FEED_ADDRESSES";
 export const END_OF_RESULTS = "END_OF_RESULTS";
-export const PUT_ADDRESSES_IN_FEED = "PUT_ADDRESSES_IN_FEED";
 export const CHANGE_ADDRESS = "CHANGE_ADDRESS";
 export const CHANGE_RANGE = "CHANGE_RANGE";
 export const CHANGE_TAG = "CHANGE_TAG";
@@ -23,16 +24,22 @@ export function getMeals(payload) {
     };
 };
 
-export function endOfResults(payload) {
+export function setFeedAddresses(payload) {
     return {
-        type: END_OF_RESULTS,
+        type: SET_FEED_ADDRESSES,
         payload
     };
 };
 
-export function putAddressesInFeed(payload) {
+export function updateFeedAddresses(payload) {
     return {
-        type: PUT_ADDRESSES_IN_FEED,
+        type: UPDATE_FEED_ADDRESSES,
+        payload
+    };
+};
+export function endOfResults(payload) {
+    return {
+        type: END_OF_RESULTS,
         payload
     };
 };

@@ -12,10 +12,12 @@ export function getMealsAPI(currentAddress, range, tagsArray, delivery, scrollCo
             if(tags && tags.length === 0){
                 tags = null;
             }
+            let today = new Date();
+            today = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            let day = new Date().getDay();
             let response = await axios.get(
             `${BACKEND_API}/user/feed?scrollCount=${scrollCount}&lat=${currentAddress.lat}&lon=${currentAddress.lon}&`+
-            `range=${range}&tags=${tags}&delivery=${delivery}`,
-            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN")}`}});
+            `range=${range}&tags=${tags}&delivery=${delivery}&date=${today}&day=${day}`);
             if(response.data.length){
                 dispatch(getMeals({meals: response.data}));
             }else{

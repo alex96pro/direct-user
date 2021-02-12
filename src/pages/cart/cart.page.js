@@ -75,7 +75,7 @@ export default function Cart() {
                         <div className="label-white">
                             {(Math.round(meal.price * meal.amount * 100) / 100).toFixed(2)}{CURRENCY}
                         </div>
-                        <div className="label-white">
+                        <div>
                             <label className="label-white">Amount</label>
                             <input type="number" min="1" value={meal.amount} onChange={(event) => handleChangeAmount(event, index)}/>
                         </div>
@@ -107,7 +107,7 @@ export default function Cart() {
             
             {meals.length !== 0 && 
                 <div className="cart-total">
-                    {deliveryAddress && <p className="label-accent-color">Delivery address: {deliveryAddress}</p>}
+                    {deliveryAddress && <p className="label-accent-color">Delivery address: {deliveryAddress.address}</p>}
                     <div className="header-accent-color-2">
                         Total: {(Math.round(meals.reduce((sum, current) => sum + current.price * current.amount, 0)*100) / 100).toFixed(2)}{CURRENCY}
                         </div>

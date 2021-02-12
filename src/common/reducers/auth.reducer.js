@@ -2,7 +2,9 @@ import * as ACTIONS from '../actions/auth.actions';
 
 const initialState = {
     loadingStatus: false,
-    user: {},
+    email: '',
+    phone: '',
+    addresses: []
 };
 
 export default function authReducer(state = initialState, action) {
@@ -16,14 +18,22 @@ export default function authReducer(state = initialState, action) {
         case ACTIONS.GET_PROFILE_DATA:
             return{
                 ...state,
-                user: action.payload,
+                email: action.payload.email,
+                phone: action.payload.phone,
+                addresses: action.payload.addresses,
                 loadingStatus: false
             };
-        case ACTIONS.UPDATE_ADDRESSES:
+        case ACTIONS.ADD_NEW_ADDRESS:
             return{
+                ...state,
                 loadingStatus: false,
-                user: {...state.user, addresses: action.payload},
-                currentAddress: action.payload[0] ? action.payload[0]: ''
+                addresses: [...state.addresses, action.payload]
+            };
+        case ACTIONS.REMOVE_ADDRESS:
+            return{
+                ...state,
+                loadingStatus: false,
+                addresses: state.addresses.filter(address => address.addressId !== action.payload)
             };
         default:
             return state;

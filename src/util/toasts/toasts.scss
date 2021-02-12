@@ -1,0 +1,38 @@
+@import "../../variables";
+
+.Toastify__toast-container--top-right {
+    top: 6rem;
+    right: 0rem;
+}
+
+.Toastify__toast-body { 
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.Toastify__toast--info {
+    background-color: $accent-color; 
+}
+
+.Toastify__toast--success {
+    background: $success-color;
+    font-size: 1.8rem;
+}
+
+// .Toastify__toast--default {
+//     background: #fff;
+//     color: #aaa;
+//     font-size: 1.8rem;
+// }
+
+
+// .Toastify__toast--warning {
+//     background: #f1c40f;
+//     font-size: 1.8rem;
+// }
+
+// .Toastify__toast--error {
+//     background: $danger-color;
+//     font-size: 1.8rem;
+// }

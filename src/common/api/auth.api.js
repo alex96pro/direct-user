@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { BACKEND_API } from '../../util/consts';
-import { loadingStatus, getProfileData, updateAddresses } from '../actions/auth.actions';
-import { putAddressesInFeed } from '../actions/feed.actions';
+import { loadingStatus, getProfileData, addNewAddress, removeAddress } from '../actions/auth.actions';
+import { setFeedAddresses, updateFeedAddresses } from '../actions/feed.actions';
+import { successToast } from '../../util/toasts/toasts';
 
 export function signUpAPI(data, message) {
     return async (dispatch) => {
@@ -31,8 +32,8 @@ export function logInAPI(data, loginSuccess, message) {
             if(response.status === 200){
                 localStorage.setItem("ACCESS_TOKEN", response.data.accessToken);
                 localStorage.setItem("USER_ID", response.data.userId);
-                dispatch(getProfileData({email: response.data.email, addresses: response.data.addresses}));
-                dispatch(putAddressesInFeed(response.data.addresses));
+                dispatch(getProfileData({email: response.data.email, phone: response.data.phone, addresses: response.data.addresses}));
+                dispatch(setFeedAddresses(response.data.addresses));
                 loginSuccess();
             }
         }catch(err){
@@ -117,30 +118,38 @@ export function newPasswordAPI(data, userId, message) {
     };
 };
 
-export function addNewAddressAPI() {
+export function addNewAddressAPI(data) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            const position = JSON.parse(localStorage.getItem('POSITION'));
-            const address = localStorage.getItem('ADDRESS');
-            let response = await axios.post(`${BACKEND_API}/auth/add-new-address`,{
-                userId:localStorage.getItem('USER_ID'), address, lat:position.lat, lon:position.lon
-            });
-            dispatch(updateAddresses(response.data));
-            dispatch(putAddressesInFeed(response.data));
+            data.position = JSON.parse(localStorage.getItem('POSITION'));
+            data.address = localStorage.getItem('ADDRESS');
+            data.userId = localStorage.getItem("USER_ID");
+            localStorage.removeItem('POSITION');
+            localStorage.removeItem('ADDRESS');
+            console.log(data);
+            let response = await axios.post(`${BACKEND_API}/auth/add-new-address`, data,
+            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN")}`}});
+            dispatch(addNewAddress(response.data));
+            dispatch(updateFeedAddresses({type: "ADD", address: response.data}));
+            document.getElementById('search-google-maps').value = ''; //clear autocomplete input
+            successToast('Successfully added!');
         }catch(err){
             dispatch(loadingStatus(false));
         }
     };
 };
 
-export function removeAddressAPI(address) {
+export function removeAddressAPI(addressId, closeModal) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
-            let response = await axios.delete(`${BACKEND_API}/auth/remove-address/${localStorage.getItem('USER_ID')}/${address}`,);
-            dispatch(updateAddresses(response.data));
-            dispatch(putAddressesInFeed(response.data));
+            let response = await axios.delete(`${BACKEND_API}/auth/remove-address/${addressId}`,
+            {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN")}`}});
+            dispatch(removeAddress(response.data));
+            dispatch(updateFeedAddresses({type: "REMOVE", addressId: response.data}));
+            closeModal();
+            successToast('Successfully deleted!');
         }catch(err){
             dispatch(loadingStatus(false));
         }

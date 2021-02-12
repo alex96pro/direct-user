@@ -1,14 +1,6 @@
-@import './variables';
-@import './mixins';
-*{
-    margin:0;
-    padding:0;
-    border:0;
-    box-sizing:border-box;
-    font-size:10px;
-    font-family:$main-font;
-    border-radius: 0.8rem;
-}
+@import '../variables.scss';
+@import '../mixins.scss';
+
 .button-link{
     background-color: transparent;
     color:$accent-color;
@@ -42,39 +34,22 @@
     pointer-events: none;
     cursor:none;
 }
-.button-small{
-    @extend .button-normal;
-    font-size: 1.2rem;
-    padding: 0.8rem;
-    margin: 0.2rem;
-}
 .button-long{
     @extend .button-normal;
     width:100%;
     margin: 1rem 0rem;
 }
-.wrapper-container{
-    background-color:$wrapper-color;
-    padding:1rem;
-    margin:1rem;
-    &-big{
-        @extend .wrapper-container;
-        width:30rem;
-    }
+.button-long-disabled{
+    @extend .button-long;
+    background-color: gray;
+    pointer-events: none;
+    cursor:none;
 }
-.form-container{
-    background-color: $wrapper-color;
-    padding:3rem;
-}
-.loader{
-    width:8rem;
-    height:8rem;
-    margin:1rem;
-}
-.loader-small{
-    width:1.5rem;
-    height:1.5rem;
-    margin:0.2rem;
+.button-small{
+    @extend .button-normal;
+    font-size: 1.2rem;
+    padding: 0.8rem;
+    margin: 0.2rem;
 }
 input[type=text], input[type=password], input[type=email]{
     border:1px solid $accent-color;
@@ -91,6 +66,7 @@ input[type=text], input[type=password], input[type=email]{
 input[type=checkbox]{
     height:1.8rem;
     width:1.8rem;
+    margin:0rem 1.2rem;
 }
 input[type=number]{
     @extend input[type=text];
@@ -113,25 +89,10 @@ textarea{
     padding: 0.4rem 1rem;
     resize: none;
 }
-.message-danger{
-    color:$danger-color;
-    font-size:2rem;
-    margin:1rem;
-}
-.input-error{
-    color:$danger-color;
-    font-size:1.4rem;
-    margin-top:0.5rem;
-}
-.message-success{
-    color:$success-color;
-    font-size:2rem;
-    margin:1rem;
-}
 .label-white{
     font-size:1.8rem;
     color:white;
-    margin:0.8rem 0.2rem;
+    margin:0.4rem 0.1rem;
 }
 .label-accent-color{
     @extend .label-white;
@@ -140,14 +101,6 @@ textarea{
 .label-accent-color-2{
     @extend .label-white;
     color:$accent-color-2;
-}
-.modal-overlay{
-    position:fixed;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    background-color: rgba(0, 0, 0, 0.6);
 }
 .get-app-icon{
     height:5.3rem;
@@ -166,39 +119,4 @@ textarea{
 .header-accent-color-2{
     @extend .header-white;
     color:$accent-color-2;
-}
-.modal{
-    .modal-container{
-        position:fixed;
-        background-color: white;
-        width:35rem;
-        padding:1rem;
-        left:50vw;
-        top:50vh;
-        transform: translate(-50%, -50%);
-        opacity:0;
-        transition:1.2s;
-    }
-    .modal-body{
-        margin: 2rem 0rem;
-    }
-    .modal-header{
-        margin: 2rem 0rem;
-    }
-    .modal-x-container{
-        @include flexAlign(row,flex-end,center,nowrap);
-        .modal-x{
-            background-color: $accent-color;
-            color:white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            padding: 0.4rem 0.8rem;
-            margin-bottom:0.6rem;
-            cursor: pointer;
-            transition: 0.2s;
-            &:hover{
-                background-color: $accent-color-2;
-            }
-        }
-    } 
 }

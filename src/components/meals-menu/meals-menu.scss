@@ -8,7 +8,7 @@
         @include flexAlign(column, flex-end, center, nowrap);
         position: relative; // this is not needed when container is flex, his child with absolute position will position relative to flex container
         background-color: $wrapper-color;
-        margin:0.2rem 0rem;
+        margin:0.2rem 0.2rem;
         border-radius: 0;
     }
     &-meal-header{
@@ -22,7 +22,7 @@
         font-size:1.8rem;
     }
     &-meal-price{
-        color:$accent-color;
+        color:darkorange;
         font-size: 1.8rem;
         font-weight: bold;
     }

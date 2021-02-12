@@ -1,7 +1,8 @@
 export const LOADING_STATUS_AUTH = "LOADING_STATUS_AUTH";
 export const LOGOUT = "LOGOUT";
 export const GET_PROFILE_DATA = "GET_PROFILE_DATA";
-export const UPDATE_ADDRESSES = "UPDATE_ADDRESSES";
+export const ADD_NEW_ADDRESS = "ADD_NEW_ADDRESS";
+export const REMOVE_ADDRESS = "REMOVE_ADDRESS";
 
 export function loadingStatus(payload) {
     return {
@@ -24,9 +25,16 @@ export function getProfileData(payload) {
     };
 };
 
-export function updateAddresses(payload) {
+export function addNewAddress(payload) {
     return {
-        type: UPDATE_ADDRESSES,
+        type: ADD_NEW_ADDRESS,
+        payload
+    };
+};
+
+export function removeAddress(payload) {
+    return {
+        type: REMOVE_ADDRESS,
         payload
     };
 };
