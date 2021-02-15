@@ -48,7 +48,7 @@ export default function Landing() {
             <div className="landing-1">
                 <NavBar loggedIn={false}/>
                 <div className="landing-1-container">
-                    <div className="landing-1-heading">Welcome to Daily Specials !</div>
+                    <div className="landing-1-heading">Welcome to Direct !</div>
                     <div className="landing-1-heading">Ideal place for your hunger</div>
                     <div className="landing-1-punchline" id="landing-1-punchline">
                         {PUNCHLINES[currentPunchline]}

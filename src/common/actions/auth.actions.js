@@ -10,28 +10,24 @@ export function loadingStatus(payload) {
         payload
     };
 };
-
 export function logOut(payload) {
     return {
         type: LOGOUT,
         payload
     };
 };
-
 export function getProfileData(payload) {
     return {
         type: GET_PROFILE_DATA,
         payload
     };
 };
-
 export function addNewAddress(payload) {
     return {
         type: ADD_NEW_ADDRESS,
         payload
     };
 };
-
 export function removeAddress(payload) {
     return {
         type: REMOVE_ADDRESS,
