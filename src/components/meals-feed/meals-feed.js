@@ -28,10 +28,8 @@ export default function MealsFeed(props) {
         <React.Fragment>
         {props.meals.map((meal, index) => 
             <div className="meal" key={index}>
-
                 <img src={meal.photo} alt="meal" className="meal-photo" onClick={() => showModal(meal)}
                 onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}/>
-
                 <div className="meal-right-container">
                     <div className="meal-header" onClick={() => showModal(meal)} 
                         onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}>

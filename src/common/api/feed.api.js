@@ -4,7 +4,7 @@ import { loadingStatus } from '../actions/feed.actions';
 import { getMeals } from '../actions/feed.actions';
 import { endOfResults } from '../actions/feed.actions';
 
-export function getMealsAPI(currentAddress, range, tagsArray, delivery, scrollCount) {
+export function getMealsAPI(currentAddress, range, search, tagsArray, delivery, scrollCount) {
     return async (dispatch) => {
         try{
             dispatch(loadingStatus(true));
@@ -17,7 +17,7 @@ export function getMealsAPI(currentAddress, range, tagsArray, delivery, scrollCo
             let day = new Date().getDay();
             let response = await axios.get(
             `${BACKEND_API}/user/feed?scrollCount=${scrollCount}&lat=${currentAddress.lat}&lon=${currentAddress.lon}&`+
-            `range=${range}&tags=${tags}&delivery=${delivery}&date=${today}&day=${day}`);
+            `range=${range}&search=${search}&tags=${tags}&delivery=${delivery}&date=${today}&day=${day}`);
             if(response.data.length){
                 dispatch(getMeals({meals: response.data}));
             }else{

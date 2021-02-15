@@ -15,7 +15,7 @@ export function signUpAPI(data, message) {
                 localStorage.clear();
             }else{
                 dispatch(loadingStatus(false));
-                message('e-mail already in use');
+                message('Email already in use');
             }
         }catch(err){
             dispatch(loadingStatus(false));
@@ -127,7 +127,6 @@ export function addNewAddressAPI(data) {
             data.userId = localStorage.getItem("USER_ID");
             localStorage.removeItem('POSITION');
             localStorage.removeItem('ADDRESS');
-            console.log(data);
             let response = await axios.post(`${BACKEND_API}/auth/add-new-address`, data,
             {headers:{'Authorization':`Basic ${localStorage.getItem("ACCESS_TOKEN")}`}});
             dispatch(addNewAddress(response.data));

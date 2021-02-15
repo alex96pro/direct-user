@@ -42,6 +42,7 @@ export default function Menu() {
                 <div className="menu-categories">
                     {meals.length > 0 && 
                     <div className="menu-header">
+                        {restaurant.logo && <img src={restaurant.logo} alt="Loading..." className="menu-restaurant-logo"/>}
                         <div className="menu-restaurant-name">{restaurant.restaurantName}'s menu</div>
                         {restaurant.delivery ? <div className="menu-restaurant-info">Delivery minimum {restaurant.deliveryMinimum}{CURRENCY}</div>
                         :

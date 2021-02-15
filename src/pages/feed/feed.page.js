@@ -2,7 +2,7 @@ import './feed.page.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMealsAPI } from '../../common/api/feed.api';
-import { changeRange, changeTag, addDelivery, bottomOfPage, redirectFromFeed } from '../../common/actions/feed.actions';
+import { changeRange, searchFeed, changeTag, addDelivery, bottomOfPage, redirectFromFeed } from '../../common/actions/feed.actions';
 import { changeAddress } from '../../common/actions/feed.actions';
 import { useForm } from 'react-hook-form';
 import { DISTANCE, MEAL_TAGS } from '../../util/consts';
@@ -16,7 +16,7 @@ export default function Feed() {
 
     const dispatch = useDispatch();
     const {meals, loadingStatus, message, scrollCount, endOfResultsFlag} = useSelector(state => state.feed);
-    const {addresses, currentAddress, range, tags, delivery, redirectedToFeed} = useSelector(state => state.feed);
+    const {addresses, currentAddress, search, range, tags, delivery, redirectedToFeed} = useSelector(state => state.feed);
     const {deliveryAddress} = useSelector(state => state.cart);
     const [messageDeliveryAddress, setMessageDeliveryAddress] = useState('');
     const [currentLocationSelected, setCurrentLocationSelected] = useState(false);
@@ -45,6 +45,15 @@ export default function Feed() {
                 dispatch(changeAddress(newAddress)); 
             }  
         }   
+    };
+
+    const handleSearch = (data) => {
+        dispatch(searchFeed(data.search));
+    };
+
+    const clearSearch = () => {
+        document.getElementById('search-feed').value = '';
+        dispatch(searchFeed(''));
     };
 
     const handleChangeRange = (data) => {
@@ -86,14 +95,20 @@ export default function Feed() {
     
     useEffect(() => { // ON UPDATES
         if(!endOfResultsFlag && !redirectedToFeed){
-            dispatch(getMealsAPI(currentAddress, range, tags, delivery, scrollCount));
+            dispatch(getMealsAPI(currentAddress, range, search, tags, delivery, scrollCount));
         }
-    },[currentAddress, range, tags, delivery, scrollCount, endOfResultsFlag, redirectedToFeed, addresses, dispatch]);
+    },[currentAddress, range, tags, delivery, scrollCount, endOfResultsFlag, redirectedToFeed, addresses, search, dispatch]);
 
     return(
         <div className="feed">
             <NavBar loggedIn={true}/>
                 <div className="feed-filters">
+                    <form onSubmit={handleSubmit(handleSearch)}>
+                        <div className="label-accent-color">Search</div>
+                        <input required minLength="3" type="text" id="search-feed" ref={register()} name="search" style={{width:'50%'}}/>
+                        <button type="submit" className="button-small">Search</button>
+                        {search && <button type="button" className="button-small" onClick={clearSearch}>Clear</button>}
+                    </form>
                     <div className="label-accent-color">Current address</div>
                     <select onChange={handleChangeAddress} defaultValue={currentAddress.address}>
                         {addresses.map((addressItem, index) =>
@@ -110,10 +125,11 @@ export default function Feed() {
                 
                     <form onSubmit={handleSubmit(handleChangeRange)}>
                         <div className="label-accent-color">Range</div>
-                        <input type="number" defaultValue={range} ref={register({required: true, min:1})} name="range"/>
+                        <input type="number" defaultValue={range} ref={register({required: true, min:1, max:100})} name="range"/>
                         <label className="label-accent-color">{DISTANCE}</label>
                         <button type="submit" className="button-small">Apply</button>
-                        {errors.range && <InputError text={'Range is required'}/>}
+                        {errors.range && errors.range.type === "required" && <InputError text={'Range is required'}/>}
+                        {errors.range && errors.range.type === "max" && <InputError text={`Maximal range is 100${DISTANCE}`}/>}
                     </form>
                 
                     <div className="feed-filters-container">

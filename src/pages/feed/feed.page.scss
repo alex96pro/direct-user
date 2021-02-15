@@ -4,6 +4,9 @@
 .feed{
     .feed-meals-container{
        @include flexAlign(column, center, center, nowrap);
+    //    width: 60rem;
+    //    margin:auto;
+    //    transform: translateX(10vw); //half width of .feed-filters
     }
     .feed-filters{
         position: fixed;
@@ -56,12 +59,17 @@
 //     }
 // }
 @media (max-width: 760px){
-    .feed-meals-container{
-        transform: translateX(0);
+   
+    .feed{
+        .feed-meals-container{
+            width: 30rem;
+            transform: none;
+        }
+        .feed-filters{
+            display: none;
+        }
     }
-    .feed-filters{
-        display: none;
-    }
+    
 }
 // @media (max-width: 560px){
 //     .feed-filters{

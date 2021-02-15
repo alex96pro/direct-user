@@ -14,6 +14,7 @@ export default function SignUp() {
     const {register, handleSubmit, errors} = useForm();
     const dispatch = useDispatch();
     const [message, setMessage] = useState({text: '', success: false});
+    const [messagePasswords, setMessagePasswords] = useState('');
     const {loadingStatus} = useSelector(state => state.authentication);
     const history = useHistory();
 
@@ -23,7 +24,7 @@ export default function SignUp() {
     
     const signUp = (data) => {
         if(data.password !== data.retypePassword){
-            setMessage({text: "Passwords don't match", success: false});
+            setMessagePasswords("Passwords don't match");
         }else{
             const position = JSON.parse(localStorage.getItem('POSITION'));
             const address = localStorage.getItem('ADDRESS');
@@ -42,14 +43,15 @@ export default function SignUp() {
                         <div className="label-accent-color">Email</div>
                         <input type="email" name="email" ref={register({required:true})}/>
                         {errors.email && <InputError text={'Email is required'}/>}
+                        {message.text && <InputError text={message.text}/>}
 
                         <div className="label-accent-color">Delivery address</div>
-                        <GoogleAutocomplete placeholder='Your address'/>
+                        <GoogleAutocomplete/>
+                        
                         {errors.deliveryAddress && <InputError text={'Delivery address is required'}/>}
 
-                        <input type="text" name="description" ref={register({required:true})} 
-                        placeholder="floor / apartment / other" 
-                        className="sign-up-address-description"/>
+                        <div className="label-accent-color">Floor / Apartment / Other</div>
+                        <input type="text" name="description" ref={register({required:true})}/>
                         {errors.description && <InputError text={'This field is required'}/>}
 
                         <div className="label-accent-color">Phone</div>
@@ -60,18 +62,19 @@ export default function SignUp() {
                         <div className="label-accent-color">Password</div>
                         <input type="password" name="password" ref={register({required:true})}/>
                         {errors.password && <InputError text={'Password is required'}/>}
+                        {messagePasswords && <InputError text={messagePasswords}/>}
 
                         <div className="label-accent-color">Retype password</div>
                         <input type="password" name="retypePassword" ref={register({required:true})}/>
                         {errors.retypePassword && <InputError text={'Retype password'}/>}
+                        {messagePasswords && <InputError text={messagePasswords}/>}
 
                         <SubmitButton loadingStatus={loadingStatus} text="Sign Up"/>
                     </form>
-                {message.text && <p className="message-danger">{message.text}</p>}
                 </div>
                 <p className="label-accent-color">Already have an account?<button type="button" onClick={() => history.push('/login')} className="button-link">Log in</button></p>
             </div>}
-            {message.text && message.success && <p className="label-accent-color">{message.text}</p>}
+            {message.text && message.success && <div className="header-accent-color-2">{message.text}</div>}
         </div>
     );
 };

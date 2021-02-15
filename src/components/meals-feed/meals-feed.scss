@@ -7,7 +7,6 @@
     @include flexAlign(row, flex-start, flex-start, nowrap);
     .meal-right-container{
       width:30rem;
-      height:30rem;
       padding:0rem 1rem;
     }
     .meal-header{
@@ -83,7 +82,7 @@
 }
 @media (max-width: 760px){
     .meal{
-        flex-direction: column;
+        @include flexAlign(column, center, center, nowrap);
         width: 30rem;
     }
 }

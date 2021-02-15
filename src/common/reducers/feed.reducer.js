@@ -7,6 +7,7 @@ const initialState = {
     addresses: [],
     currentAddress:'',
     range: 5,
+    search:'',
     tags: [],
     delivery: false,
     scrollCount: 1,
@@ -67,9 +68,18 @@ export default function feedReducer(state = initialState, action) {
                 meals:[],
                 scrollCount: 1,
                 endOfResultsFlag: false,
-                range: action.payload,
-                redirectedToFeed: false
+                redirectedToFeed: false,
+                range: action.payload
             };
+        case ACTIONS.SEARCH_FEED:
+            return {
+                ...state,
+                meals:[],
+                scrollCount: 1,
+                endOfResultsFlag: false,
+                redirectedToFeed: false,
+                search: action.payload
+            }
         case ACTIONS.CHANGE_TAG:
             let newTags = [];
             if(action.payload.checked){
