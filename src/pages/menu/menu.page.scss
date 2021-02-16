@@ -13,17 +13,21 @@
         margin:0.2rem 2rem 0rem 0rem;
     }
     .menu-category{
-        color:$accent-color;
-        margin:2rem 1rem;
-        font-size: 2rem;
+        color:$accent-color-2;
+        background-color:$accent-color-3;
+        margin:2rem 0rem;
+        padding:0.4rem 0rem;
+        font-size: 2.2rem;
+        font-weight: bold;
     }
     .menu-category-header{
-        color:$accent-color;
-        margin:2rem 1rem;
-        font-size: 2.2rem;
+        color:$accent-color-2;
+        margin:0;
+        font-size: 2.5rem;
+        margin-top:4rem;
     }
     .menu-header{
-        background-color: $accent-color;
+        background-color: rgba($color: $accent-color-2, $alpha: 0.5);
         padding: 1rem;
         .menu-restaurant-name{
             color:white;
@@ -35,8 +39,8 @@
             font-size: 2rem;
         }
         .menu-restaurant-logo{
-            width:6rem;
-            height:6rem;
+            width:7rem;
+            height:7rem;
         }
     }
     .menu-message-no-meals{
