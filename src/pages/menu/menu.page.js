@@ -36,7 +36,7 @@ export default function Menu() {
     return(
         <div className="menu">
             <NavBar loggedIn={true}/>
-            {loadingStatus ? <Loader/>
+            {loadingStatus ? <Loader className="loader-center"/>
             :
             <div className="menu-container">
                 <div className="menu-categories">
@@ -49,18 +49,19 @@ export default function Menu() {
                         <div className="menu-restaurant-info">Phone: {restaurant.phone}
                         <div className="menu-restaurant-info">Location: {restaurant.location}</div>
                         </div>
-                    }
-                    </div>}
+                        }
                     <div className="menu-category-header">Categories</div>
                     {restaurant.categories.map((category, index) => <div key={index}>
                         <div className="menu-category"><input type="checkbox" value={category} onChange={addCategory}/>{category}</div>
                     </div>)}
                     <button onClick={() => history.go(-1)} className="button-normal">Back</button>
+                    </div>}
                 </div>
                 <MealsMenu meals={meals} categories={selectedCategories.length ? selectedCategories : restaurant.categories}/>
+                {message && <div className="menu-message-no-meals">{message}</div>}
             </div>
             }
-            {message && <div className="header-accent-color">{message}</div>}
+            
         </div>
     );
 }

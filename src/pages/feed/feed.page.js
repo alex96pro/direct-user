@@ -20,7 +20,7 @@ export default function Feed() {
     const {deliveryAddress} = useSelector(state => state.cart);
     const [messageDeliveryAddress, setMessageDeliveryAddress] = useState('');
     const [currentLocationSelected, setCurrentLocationSelected] = useState(false);
-    const {register, handleSubmit, errors} = useForm();
+    const {register, handleSubmit, errors} = useForm({defaultValues:{search: search, range: range}});
 
     const handleChangeAddress = (event) => {
         let selectedAddress = event.target.value;
@@ -52,7 +52,10 @@ export default function Feed() {
     };
 
     const clearSearch = () => {
-        document.getElementById('search-feed').value = '';
+        let inputForSearch = document.getElementById('search-feed');
+        if(inputForSearch){
+            inputForSearch.value = '';
+        }
         dispatch(searchFeed(''));
     };
 
@@ -125,7 +128,7 @@ export default function Feed() {
                 
                     <form onSubmit={handleSubmit(handleChangeRange)}>
                         <div className="label-accent-color">Range</div>
-                        <input type="number" defaultValue={range} ref={register({required: true, min:1, max:100})} name="range"/>
+                        <input type="number" ref={register({required: true, min:1, max:100})} name="range"/>
                         <label className="label-accent-color">{DISTANCE}</label>
                         <button type="submit" className="button-small">Apply</button>
                         {errors.range && errors.range.type === "required" && <InputError text={'Range is required'}/>}
