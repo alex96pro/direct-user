@@ -64,10 +64,12 @@ input[type=text], input[type=password], input[type=email]{
     }
 }
 input[type=checkbox]{
-    height:2rem;
     width:2rem;
-    margin:0rem 1.2rem;
+    height:2rem;
+    margin:1rem;
+    color:$accent-color;
 }
+
 input[type=number]{
     @extend input[type=text];
     width:7rem;

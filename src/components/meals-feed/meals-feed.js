@@ -11,7 +11,7 @@ export default function MealsFeed(props) {
 
     const showModal = (meal) => {
         setModal({show: true, selectedMeal: meal});
-    }
+    };
 
     const closeModal = () => {
         setModal({show: false, selectedMeal: {}});
@@ -44,9 +44,9 @@ export default function MealsFeed(props) {
                                 <div className="meal-delivery-tag-minimum"><label className="meal-delivery-tag">Delivery minimum </label>{meal["delivery-minimum"]}{CURRENCY}</div>
                             </div>
                             :
-                            <div className="meal-delivery-tags">
+                            <div>
                                 <div className="meal-delivery-tag">Pickup only</div>
-                                {meal.distance && <div className="meal-delivery-tag">Distance {meal.distance.toFixed(2)}{DISTANCE}</div>}
+                                {meal.distance && <div className="meal-delivery-tag">{meal.distance.toFixed(2)}{DISTANCE} from you</div>}
                             </div>
                         }
                         <div className="meal-delivery-tag">Working hours {' '}

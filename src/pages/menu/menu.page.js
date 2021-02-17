@@ -1,13 +1,13 @@
 import './menu.page.scss';
-import NavBar from '../../components/nav-bar/nav-bar';
-import MealsMenu from '../../components/meals-menu/meals-menu';
-import Loader from '../../components/common/loader';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
 import { getMealsFromMenuAPI } from '../../common/api/menu.api';
 import { clearMenu } from '../../common/actions/menu.actions';
 import { CURRENCY } from '../../util/consts';
+import Loader from '../../components/common/loader';
+import NavBar from '../../components/nav-bar/nav-bar';
+import MealsMenu from '../../components/meals-menu/meals-menu';
 
 export default function Menu() {
 
@@ -39,7 +39,7 @@ export default function Menu() {
             {loadingStatus ? <Loader className="loader-center"/>
             :
             <div className="menu-container">
-                <div className="menu-categories">
+                <div className="menu-info">
                     {meals.length > 0 && 
                     <div className="menu-header">
                         {restaurant.logo && <img src={restaurant.logo} alt="Loading..." className="menu-restaurant-logo"/>}
@@ -52,7 +52,10 @@ export default function Menu() {
                         }
                     <div className="menu-category-header">Categories</div>
                     {restaurant.categories.map((category, index) => <div key={index}>
-                        <div className="menu-category"><input type="checkbox" value={category} onChange={addCategory}/>{category}</div>
+                        <div className="menu-category">
+                            <input type="checkbox" value={category} onChange={addCategory}/>
+                            {category}
+                        </div>
                     </div>)}
                     <button onClick={() => history.go(-1)} className="button-normal">Back</button>
                     </div>}

@@ -1,5 +1,5 @@
 import './feed.page.scss';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMealsAPI } from '../../common/api/feed.api';
 import { changeRange, searchFeed, changeTag, addDelivery, bottomOfPage, redirectFromFeed } from '../../common/actions/feed.actions';
@@ -138,21 +138,21 @@ export default function Feed() {
                     <div className="feed-filters-container">
                         <div className="feed-filters-heading">Nutrition filters</div>
                         {MEAL_TAGS.map((tag, index) => 
-                        <div className="feed-filters-nutrition" key={index}>
-                            <i className={tag.icon}></i>
-                            <div>
-                                <input type="checkbox" onChange={handleChangeTag} value={tag.value} checked={tags.includes(tag.value)}/>
-                                <label className="label-accent-color">{tag.name}</label>
-                            </div>
+                        <div className="feed-filter-row" key={index}>
+                            <div><i className={tag.icon}></i></div>
+                            <input type="checkbox" value={tag.value} onChange={handleChangeTag} checked={tags.includes(tag.value)}/>
+                            <div className="label-accent-color">{tag.name}</div>
                         </div>
                         )}
                     </div>
                     
                     <div className="feed-filters-container">
                         <div className="feed-filters-heading">Delivery options</div>
-                        <i className="fas fa-truck fa-2x"></i>
-                        <input type="checkbox" value="delivery" onChange={handleAddDelivery} checked={delivery}/>
-                        <label className="label-accent-color">Delivery</label>
+                        <div className="feed-filter-row">
+                            <i className="fas fa-truck fa-2x"></i>
+                            <input type="checkbox" onChange={handleAddDelivery} value="delivery" checked={delivery}/>
+                            <div className="label-accent-color">Delivery</div>
+                        </div>
                     </div>
                 </div>
                 

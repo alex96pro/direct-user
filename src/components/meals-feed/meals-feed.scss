@@ -2,12 +2,13 @@
 @import '../../mixins';
 .meal{
     margin: 1rem 1rem;
-    background-color: $wrapper-color;
+    background-color:$wrapper-color;
     width:60rem;
     @include flexAlign(row, flex-start, flex-start, nowrap);
     .meal-right-container{
       width:30rem;
-      padding:0rem 1rem;
+      padding:0rem 0.5rem;
+      height:30rem;
     }
     .meal-header{
         @include flexAlign(row, space-between, flex-start, wrap);
@@ -16,7 +17,7 @@
     .meal-name{
         width:80%;
         color:$accent-color;
-        font-size:2rem;
+        font-size:2.2rem;
     }
     .meal-price{
         color:$accent-color-3;
@@ -29,8 +30,8 @@
     }
     .meal-restaurant-name{
         color:$success-color;
-        font-size:2.2rem;
-        margin: 1rem 0rem;
+        font-size:2rem;
+        margin-top:0.8rem;
         padding: 0.2rem;
         transition:0.2s;
         width:max-content;
@@ -41,16 +42,9 @@
         }
     }
     .meal-see-menu{
-        font-size: 1.8rem;
-        color:$accent-color;
-        transition:0.2s;
-        padding:0.2rem 0rem;
-        width:max-content;
-        cursor: pointer;
-        &:hover{
-            color:$success-color;
-        }
-    
+        @extend .meal-restaurant-name;
+        font-size:1.8rem;
+        margin:0;
     }
     .meal-delivery-tags{
         @include flexAlign(row,space-between,flex-start,wrap);
@@ -59,7 +53,7 @@
         margin:0;
         padding:0;
         font-size: 1.8rem;
-        color:$accent-color;
+        color:$accent-color-2;
     }
     .meal-delivery-tag-minimum{
         @extend .meal-delivery-tag;
@@ -72,7 +66,6 @@
         display:inline-block;
         color:$accent-color;
         font-size:1.8rem;
-        margin:0.1rem;
         padding:0.2rem;
     }
     .meal-range{

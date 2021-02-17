@@ -30,6 +30,20 @@ export default function MealModal(props) {
         infoToast('Added to cart');
     };
 
+    const incrementAmmount = () => {
+        const input = document.getElementsByName('amount')[0];
+        if(input){
+            input.stepUp();
+        }
+    };
+
+    const decrementAmmount = () => {
+        const input = document.getElementsByName('amount')[0];
+        if(input && input.value > 0){
+            input.stepDown();
+        }
+    };
+
     return (
         <div className="modal">
             <div className="modal-underlay" onClick={() => props.closeModal()}></div>
@@ -57,6 +71,8 @@ export default function MealModal(props) {
                     <form onSubmit={handleSubmit(handleAddToCart)}>
                         <div className="label-accent-color-2">Amount</div>
                         <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})}/>
+                        <i className="fas fa-plus fa-2x" onClick={incrementAmmount}></i>
+                        <i className="fas fa-minus fa-2x" onClick={decrementAmmount}></i>
                         {errors.amount && <InputError text={'Amount is required'}/>}
                         <div className="label-accent-color-2">Notes (optional)</div>
                         <textarea name="notes" ref={register({maxLength: 200})}/>

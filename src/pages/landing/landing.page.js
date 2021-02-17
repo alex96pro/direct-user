@@ -63,8 +63,8 @@ export default function Landing() {
             </div>
             <div className="landing-2">
                 <div className="landing-2-container">
-                    <button type="button" className="landing-2-button">Register your restaurant</button>
-                    <button type="button" className="landing-2-button">Log In to your restaurant</button>
+                    <a href="https://direct-restaurant-dev.herokuapp.com/sign-up" className="landing-2-button">Register your restaurant</a>
+                    <a href="https://direct-restaurant-dev.herokuapp.com/login" className="landing-2-button">Log In to your restaurant</a>
                 </div>
             </div>
         </div>

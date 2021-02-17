@@ -19,21 +19,18 @@
         left:0rem;
         border-radius: 0;
     }
+   
     .feed-filters-container{
         padding:0.5rem;
         margin:1rem 0.2rem;
     }
-    .feed-filters-nutrition{
-        margin:1.2rem 0rem;
-        @include flexAlign(row, flex-start, center, nowrap);
-    }
-    .feed-filters-nutrition-box{
+    .feed-filter-row{
         @include flexAlign(row, flex-start, center, nowrap);
     }
     .feed-filters-heading{
         font-size:2rem;
         color:$accent-color;
-        margin: 1rem 0rem;
+        margin: 0.4rem 0rem;
     }
     .feed-bottom{
         text-align: center;
@@ -44,22 +41,12 @@
         height: 2rem;
     }
     .fa-truck{
+        width:2rem;
+        height:2rem;
         color:$success-color;
     }
 }
-
-// @media (max-width: 1760px){
-//     .feed-filters{
-//         display: none;
-//     }
-// }
-// @media (max-width: 960px){
-//     .feed-filters{
-//         display: none;
-//     }
-// }
 @media (max-width: 760px){
-   
     .feed{
         .feed-meals-container{
             width: 30rem;
@@ -69,10 +56,4 @@
             display: none;
         }
     }
-    
 }
-// @media (max-width: 560px){
-//     .feed-filters{
-//         display: none;
-//     }
-// }
