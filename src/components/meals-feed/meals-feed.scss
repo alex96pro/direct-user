@@ -24,6 +24,7 @@
         font-size: 2.2rem;
     }
     .meal-photo{
+        border-radius: 0;
         width: 30rem;
         height: 30rem;
         cursor: pointer;
@@ -73,9 +74,17 @@
         margin:1rem 0.2rem;
     }
 }
-@media (max-width: 760px){
+@media (max-width: 390px){
     .meal{
-        @include flexAlign(column, center, center, nowrap);
-        width: 30rem;
+        @include flexAlign(column, stretch, center, nowrap);
+        width: 100%;
+        height: max-content;
+        .meal-right-container{
+            height: max-content;
+        }
+        .meal-photo{
+            min-width:100%;
+            height: auto;
+        }
     }
 }

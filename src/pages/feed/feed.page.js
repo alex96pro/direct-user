@@ -21,6 +21,7 @@ export default function Feed() {
     const [messageDeliveryAddress, setMessageDeliveryAddress] = useState('');
     const [currentLocationSelected, setCurrentLocationSelected] = useState(false);
     const {register, handleSubmit, errors} = useForm({defaultValues:{search: search, range: range}});
+    const [showFilters, setShowFilters] = useState(false);
 
     const handleChangeAddress = (event) => {
         let selectedAddress = event.target.value;
@@ -86,6 +87,18 @@ export default function Feed() {
             dispatch(bottomOfPage());
         }
     };
+
+    const showFiltersForMobile = () => {
+        let filters = document.getElementsByClassName('feed-filters')[0];
+        if(filters){
+            if(showFilters){
+                filters.style.display = "none";
+            }else{
+                filters.style.display = "block";
+            }
+        }
+        setShowFilters(!showFilters);
+    }
      
     useEffect(() => { // ON MOUNT AND UNMOUNT
         window.addEventListener('scroll', handleBottomOfPage);
@@ -163,6 +176,9 @@ export default function Feed() {
                     <div className="feed-bottom"><p className="message-success">{message}</p>
                     {scrollCount > 2 && <button onClick={() => window.scroll(0,0)} className="button-small">Go top</button>}</div>}
                 </div>
+                <button onClick={showFiltersForMobile} className="mobile-footer">
+                    {showFilters ? 'Return to feed' : 'Filters'}
+                </button>
         </div>
     );
 };

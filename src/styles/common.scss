@@ -114,3 +114,8 @@ body{
     margin-left:0.4rem;
     cursor: pointer;
 }
+@media(max-width:390px){
+    *{
+        font-size:9px;
+    }
+}

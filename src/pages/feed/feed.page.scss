@@ -45,15 +45,37 @@
         height:2rem;
         color:$success-color;
     }
+    .mobile-footer{
+        display:none;
+        position: fixed;
+        width:100vw;
+        bottom:0;
+        left:0;
+        background-color:$accent-color;
+        color:white;
+        font-size: 1.8rem;
+        padding:1rem;
+        border-radius: 0;
+    }
 }
-@media (max-width: 760px){
+@media (max-width: 390px){
     .feed{
         .feed-meals-container{
-            width: 30rem;
-            transform: none;
+            margin:0;
         }
         .feed-filters{
             display: none;
+            position:fixed;
+            top:6;
+            left:0;
+            width:100vw;
+            transition:0.2s;
+        }
+        .mobile-footer{
+            display:block;
+        }
+        .feed-bottom{
+            margin-bottom:6rem;
         }
     }
 }
