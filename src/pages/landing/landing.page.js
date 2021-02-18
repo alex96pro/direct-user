@@ -55,10 +55,10 @@ export default function Landing() {
                     </div>
                     <button onClick={() => history.push('/login')} className="landing-1-button">Log In</button>
                     <button onClick={() => history.push('/sign-up')} className="landing-1-button">Sign up</button>
-                </div>
-                <div className="landing-1-get-apps">
-                    <img src={GoogleStore} alt="google-store" className="get-app-icon"/>
-                    <img src={AppleStore} alt="apple-store" className="get-app-icon"/>
+                    <div className="landing-1-get-apps">
+                        <img src={GoogleStore} alt="google-store" className="get-app-icon"/>
+                        <img src={AppleStore} alt="apple-store" className="get-app-icon"/>
+                    </div>
                 </div>
             </div>
             <div className="landing-2">

@@ -48,6 +48,7 @@
     .mobile-footer{
         display:none;
         position: fixed;
+        z-index: 3;
         width:100vw;
         bottom:0;
         left:0;
@@ -64,12 +65,13 @@
             margin:0;
         }
         .feed-filters{
-            display: none;
+            visibility: hidden;
             position:fixed;
-            top:6;
+            z-index: 2;
+            top:100vh;
             left:0;
             width:100vw;
-            transition:0.2s;
+            transition:0.4s;
         }
         .mobile-footer{
             display:block;

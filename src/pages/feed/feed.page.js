@@ -92,9 +92,11 @@ export default function Feed() {
         let filters = document.getElementsByClassName('feed-filters')[0];
         if(filters){
             if(showFilters){
-                filters.style.display = "none";
+                filters.style.visibility = "hidden";
+                filters.style.top = '100vh';
             }else{
-                filters.style.display = "block";
+                filters.style.visibility = "visible";
+                filters.style.top = '0';
             }
         }
         setShowFilters(!showFilters);
