@@ -59,9 +59,8 @@ export default function Profile() {
             }
             setMessageAdd("");
             dispatch(addNewAddressAPI(data));
-            
         }else{
-            setMessageAdd('Enter address');
+            setMessageAdd('Address is required');
         }
     };
 
@@ -93,15 +92,13 @@ export default function Profile() {
                     <div className="profile-new-address">
                         <form onSubmit={handleSubmit(addNewAddress)}>
                             <GoogleAutocomplete placeholder='New address'/>
-
+                            {messageAdd && <InputError text={messageAdd}/>}
                             <input type="text" name="description" ref={register({required:true})} 
                             placeholder="floor / apartment / other" 
                             className="profile-address-description"/>
                             {errors.description && <InputError text={'This field is required'}/>}
-                            {messageAdd && <InputError text={messageAdd}/>}
-
-                            <SubmitButton loadingStatus={loadingStatus} small={true} text='Add'/>
-                            <button type="button" onClick={() => setAddNewAddressShow(false)} className="button-normal">Cancel</button>
+                            <button type="button" onClick={() => {setAddNewAddressShow(false); setMessageAdd('');}} className="button-normal">Cancel</button>
+                            <SubmitButton loadingStatus={loadingStatus} small={true} text='Confirm'/>
                         </form>
                     </div>
                     }

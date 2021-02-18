@@ -41,7 +41,7 @@ export default function NavBar(props) {
                 <button className="nav-link">About</button>
             </div>
             }
-            <img src={Logo} alt="logo" className="nav-logo"/>
+            <img src={Logo} onClick={() => props.loggedIn && history.push('/feed')} alt="logo" className="nav-logo"/>
         </nav>
     );
 };

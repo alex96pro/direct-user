@@ -14,7 +14,7 @@
         }
     }
     .profile-info{
-        @include flexAlign(column,center,flex-start,wrap);
+        @include flexAlign(column,center,flex-start,nowrap);
         background-color:$wrapper-color;
         width:60rem;
         margin: 1rem 0rem;
@@ -25,9 +25,8 @@
         font-size: 2rem;
     }
     .profile-new-address{
-        width:100%;
         margin: 1.2rem 0rem;
-        @include flexAlign(row,center, center, wrap);
+        width:100%;
     }
     .profile-address-row{
         width:100%;
