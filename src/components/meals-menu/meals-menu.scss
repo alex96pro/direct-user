@@ -51,3 +51,26 @@
         color:white;
     }
 }
+@media(max-width:768px){
+    .menu{
+        .menu-meals{
+            margin:0;
+            justify-content: center;
+            margin-bottom:5rem; //in order to categories button be visible in mobile footer
+        }
+        .menu-meals-meal-photo{
+            width:15rem;
+            height:15rem;
+        }
+        .menu-meals-meal-name,{
+            font-size: 1.2rem;
+        }
+        .menu-meals-hidden-description{
+            display: none;
+        }
+        .menu-meals-meal-price{
+            font-size: 1.4rem;
+        }
+    }
+    
+}

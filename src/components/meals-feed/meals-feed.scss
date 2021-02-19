@@ -12,6 +12,7 @@
     }
     .meal-header{
         @include flexAlign(row, space-between, flex-start, wrap);
+        margin-bottom: 1rem;
         cursor: pointer;
     }
     .meal-name{
@@ -29,10 +30,9 @@
         height: 30rem;
         cursor: pointer;
     }
-    .meal-restaurant-name{
+    .meal-restaurant-name, .meal-see-menu{
         color:$success-color;
-        font-size:2rem;
-        margin-top:0.8rem;
+        font-size:2.2rem;
         padding: 0.2rem;
         transition:0.2s;
         width:max-content;
@@ -42,26 +42,22 @@
             background-color: $accent-color;
         }
     }
-    .meal-see-menu{
-        @extend .meal-restaurant-name;
-        font-size:1.8rem;
-        margin:0;
-    }
-    .meal-delivery-tags{
+    .meal-restaurant-info{
         @include flexAlign(row,space-between,flex-start,wrap);
     }
-    .meal-delivery-tag{
-        margin:0;
-        padding:0;
+    .meal-delivery-label, .meal-working-hours-label{
         font-size: 1.8rem;
-        color:$accent-color-2;
+        color:rgba($accent-color-2, 0.7);
     }
-    .meal-delivery-tag-minimum{
-        @extend .meal-delivery-tag;
+    .meal-delivery-minimum, .meal-working-hours{
+        color:rgba($accent-color-2, 0.7);
+        font-size: 2.2rem;
+    }
+    .delivery-hours{
         font-size: 2.2rem;
     }
     .meal-tags{
-        margin-top:1rem;
+        margin:1rem 0rem;
     }
     .meal-tag{
         display:inline-block;
@@ -74,17 +70,27 @@
         margin:1rem 0.2rem;
     }
 }
-@media (max-width: 450px){
+@media (max-width: 768px){
     .meal{
-        @include flexAlign(column, stretch, center, nowrap);
+        @include flexAlign(column, stretch, flex-start, nowrap);
         width: 100%;
         height: max-content;
         .meal-right-container{
+            width:100vw;
             height: max-content;
         }
         .meal-photo{
             min-width:100%;
             height: auto;
+        }
+        .meal-name{
+            font-size: 2.6rem;
+        }
+        .meal-price{
+            font-size:2.8rem;
+        }
+        .meal-tag{
+            font-size: 2rem;
         }
     }
 }

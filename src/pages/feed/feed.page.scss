@@ -45,7 +45,7 @@
         height:2rem;
         color:$success-color;
     }
-    .mobile-footer{
+    .feed-footer-mobile{
         display:none;
         position: fixed;
         z-index: 3;
@@ -59,7 +59,7 @@
         border-radius: 0;
     }
 }
-@media (max-width: 450px){
+@media (max-width: 768px){
     .feed{
         .feed-meals-container{
             margin:0;
@@ -73,7 +73,7 @@
             width:100vw;
             transition:0.4s;
         }
-        .mobile-footer{
+        .feed-footer-mobile{
             display:block;
         }
         .feed-bottom{

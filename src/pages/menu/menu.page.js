@@ -1,7 +1,7 @@
 import './menu.page.scss';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { getMealsFromMenuAPI } from '../../common/api/menu.api';
 import { clearMenu } from '../../common/actions/menu.actions';
 import { CURRENCY } from '../../util/consts';
@@ -15,7 +15,7 @@ export default function Menu() {
     const params = useParams();
     const {meals, restaurant, loadingStatus, message} = useSelector((state => state.menu));
     const [selectedCategories, setSelectedCategories] = useState([]);
-    const history = useHistory();
+    const [showCategoriesForMobile, setShowCategoriesForMobile] = useState(false);
 
     useEffect(() => {
         dispatch(getMealsFromMenuAPI(params.id));
@@ -33,12 +33,27 @@ export default function Menu() {
         }
     }
 
+    const showOrHideCategoriesForMobile = () => {
+        let categories = document.getElementsByClassName('menu-info')[0];
+        if(categories){
+            if(showCategoriesForMobile){
+                categories.style.visibility = "hidden";
+                categories.style.top = '100vh';
+            }else{
+                categories.style.visibility = "visible";
+                categories.style.top = '0';
+            }
+        }
+        setShowCategoriesForMobile(!showCategoriesForMobile);
+    };
+
     return(
         <div className="menu">
             <NavBar loggedIn={true}/>
             {loadingStatus ? <Loader className="loader-center"/>
             :
             <div className="menu-container">
+                <div className="menu-header-mobile">{restaurant.restaurantName}'s Menu</div>
                 <div className="menu-info">
                     {meals.length > 0 && 
                     <div className="menu-header">
@@ -57,11 +72,13 @@ export default function Menu() {
                             {category}
                         </div>
                     </div>)}
-                    <button onClick={() => history.go(-1)} className="button-normal">Back</button>
                     </div>}
                 </div>
                 <MealsMenu meals={meals} categories={selectedCategories.length ? selectedCategories : restaurant.categories}/>
                 {message && <div className="menu-message-no-meals">{message}</div>}
+                <button onClick={showOrHideCategoriesForMobile} className="menu-footer-mobile">
+                    {showCategoriesForMobile ? 'Close' : 'Categories'}
+                </button>
             </div>
             }
             

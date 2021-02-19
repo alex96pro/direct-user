@@ -57,4 +57,42 @@
         font-size:4rem;
         color:$accent-color;
     }
+    .menu-header-mobile{
+        text-align: center;
+        width:100vw;
+        color:$accent-color;
+        font-size:2rem;
+        margin-bottom:1rem;
+    }
+    .menu-footer-mobile{
+        display:none;
+        position: fixed;
+        z-index: 3;
+        width:100vw;
+        bottom:0;
+        left:0;
+        background-color:$accent-color;
+        color:white;
+        font-size: 1.8rem;
+        padding:1rem;
+        border-radius: 0;
+    }
+}
+@media (max-width: 768px){
+    .menu{
+        .menu-info{
+            visibility: hidden;
+            // display:none;
+            position:fixed;
+            z-index: 2;
+            top:100vh;
+            left:0;
+            width:100vw;
+            height: 100vh;
+            transition:0.4s;
+        }
+        .menu-footer-mobile{
+            display:block;
+        }
+    }
 }

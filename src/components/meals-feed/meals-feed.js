@@ -39,28 +39,34 @@ export default function MealsFeed(props) {
                     <div>
                         <div className="meal-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
                         <div className="meal-see-menu" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>See menu</div>
-                        {meal.delivery ? 
-                            <div className="meal-delivery-tags">
-                                <div className="meal-delivery-tag-minimum"><label className="meal-delivery-tag">Delivery minimum </label>{meal["delivery-minimum"]}{CURRENCY}</div>
-                            </div>
-                            :
-                            <div>
-                                <div className="meal-delivery-tag">Pickup only</div>
-                                {meal.distance && <div className="meal-delivery-tag">{meal.distance.toFixed(2)}{DISTANCE} from you</div>}
-                            </div>
-                        }
-                        <div className="meal-delivery-tag">Working hours {' '}
-                            {meal["working-hours-from"] ?
-                            `${meal["working-hours-from"]}-${meal["working-hours-to"]}`
-                            :
-                            'Closed'
-                            }
-                        </div>
-                    </div>
-                    <div className="meal-tags">
+                        <div className="meal-tags">
                         {meal.tags.map((tag, tagIndex) => 
                             <div className="meal-tag" key={tagIndex}>#{tag}</div>
                         )}
+                        </div>
+                        {meal.delivery ? 
+                            <div className="meal-restaurant-info">
+                                <div className="meal-delivery-label">Delivery minimum </div>
+                                <div className="meal-delivery-minimum">{meal["delivery-minimum"]}{CURRENCY}</div>
+                            </div>
+                            :
+                            <div className="meal-restaurant-info">
+                                <div className="meal-delivery-label">Pickup only</div>
+                                {meal.distance && <div className="meal-delivery-minimum">{meal.distance.toFixed(2)}{DISTANCE}</div>}
+                            </div>
+                        }
+                        <div className="meal-restaurant-info">
+                            <div className="meal-working-hours-label">Working hours {' '}</div>
+                            {meal["working-hours-from"] ?
+                            <div className="meal-working-hours">
+                                {meal["working-hours-from"]}-{meal["working-hours-to"]}
+                            </div>
+                            :
+                            <div className="meal-delivery-tag">
+                                Closed
+                            </div>
+                            }
+                        </div>
                     </div>
                 </div>
                 

@@ -21,7 +21,7 @@ export default function Feed() {
     const [messageDeliveryAddress, setMessageDeliveryAddress] = useState('');
     const [currentLocationSelected, setCurrentLocationSelected] = useState(false);
     const {register, handleSubmit, errors} = useForm({defaultValues:{search: search, range: range}});
-    const [showFilters, setShowFilters] = useState(false);
+    const [showFiltersForMobile, setShowFiltersForMobile] = useState(false);
 
     const handleChangeAddress = (event) => {
         let selectedAddress = event.target.value;
@@ -88,10 +88,10 @@ export default function Feed() {
         }
     };
 
-    const showFiltersForMobile = () => {
+    const showOrHideFiltersForMobile = () => {
         let filters = document.getElementsByClassName('feed-filters')[0];
         if(filters){
-            if(showFilters){
+            if(showFiltersForMobile){
                 filters.style.visibility = "hidden";
                 filters.style.top = '100vh';
             }else{
@@ -99,8 +99,8 @@ export default function Feed() {
                 filters.style.top = '0';
             }
         }
-        setShowFilters(!showFilters);
-    }
+        setShowFiltersForMobile(!showFiltersForMobile);
+    };
      
     useEffect(() => { // ON MOUNT AND UNMOUNT
         window.addEventListener('scroll', handleBottomOfPage);
@@ -178,8 +178,8 @@ export default function Feed() {
                     <div className="feed-bottom"><p className="message-success">{message}</p>
                     {scrollCount > 2 && <button onClick={() => window.scroll(0,0)} className="button-small">Go top</button>}</div>}
                 </div>
-                <button onClick={showFiltersForMobile} className="mobile-footer">
-                    {showFilters ? 'Return to feed' : 'Filters'}
+                <button onClick={showOrHideFiltersForMobile} className="feed-footer-mobile">
+                    {showFiltersForMobile ? 'Return to feed' : 'Filters'}
                 </button>
         </div>
     );
