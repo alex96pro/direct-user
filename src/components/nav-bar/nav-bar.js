@@ -19,7 +19,7 @@ export default function NavBar(props) {
 
     return(
         <nav>
-            {props.loggedIn ?
+            {props.loggedIn &&
             <div className="nav-container">
                 {cartSize > 0 && <p className="nav-cart-size" onClick={() => history.push('/cart')}>{cartSize}</p>}
                 <i className="fas fa-shopping-cart fa-3x" onClick={() => history.push('/cart')}></i>
@@ -33,12 +33,6 @@ export default function NavBar(props) {
                 </div>
                 </React.Fragment>
                 }
-
-            </div>
-            :
-            <div className="nav-container">
-                <button className="nav-link">How it works</button> 
-                <button className="nav-link">About</button>
             </div>
             }
             <img src={Logo} onClick={() => props.loggedIn && history.push('/feed')} alt="logo" className="nav-logo"/>

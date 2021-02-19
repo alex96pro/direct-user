@@ -72,23 +72,39 @@ body{
         border-radius: 0;
     }
     .modal-container{
+        @include flexAlign(row,center,flex-start,wrap);
         position:fixed;
-        z-index: 1;
+        z-index: 100;
         background-color: white;
-        width:35rem;
         left:50vw;
         top:50vh;
         transform: translate(-50%, -50%);
         opacity:0;
         transition:1.2s;
+        width:36rem;
+    }
+    .modal-container-double{
+        @extend .modal-container;
+        width:72rem;
     }
     .modal-body{
-        margin: 0.4rem;
+        // @include flexAlign(column,center,center,nowrap);
+        height: 100%;
+        width:34rem;
         padding: 0.4rem;
+        margin: 0rem 0.4rem;
+        // margin:0.4rem;
+        height: max-content;
+        // margin-top:3rem;
     }
     .modal-header{
         border-radius: 0;
+        width:100%;
+        // position:absolute;
+        // top:0;
+        // left:0;
         @include flexAlign(row,flex-end,center,nowrap);
+        // justify-self: flex-end011;
         background-color: $wrapper-color;
         .modal-x{
             background-color: $accent-color;
@@ -114,8 +130,29 @@ body{
     margin-left:0.4rem;
     cursor: pointer;
 }
+.meal-modal-photo{
+    width:32rem;
+    height:32rem;
+    margin-top:0.8rem;
+    border-radius: 0;
+}
 @media(max-width:390px){
     *{
         font-size:9px;
+    }
+    .modal{
+        .modal-container{
+            width:100vw;
+        }
+        .meal-modal-photo{
+           margin:0;
+        }
+        .modal-container-double{
+            width: 100vw;
+            height: 100vh;
+            @include flexAlign(row,center,flex-start,wrap);
+            overflow-y: scroll; // for fixed element to be scrollable
+            max-height: 100%; // for fixed element to be scrollable
+        }
     }
 }

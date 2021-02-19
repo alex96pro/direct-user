@@ -47,9 +47,12 @@ export default function MealModal(props) {
     return (
         <div className="modal">
             <div className="modal-underlay" onClick={() => props.closeModal()}></div>
-            <div className="modal-container" style={{opacity:modalOpacity}}>
+            <div className="modal-container-double" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
                     <button onClick={() => props.closeModal()} className="modal-x">x</button>
+                </div>
+                <div className="modal-body">
+                    <img src={props.meal.photo} alt="Loading..." className="meal-modal-photo"/>
                 </div>
                 <div className="modal-body">
                     <Label name='Meal:' value={props.meal.mealName}/>
@@ -64,8 +67,7 @@ export default function MealModal(props) {
                     }
                 
                 {props.meal.delivery || (props.restaurant && props.restaurant.delivery) ? //feed || menu
-                <div className="modal-body">
-                    {currentAddress.address === 'Current location' ?
+                    currentAddress.address === 'Current location' ?
                     <MessageDanger text='Delivery is disabled when using current location'/>
                     :
                     <form onSubmit={handleSubmit(handleAddToCart)}>
@@ -80,8 +82,7 @@ export default function MealModal(props) {
 
                         <button type="submit" className="button-long">Add to cart</button>
                     </form>
-                    }
-                </div>
+                    
                 :
                 <button className="button-long">Get directions</button>
                 }

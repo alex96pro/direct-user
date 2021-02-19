@@ -80,22 +80,25 @@
         .landing-1{
             background-image:none;
             .landing-1-container{
-                position: relative;
                 margin:0;
                 text-align: center;
+                transform: translateY(calc(50vh - 50% - 6rem));
             }
             .landing-1-heading{
                 display:none;
             }
             .landing-1-punchline{
                 font-size:3rem;
+                margin:0;
+                margin-bottom:3rem;
             }
             .landing-1-get-apps{
-                margin:0;
-                margin-top:50vh;
+                position: absolute;
+                top:20rem;
+                left:0;
+                right:0;
+                // bottom:0;
             }
         }
-       
     }
-    
 }
