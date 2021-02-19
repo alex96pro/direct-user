@@ -74,7 +74,7 @@
         margin:1rem 0.2rem;
     }
 }
-@media (max-width: 390px){
+@media (max-width: 450px){
     .meal{
         @include flexAlign(column, stretch, center, nowrap);
         width: 100%;
