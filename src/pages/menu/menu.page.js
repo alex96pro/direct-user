@@ -67,10 +67,9 @@ export default function Menu() {
                         }
                     <div className="menu-category-header">Categories</div>
                     {restaurant.categories.map((category, index) => <div key={index}>
-                        <div className="menu-category">
-                            <input type="checkbox" value={category} onChange={addCategory}/>
-                            {category}
-                        </div>
+                        <label className="menu-category" htmlFor={`category${index}`}>
+                            <input type="checkbox" value={category} onChange={addCategory} id={`category${index}`}/>{category}
+                        </label>
                     </div>)}
                     </div>}
                 </div>

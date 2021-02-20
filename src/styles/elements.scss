@@ -72,7 +72,7 @@ input[type=checkbox]{
 
 input[type=number]{
     @extend input[type=text];
-    width:7rem;
+    width:6rem;
     -moz-appearance: textfield;
 }
 input::-webkit-outer-spin-button,

@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import './meal.modal.scss';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../common/actions/cart.actions';
@@ -60,9 +61,11 @@ export default function MealModal(props) {
                     {props.feed &&
                     <div>
                         <Label name='Restaurant:' value={props.meal.restaurantName}/>
-                        <Label name='Address:' value={props.meal.location}/>
                         {!props.meal.delivery &&
-                        <Label name='Phone:' value={props.meal.phone}/>}
+                        <React.Fragment>
+                        <Label name='Address:' value={props.meal.location}/>
+                        <Label name='Phone:' value={props.meal.phone}/>
+                        </React.Fragment>}
                     </div>
                     }
                 
@@ -72,9 +75,11 @@ export default function MealModal(props) {
                     :
                     <form onSubmit={handleSubmit(handleAddToCart)}>
                         <div className="label-accent-color-2">Amount</div>
-                        <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})}/>
-                        <i className="fas fa-plus fa-2x" onClick={incrementAmmount}></i>
-                        <i className="fas fa-minus fa-2x" onClick={decrementAmmount}></i>
+                        <div className="meal-modal-amount-row">
+                            <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})}/>
+                            <i className="fas fa-minus fa-2x" onClick={decrementAmmount}></i>
+                            <i className="fas fa-plus fa-2x" onClick={incrementAmmount}></i>
+                        </div>
                         {errors.amount && <InputError text={'Amount is required'}/>}
                         <div className="label-accent-color-2">Notes (optional)</div>
                         <textarea name="notes" ref={register({maxLength: 200})}/>

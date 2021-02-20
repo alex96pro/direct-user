@@ -4,13 +4,9 @@
     @include flexAlign(column, center, center, nowrap);
     .cart-container{
         @include flexAlign(row,center,flex-start,wrap);
-        margin:1rem;
-        padding:2rem;
-        background-color:$wrapper-color;
     }
     .cart-meal{
-        margin: 0.4rem;
-        padding: 1rem;
+        margin: 0.2rem;
         background-color: $accent-color;
         transition: 0.2s;
     }
@@ -34,18 +30,8 @@
             color:$accent-color-2;
         }
     }
-    .cart-notes-button{
-        background-color: inherit;
-        color:$accent-color-2;
-        font-size: 1.8rem;
-        text-decoration: underline;
-        cursor: pointer;
-        outline:none;
-        &:hover{
-            color:white;
-        }
-    }
     .cart-meal-photo{
+        border-radius:0;
         width:18rem;
         height:18rem;
     }
@@ -64,19 +50,15 @@
     }
     .cart-no-meals{
         @include flexAlign(column,center,center,wrap);
+        transform: translateY(calc(50vh - 50% - 6rem));
     }
     .cart-total{
         @include flexAlign(column,center,center,wrap);
         background-color: $wrapper-color;
         padding:1rem;
     }
-    .cart-notes-accordion{
-        background-color: $accent-color;
-        color:white;
-        font-size:1.8rem;
-        position:absolute;
-        width:20rem;
-        border-top: 0.2rem solid white;
-        padding:1rem;
+    .cart-amount-price-row{
+        display:flex;
+        justify-content: space-between;
     }
 }

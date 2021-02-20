@@ -26,17 +26,26 @@ export default function cartReducer(state = initialState, action) {
                 deliveryAddress: newMeals.length === 0 ? '' : state.deliveryAddress
             }
         case ACTIONS.CHANGE_AMOUNT:
+            let newCartSize = 0;
             for(let i = 0; i < state.meals.length; i++){
                 if(i !== action.payload.index){
                     newMeals.push(state.meals[i]);
                 }else{
-                    newMeals.push({...state.meals[i], amount: action.payload.newAmount});
+                    let newAmount;
+                    if(action.payload.type === "INCREMENT"){
+                        newAmount = +state.meals[i].amount + 1; 
+                        newCartSize = +state.cartSize + 1;
+                    }else{
+                        newAmount = state.meals[i].amount > 1 ? state.meals[i].amount - 1 : state.meals[i].amount; 
+                        newCartSize = state.meals[i].amount > 1 ? state.cartSize - 1 : state.cartSize; 
+                    }  
+                    newMeals.push({...state.meals[i], amount: newAmount});
                 }
             }
             return{
                 ...state,
                 meals: newMeals,
-                cartSize: state.cartSize - state.meals[action.payload.index].amount + +action.payload.newAmount
+                cartSize: newCartSize
             }
         case ACTIONS.MINIMUM_DELIVERY_CHECK:
             return {

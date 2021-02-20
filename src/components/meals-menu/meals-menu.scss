@@ -6,6 +6,7 @@
     margin-left: 22vw;
     .menu-meals-meal{
         @include flexAlign(column, flex-end, center, nowrap);
+        width:25rem;
         position: relative; // this is not needed when container is flex, his child with absolute position will position relative to flex container
         background-color: $wrapper-color;
         margin:0.2rem 0.2rem;
@@ -18,6 +19,7 @@
         cursor: pointer;
     }
     .menu-meals-meal-name{
+        width:75%;
         color:$accent-color;
         font-size:1.8rem;
     }
@@ -25,7 +27,6 @@
         color:darkorange;
         font-size: 1.8rem;
         font-weight: bold;
-        margin-left:0.2rem;
     }
     .menu-meals-meal-photo{
         width: 25rem;
@@ -58,11 +59,14 @@
             justify-content: center;
             margin-bottom:5rem; //in order to categories button be visible in mobile footer
         }
-        .menu-meals-meal-photo{
-            width:15rem;
-            height:15rem;
+        .menu-meals-meal{
+            width:49vw;
         }
-        .menu-meals-meal-name,{
+        .menu-meals-meal-photo{
+            width:49vw;
+            height:49vw;
+        }
+        .menu-meals-meal-name{
             font-size: 1.2rem;
         }
         .menu-meals-hidden-description{
@@ -72,5 +76,4 @@
             font-size: 1.4rem;
         }
     }
-    
 }

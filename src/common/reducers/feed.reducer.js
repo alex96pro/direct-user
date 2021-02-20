@@ -6,7 +6,7 @@ const initialState = {
     endOfResultsFlag: false,
     addresses: [],
     currentAddress:'',
-    range: 5,
+    range: 10,
     search:'',
     tags: [],
     delivery: false,

@@ -22,6 +22,11 @@
         background-color:white;
         margin:1rem 0rem;
         font-size: 2.2rem;
+        transition:0.2s;
+        cursor: pointer;
+        &:hover{
+            background-color: $wrapper-color;
+        }
     }
     .menu-category-header{
         color:$accent-color;
@@ -58,6 +63,7 @@
         color:$accent-color;
     }
     .menu-header-mobile{
+        display:none;
         text-align: center;
         width:100vw;
         color:$accent-color;
@@ -89,6 +95,9 @@
             width:100vw;
             height: 100vh;
             transition:0.4s;
+        }
+        .menu-header-mobile{
+            display: block;
         }
         .menu-footer-mobile{
             display:block;

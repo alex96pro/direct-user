@@ -155,8 +155,8 @@ export default function Feed() {
                         {MEAL_TAGS.map((tag, index) => 
                         <div className="feed-filter-row" key={index}>
                             <div><i className={tag.icon}></i></div>
-                            <input type="checkbox" value={tag.value} onChange={handleChangeTag} checked={tags.includes(tag.value)}/>
-                            <div className="label-accent-color">{tag.name}</div>
+                            <input type="checkbox" value={tag.value} onChange={handleChangeTag} checked={tags.includes(tag.value)} id={`checkbox-nutrition-${index}`}/>
+                            <label className="feed-filter-label" htmlFor={`checkbox-nutrition-${index}`}>{tag.name}</label>
                         </div>
                         )}
                     </div>
@@ -165,8 +165,8 @@ export default function Feed() {
                         <div className="feed-filters-heading">Delivery options</div>
                         <div className="feed-filter-row">
                             <i className="fas fa-truck fa-2x"></i>
-                            <input type="checkbox" onChange={handleAddDelivery} value="delivery" checked={delivery}/>
-                            <div className="label-accent-color">Delivery</div>
+                            <input type="checkbox" onChange={handleAddDelivery} value="delivery" checked={delivery} id="checkbox-delivery"/>
+                            <label className="feed-filter-label" htmlFor="checkbox-delivery">Delivery</label>
                         </div>
                     </div>
                 </div>
