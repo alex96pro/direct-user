@@ -5,9 +5,9 @@ import { logInAPI } from '../../common/api/auth.api';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import ForgottenPasswordModal from './forgotten-password.modal';
-import SubmitButton from '../../components/common/submit-button';
+import SubmitButton from '../../components/submit-button';
 import NavBar from '../../components/nav-bar/nav-bar';
-import InputError from '../../components/common/input-error';
+import InputError from '../../components/input-error';
 
 export default function Login() {
 

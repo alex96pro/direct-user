@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { removeAddressAPI } from '../../common/api/auth.api';
-import ConfirmButton from '../../components/common/confirm-button';
+import ConfirmButton from '../../components/confirm-button';
 
 export default function ConfirmModal(props) {
     

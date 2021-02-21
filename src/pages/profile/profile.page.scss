@@ -2,7 +2,7 @@
 @import '../../variables';
 
 .profile{
-    @include flexAlign(column, center, center, wrap);
+    @include flex-align(column, center, center, wrap);
     .profile-container{
         transform: translateY(calc(50vh - 50% - 6rem));
         text-align: center;
@@ -14,7 +14,7 @@
         }
     }
     .profile-info{
-        @include flexAlign(column,center,flex-start,nowrap);
+        @include flex-align(column,center,flex-start,nowrap);
         background-color:$wrapper-color;
         width:60rem;
         margin: 1rem 0rem;
@@ -30,7 +30,7 @@
     }
     .profile-address-row{
         width:100%;
-        @include flexAlign(row,space-between, center, nowrap);
+        @include flex-align(row,space-between, center, nowrap);
     }
     .profile-address-description{
         margin-top:1rem;
@@ -43,7 +43,7 @@
         }
     }
 }
-@media (max-width:768px){
+@include mobile-range{
     .profile{
         .profile-info{
             width:100vw;

@@ -34,7 +34,6 @@ export default function Landing() {
     };
 
     useEffect(() => {
-        window.scroll(0,0);
         changePunchline(); // show first (index 1) punchline so there is no empty punchline at the beggining for 3,5s
         let handle = setInterval(changePunchline, 3500);
         return () => {

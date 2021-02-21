@@ -72,7 +72,7 @@ body{
         border-radius: 0;
     }
     .modal-container{
-        @include flexAlign(row,center,flex-start,wrap);
+        @include flex-align(row,center,flex-start,wrap);
         position:fixed;
         z-index: 100;
         background-color: white;
@@ -96,7 +96,7 @@ body{
     .modal-header{
         border-radius: 0;
         width:100%;
-        @include flexAlign(row,flex-end,center,nowrap);
+        @include flex-align(row,flex-end,center,nowrap);
         background-color: $wrapper-color;
         .modal-x{
             background-color: $accent-color;
@@ -131,7 +131,7 @@ body{
         color:white;
     }
 }
-@media(max-width:768px){
+@include mobile-range{
     *{
         font-size:9px;
     }
@@ -142,7 +142,7 @@ body{
         .modal-container-double{
             width: 100vw;
             height: 100vh;
-            @include flexAlign(column,flex-start,center,nowrap);
+            @include flex-align(column,flex-start,center,nowrap);
             overflow-y: scroll; // for fixed element to be scrollable
             max-height: 100%; // for fixed element to be scrollable
         }

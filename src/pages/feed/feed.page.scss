@@ -3,10 +3,7 @@
 
 .feed{
     .feed-meals-container{
-       @include flexAlign(column, center, center, nowrap);
-    //    width: 60rem;
-    //    margin:auto;
-    //    transform: translateX(10vw); //half width of .feed-filters
+       @include flex-align(column, center, center, nowrap);
     }
     .feed-filters{
         position: fixed;
@@ -25,7 +22,7 @@
         margin:1rem 0.2rem;
     }
     .feed-filter-row{
-        @include flexAlign(row, flex-start, center, nowrap);
+        @include flex-align(row, flex-start, center, nowrap);
     }
     .feed-filters-heading{
         font-size:2rem;
@@ -68,7 +65,7 @@
         border-radius: 0;
     }
 }
-@media (max-width: 768px){
+@include mobile-range{
     .feed{
         .feed-meals-container{
             margin:0;

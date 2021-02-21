@@ -4,7 +4,7 @@
 .menu{
     .menu-container{
         margin-top:2rem;
-        @include flexAlign(row, flex-start, flex-start, wrap);
+        @include flex-align(row, flex-start, flex-start, wrap);
         // width:100vw;
     }
     .menu-info{
@@ -17,7 +17,7 @@
         margin:0.2rem 2rem 0rem 0rem;
     }
     .menu-category{
-        @include flexAlign(row,flex-start,center,wrap);
+        @include flex-align(row,flex-start,center,wrap);
         color:$accent-color-3;
         background-color:white;
         margin:1rem 0rem;
@@ -84,7 +84,7 @@
         border-radius: 0;
     }
 }
-@media (max-width: 768px){
+@include mobile-range{
     .menu{
         .menu-info{
             visibility: hidden;

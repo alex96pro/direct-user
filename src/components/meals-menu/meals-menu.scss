@@ -2,10 +2,10 @@
 @import '../../mixins';
 
 .menu-meals{
-    @include flexAlign(row, flex-start, center, wrap);
+    @include flex-align(row, flex-start, center, wrap);
     margin-left: 22vw;
     .menu-meals-meal{
-        @include flexAlign(column, flex-end, center, nowrap);
+        @include flex-align(column, flex-end, center, nowrap);
         width:25rem;
         position: relative; // this is not needed when container is flex, his child with absolute position will position relative to flex container
         background-color: $wrapper-color;
@@ -14,7 +14,7 @@
     }
     .menu-meals-meal-header{
         width:100%;
-        @include flexAlign(row, space-between, center, nowrap);
+        @include flex-align(row, space-between, center, nowrap);
         padding:0.4rem 0.4rem;
         cursor: pointer;
     }
@@ -38,7 +38,7 @@
     .menu-meals-hidden-description{
         opacity:0;
         position: absolute;
-        @include flexAlign(row,center,center,wrap);
+        @include flex-align(row,center,center,wrap);
         background-color: rgba($color: $accent-color, $alpha: 0.8);
         width: 25rem;
         height: 25rem;
@@ -52,7 +52,7 @@
         color:white;
     }
 }
-@media(max-width:768px){
+@include mobile-range{
     .menu{
         .menu-meals{
             margin:0;

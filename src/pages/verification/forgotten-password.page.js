@@ -4,8 +4,8 @@ import { useHistory, useParams } from 'react-router-dom';
 import { newPasswordAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import SubmitButton from '../../components/common/submit-button';
-import InputError from '../../components/common/input-error';
+import SubmitButton from '../../components/submit-button';
+import InputError from '../../components/input-error';
 import NavBar from '../../components/nav-bar/nav-bar';
 
 export default function ForgottenPassword() {

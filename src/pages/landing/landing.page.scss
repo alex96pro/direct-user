@@ -52,7 +52,7 @@
         background-size: cover;
         border-radius: 0;
         .landing-2-container{
-            @include flexAlign(row, center, center, wrap);
+            @include flex-align(row, center, center, wrap);
             position:absolute;
             top:150vh;
             left:50vw;
@@ -75,7 +75,7 @@
         }
     }
 }
-@media (max-width:768px){
+@include mobile-range{
     .landing{
         .landing-1{
             background-image:none;

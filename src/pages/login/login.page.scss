@@ -2,10 +2,10 @@
 @import '../../variables';
 
 .login{
-    @include flexAlign(column, center, center, wrap);
+    @include flex-align(column, center, center, wrap);
 
     .login-container{
-        @include flexAlign(column, center, center, wrap);
+        @include flex-align(column, center, center, wrap);
         transform: translateY(calc(50vh - 50% - 6rem)); 
         // -6rem = height of nav bar (div initial position is right bellow nav bar)
     }

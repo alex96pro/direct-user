@@ -7,10 +7,10 @@ import { changeAddress } from '../../common/actions/feed.actions';
 import { useForm } from 'react-hook-form';
 import { DISTANCE, MEAL_TAGS } from '../../util/consts';
 import NavBar from '../../components/nav-bar/nav-bar';
-import Loader from '../../components/common/loader';
+import Loader from '../../components/loader';
 import MealsFeed from '../../components/meals-feed/meals-feed';
-import MessageDanger from '../../components/common/message-danger';
-import InputError from '../../components/common/input-error';
+import MessageDanger from '../../components/message-danger';
+import InputError from '../../components/input-error';
 
 export default function Feed() {
 

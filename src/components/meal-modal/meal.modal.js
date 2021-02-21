@@ -4,9 +4,9 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../common/actions/cart.actions';
 import { infoToast } from '../../util/toasts/toasts';
-import MessageDanger from '../common/message-danger';
-import InputError from '../common/input-error';
-import Label from '../../components/common/label';
+import MessageDanger from '../message-danger';
+import InputError from '../input-error';
+import Label from '../../components/label';
 
 export default function MealModal(props) {
     

@@ -1,9 +1,9 @@
 @import '../../mixins';
 @import '../../variables';
 .cart{
-    @include flexAlign(column, center, center, nowrap);
+    @include flex-align(column, center, center, nowrap);
     .cart-container{
-        @include flexAlign(row,center,flex-start,wrap);
+        @include flex-align(row,center,flex-start,wrap);
     }
     .cart-meal{
         margin: 0.2rem;
@@ -11,7 +11,7 @@
         transition: 0.2s;
     }
     .cart-meal-header{
-        @include flexAlign(row,space-between, center, wrap);
+        @include flex-align(row,space-between, center, wrap);
         color:white;
         font-size:1.8rem;
     }
@@ -49,11 +49,11 @@
         }
     }
     .cart-no-meals{
-        @include flexAlign(column,center,center,wrap);
+        @include flex-align(column,center,center,wrap);
         transform: translateY(calc(50vh - 50% - 6rem));
     }
     .cart-total{
-        @include flexAlign(column,center,center,wrap);
+        @include flex-align(column,center,center,wrap);
         background-color: $wrapper-color;
         padding:1rem;
     }

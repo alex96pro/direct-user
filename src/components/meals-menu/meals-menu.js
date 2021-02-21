@@ -1,8 +1,8 @@
 import './meals-menu.scss';
 import { CURRENCY } from '../../util/consts';
 import { useState } from 'react';
-import MealModal from '../meal-modal/meal.modal';
 import { useSelector } from 'react-redux';
+import MealModal from '../meal-modal/meal.modal';
 
 export default function MealsMenu(props) {
 

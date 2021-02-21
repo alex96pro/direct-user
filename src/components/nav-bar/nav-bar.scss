@@ -10,7 +10,7 @@ nav{
     z-index: 1;
     top:0;
     left:0;
-    @include flexAlign(row, flex-end, center, nowrap);
+    @include flex-align(row, flex-end, center, nowrap);
 
     .nav-link{
         background-color: inherit;
@@ -25,7 +25,7 @@ nav{
         }
     }
     .nav-container{
-        @include flexAlign(row, flex-end, center, wrap);
+        @include flex-align(row, flex-end, center, wrap);
         height:100%;
     }
     .nav-logo{

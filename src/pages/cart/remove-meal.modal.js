@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../../common/actions/cart.actions';
 import { infoToast } from '../../util/toasts/toasts';
+
 export default function RemoveMealModal(props) {
 
     const [modalOpacity, setModalOpacity] = useState(0);

@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { getMealsFromMenuAPI } from '../../common/api/menu.api';
 import { clearMenu } from '../../common/actions/menu.actions';
 import { CURRENCY } from '../../util/consts';
-import Loader from '../../components/common/loader';
+import Loader from '../../components/loader';
 import NavBar from '../../components/nav-bar/nav-bar';
 import MealsMenu from '../../components/meals-menu/meals-menu';
 

@@ -14,6 +14,7 @@ export default function NavBar(props) {
 
     const handleLogout = () => {
         setTimeout(() => dispatch(logOut()), 1000); // logout has to be the last action that sets the store to initial values
+        window.scroll(0,0);
         history.push('/');
     };
 

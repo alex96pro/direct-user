@@ -6,9 +6,9 @@ import { addNewAddressAPI } from '../../common/api/auth.api';
 import ConfirmModal from './confirm.modal';
 import NavBar from '../../components/nav-bar/nav-bar';
 import ChangePasswordModal from './change-password.modal';
-import InputError from '../../components/common/input-error';
-import GoogleAutocomplete from '../../components/common/google-autocomplete';
-import SubmitButton from '../../components/common/submit-button';
+import InputError from '../../components/input-error';
+import GoogleAutocomplete from '../../components/google-autocomplete';
+import SubmitButton from '../../components/submit-button';
 
 export default function Profile() {
 

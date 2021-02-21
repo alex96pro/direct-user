@@ -4,14 +4,14 @@
     margin: 1rem 1rem;
     background-color:$wrapper-color;
     width:60rem;
-    @include flexAlign(row, flex-start, flex-start, nowrap);
+    @include flex-align(row, flex-start, flex-start, nowrap);
     .meal-right-container{
       width:30rem;
       padding:0rem 0.5rem;
       height:30rem;
     }
     .meal-header{
-        @include flexAlign(row, space-between, flex-start, wrap);
+        @include flex-align(row, space-between, flex-start, wrap);
         margin-bottom: 1rem;
         cursor: pointer;
     }
@@ -43,7 +43,7 @@
         }
     }
     .meal-restaurant-info{
-        @include flexAlign(row,space-between,flex-start,wrap);
+        @include flex-align(row,space-between,flex-start,wrap);
     }
     .meal-delivery-label, .meal-working-hours-label{
         font-size: 1.8rem;
@@ -74,9 +74,9 @@
         color:$danger-color;
     }
 }
-@media (max-width: 768px){
+@include mobile-range{
     .meal{
-        @include flexAlign(column, stretch, flex-start, nowrap);
+        @include flex-align(column, stretch, flex-start, nowrap);
         width: 100%;
         height: max-content;
         .meal-right-container{

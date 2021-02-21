@@ -3,51 +3,36 @@ import { BACKEND_API } from '../../util/consts';
 import { loadingStatus, getProfileData, addNewAddress, removeAddress } from '../actions/auth.actions';
 import { setFeedAddresses, updateFeedAddresses } from '../actions/feed.actions';
 import { successToast } from '../../util/toasts/toasts';
+import { get, post } from './api';
 
 export function signUpAPI(data, message) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            let response = await axios.post(`${BACKEND_API}/auth/sign-up`,data);
-            if(response.data.length){
-                dispatch(loadingStatus(false));
-                message(`Signed up successfully! Please check your email: ${data.email} to verify your account`, true);
-                localStorage.clear();
-            }else{
-                dispatch(loadingStatus(false));
-                message('Email already in use');
-            }
-        }catch(err){
+        dispatch(loadingStatus(true));
+        let response = await post(`${BACKEND_API}/auth/sign-up`,data);
+        if(response.status === 200){
             dispatch(loadingStatus(false));
-            console.log(err);
+            message(`Signed up successfully! Please check your email: ${data.email} to verify your account`, true);
+            localStorage.clear();
+        }else{
+            dispatch(loadingStatus(false));
+            message(response.data);
         }
     };
 };
 
 export function logInAPI(data, loginSuccess, message) {
     return async (dispatch) => {
-        try{
-            dispatch(loadingStatus(true));
-            let response = await axios.get(`${BACKEND_API}/auth/login?email=${data.email}&password=${data.password}`);
-            if(response.status === 200){
-                localStorage.setItem("ACCESS_TOKEN", response.data.accessToken);
-                localStorage.setItem("USER_ID", response.data.userId);
-                dispatch(getProfileData({email: response.data.email, phone: response.data.phone, addresses: response.data.addresses}));
-                dispatch(setFeedAddresses(response.data.addresses));
-                loginSuccess();
-            }
-        }catch(err){
+        dispatch(loadingStatus(true));
+        let response = await get(`${BACKEND_API}/auth/login?email=${data.email}&password=${data.password}`,false);
+        if(response.status === 200){
+            localStorage.setItem("ACCESS_TOKEN", response.data.accessToken);
+            localStorage.setItem("USER_ID", response.data.userId);
+            dispatch(getProfileData({email: response.data.email, phone: response.data.phone, addresses: response.data.addresses}));
+            dispatch(setFeedAddresses(response.data.addresses));
+            loginSuccess();
+        }else{
             dispatch(loadingStatus(false));
-            switch(err.response.status){
-                case 401:
-                    message("Incorrect username or password");
-                    break;
-                case 403:
-                    message("Please check your email and verify your account");
-                    break;
-                default:
-                    message("Server error");
-            }
+            message(response.data);
         }
     };
 };

@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react';
 import NavBar from '../../components/nav-bar/nav-bar';
-import SubmitButton from '../../components/common/submit-button';
-import InputError from '../../components/common/input-error';
-import GoogleAutocomplete from '../../components/common/google-autocomplete';
+import SubmitButton from '../../components/submit-button';
+import InputError from '../../components/input-error';
+import GoogleAutocomplete from '../../components/google-autocomplete';
 
 export default function SignUp() {
 
