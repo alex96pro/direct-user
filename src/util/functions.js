@@ -1,3 +1,17 @@
+export function getClientDateAndTime() {
+    let today = new Date();
+    let minutes = today.getMinutes();
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+    let seconds = today.getSeconds();
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + today.getHours() + ':' + minutes + ':' + seconds;
+};
+
+export function getClientDay() {
+    let day = new Date().getDay();
+    day = day === 0 ? 7 : day; // sunday is 0, backend format is 1-7
+    return day;
+};
 
 export function checkDeliveryMinimumsForCart(meals) {
 

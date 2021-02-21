@@ -3,6 +3,7 @@ import { BACKEND_API } from '../../util/consts';
 import { loadingStatus } from '../actions/feed.actions';
 import { getMeals } from '../actions/feed.actions';
 import { endOfResults } from '../actions/feed.actions';
+import { getClientDateAndTime, getClientDay } from '../../util/functions';
 
 export function getMealsAPI(currentAddress, range, search, tagsArray, delivery, scrollCount) {
     return async (dispatch) => {
@@ -12,12 +13,11 @@ export function getMealsAPI(currentAddress, range, search, tagsArray, delivery, 
             if(tags && tags.length === 0){
                 tags = null;
             }
-            let today = new Date();
-            today = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-            let day = new Date().getDay();
+            let dateAndTime = getClientDateAndTime();
+            let day = getClientDay();
             let response = await axios.get(
             `${BACKEND_API}/user/feed?scrollCount=${scrollCount}&lat=${currentAddress.lat}&lon=${currentAddress.lon}&`+
-            `range=${range}&search=${search}&tags=${tags}&delivery=${delivery}&date=${today}&day=${day}`);
+            `range=${range}&search=${search}&tags=${tags}&delivery=${delivery}&dateAndTime=${dateAndTime}&day=${day}`);
             if(response.data.length){
                 dispatch(getMeals({meals: response.data}));
             }else{

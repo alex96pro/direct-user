@@ -69,6 +69,10 @@
         padding:0.5rem;
         margin:1rem 0.2rem;
     }
+    .meal-closed-tag{
+        font-size:2rem;
+        color:$danger-color;
+    }
 }
 @media (max-width: 768px){
     .meal{
