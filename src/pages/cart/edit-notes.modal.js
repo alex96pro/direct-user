@@ -1,14 +1,20 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { changeAmount } from '../../common/actions/cart.actions';
+import { changeNotes } from '../../common/actions/cart.actions';
 
-export default function EditMealModal(props) {
+export default function EditNotesModal(props) {
 
     const [modalOpacity, setModalOpacity] = useState(0);
+    const [notes, setNotes] = useState(props.meal.notes);
     const dispatch = useDispatch();
 
-    const incrementOrDecrementAmount = (index, type) => {
-        dispatch(changeAmount({index: index, type: type}));
+    const handleChangeNotes = (event) => {
+        setNotes(event.target.value);
+    };
+
+    const onChangeNotes = () => {
+        dispatch(changeNotes({notes: notes, index: props.meal.index}));
+        props.closeModal();
     };
 
     useEffect(() => {
@@ -23,9 +29,9 @@ export default function EditMealModal(props) {
                     <button onClick={() => props.closeModal()} className="modal-x">x</button>
                 </div>
                 <div className="modal-body">
-                    {props.meal.notes && <div className="label-accent-color">Notes: <textarea defaultValue={props.meal.notes}/></div>}
-                    <i className="fas fa-minus fa-2x" onClick={() => incrementOrDecrementAmount(props.meal.index, "DECREMENT")}></i>
-                    <i className="fas fa-plus fa-2x" onClick={() => incrementOrDecrementAmount(props.meal.index, "INCREMENT")}></i>
+                    <div className="label-accent-color">Notes for {props.meal.name}</div>
+                    <textarea value={notes} onChange={handleChangeNotes}/>
+                    <button onClick={onChangeNotes} className="button-long">Save changes</button>
                 </div>
             </div>
         </div>

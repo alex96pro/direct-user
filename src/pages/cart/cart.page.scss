@@ -2,51 +2,48 @@
 @import '../../variables';
 .cart{
     @include flex-align(column, center, center, nowrap);
-    .cart-container{
-        @include flex-align(row,center,flex-start,wrap);
+    .cart-meals-container{
+        margin-bottom:16rem;
     }
     .cart-meal{
-        margin: 0.2rem;
-        background-color: $accent-color;
+        @include flex-align(row, flex-start, flex-start, nowrap);
+        width:45rem;
+        margin: 0.4rem 0rem;
+        background-color: $wrapper-color;
         transition: 0.2s;
-    }
-    .cart-meal-header{
-        @include flex-align(row,space-between, center, wrap);
-        color:white;
-        font-size:1.8rem;
-    }
-    .cart-meal-x{
-        background-color: $accent-color-2;
-        color:white;
-        font-size: 1.5rem;
-        font-weight: bold;
-        padding: 0.2rem 0.6rem;
-        margin: 0.2rem;
-        cursor: pointer;
-        transition: 0.2s;
-        outline:none;
-        &:hover{
-            background-color: white;
-            color:$accent-color-2;
-        }
     }
     .cart-meal-photo{
-        border-radius:0;
-        width:18rem;
-        height:18rem;
+        width:50%;
+        height:auto;
     }
     .cart-restaurant-name{
         font-size: 1.8rem;
         font-weight: bold;
-        color:$accent-color-2;
+        color:$accent-color;
         padding: 0.4rem 0.2rem;
-        width:max-content;
         transition:0.2s;
         cursor: pointer;
         &:hover{
-            background-color: $accent-color-2;
-            color:white;
+            background-color: $accent-color;
+            color:$accent-color-2;
         }
+    }
+    .cart-notes{
+        font-size: 1.8rem;
+        font-weight: bold;
+        color:$accent-color;
+        padding: 0.4rem 0.2rem;
+        cursor: pointer;
+        &:hover{
+            color:$accent-color-2;
+        }
+    }
+    .fa-plus, .fa-minus{
+        background-color: white;
+    }
+    .fa-house-user{
+        color:$accent-color-3;
+        margin:0rem 0.5rem;
     }
     .cart-no-meals{
         @include flex-align(column,center,center,wrap);
@@ -54,11 +51,27 @@
     }
     .cart-total{
         @include flex-align(column,center,center,wrap);
-        background-color: $wrapper-color;
+        position: fixed;
+        bottom:0;
+        background-color: rgba($color: $accent-color, $alpha: 0.9);
+        width:100vw;
         padding:1rem;
+        border-radius: 0;
     }
-    .cart-amount-price-row{
-        display:flex;
-        justify-content: space-between;
+    .cart-total-label{
+        font-size:3rem;
+        color:$accent-color-3;
+        font-weight: bold;
+        margin:0.5rem 0rem;
+    }
+    .cart-checkout-button{
+        background-color: $accent-color-3;
+    }
+}
+@include mobile-range{
+    .cart{
+        .cart-meal{
+            width:100vw;
+        }
     }
 }

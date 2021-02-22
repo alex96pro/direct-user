@@ -46,6 +46,18 @@ export default function cartReducer(state = initialState, action) {
                 ...state,
                 meals: newMeals,
                 cartSize: newCartSize
+            };
+        case ACTIONS.CHANGE_NOTES:
+            for(let i = 0; i < state.meals.length; i++){
+                if(i !== action.payload.index){
+                    newMeals.push(state.meals[i]);
+                }else{
+                    newMeals.push({...state.meals[i], notes: action.payload.notes});
+                }
+            }
+            return {
+                ...state,
+                meals: newMeals
             }
         case ACTIONS.MINIMUM_DELIVERY_CHECK:
             return {
