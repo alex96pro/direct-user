@@ -3,6 +3,7 @@ import { CURRENCY } from '../../util/consts';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import MealModal from '../meal-modal/meal.modal';
+import { errorToast } from '../../util/toasts/toasts';
 
 export default function MealsMenu(props) {
 
@@ -14,7 +15,12 @@ export default function MealsMenu(props) {
     );
 
     const handleShowMealModal = (meal) => {
-        setShowMealModal({show: true, selectedMeal: meal});
+        if(!restaurant.closed){
+            setShowMealModal({show: true, selectedMeal: meal});
+        }else{
+            errorToast(`Restaurant ${restaurant.restaurantName} is closed`);
+        }
+        
     };
 
     const closeModal = () => {

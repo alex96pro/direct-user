@@ -5,6 +5,9 @@
     background-color:$wrapper-color;
     width:60rem;
     @include flex-align(row, flex-start, flex-start, nowrap);
+    .meal-left-container{
+        position: relative; //in order to darkened div for closed restaurant be absolute
+    }
     .meal-right-container{
       width:30rem;
       padding:0rem 0.5rem;
@@ -29,6 +32,22 @@
         width: 30rem;
         height: 30rem;
         cursor: pointer;
+    }
+    .meal-photo-darkened{
+        @extend .meal-photo;
+        position:absolute;
+        top:0;
+        left:0;
+        background-color: black;
+        opacity: 0.6;
+    }
+    .meal-closed-label{
+        position: absolute;
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        font-size: 3rem;
+        color:white;
     }
     .meal-restaurant-name, .meal-see-menu{
         color:$success-color;
@@ -68,10 +87,6 @@
     .meal-range{
         padding:0.5rem;
         margin:1rem 0.2rem;
-    }
-    .meal-closed-tag{
-        font-size:2rem;
-        color:$danger-color;
     }
 }
 @include mobile-range{

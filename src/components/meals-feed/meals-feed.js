@@ -33,10 +33,18 @@ export default function MealsFeed(props) {
         <React.Fragment>
         {props.meals.map((meal, index) => 
             <div className="meal" key={meal.specialId}>
-                <img src={meal.photo} alt="meal" className="meal-photo" onClick={() => showModal(meal)}
-                onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}/>
+                <div className="meal-left-container">
+                    <img src={meal.photo} alt="meal" className="meal-photo" onClick={() => showModal(meal)}
+                    onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}/>
+                    {meal.closed && 
+                <React.Fragment>
+                     <div className="meal-photo-darkened" onClick={() => showModal(meal)}></div>
+                     <label className="meal-closed-label">Closed</label>
+                </React.Fragment>}
+                </div>
+                
                 <div className="meal-right-container">
-                    <div className="meal-header" onClick={() => showModal(meal)} 
+                    <div className="meal-header" onClick={() => showModal(meal)}
                         onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}>
                         <div className="meal-name">{meal.mealName}</div>
                         <div className="meal-price">{meal.price}{CURRENCY}</div>
@@ -70,7 +78,6 @@ export default function MealsFeed(props) {
                             </React.Fragment>
                             }
                         </div>
-                        {meal.closed && <div className="meal-closed-tag">Closed</div>}
                     </div>
                 </div>
                 

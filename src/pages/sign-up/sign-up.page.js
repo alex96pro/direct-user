@@ -26,6 +26,7 @@ export default function SignUp() {
         if(data.password !== data.retypePassword){
             setMessagePasswords("Passwords don't match");
         }else{
+            setMessagePasswords("");
             const position = JSON.parse(localStorage.getItem('POSITION'));
             const address = localStorage.getItem('ADDRESS');
             dispatch(signUpAPI({...data, address, lat: position.lat, lon: position.lon}, setNewMessage));
