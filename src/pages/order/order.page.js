@@ -27,7 +27,7 @@ export default function Order() {
         socket.on('order-rejected', (args) => {
             dispatch(orderRejected(args.rejectReason));
         });
-    });
+    },[dispatch]);
     const handleSendOrder = () => {
         let mealsForRestaurant = [];
         let total = 0;
@@ -38,7 +38,7 @@ export default function Order() {
         total = (Math.round(total * 100) / 100).toFixed(2);
         let time = getClientTime();
         socket.emit('user-send-order', {
-            meals:mealsForRestaurant, 
+            meals: mealsForRestaurant, 
             deliveryAddress: deliveryAddress.address + '(' + deliveryAddress.description + ')',
             total: total,
             phone: phone,
@@ -63,17 +63,17 @@ export default function Order() {
             {!orderSent && <button onClick={handleSendOrder} className="button-normal">CONFIRM ORDER</button>}
             {estimatedTime && 
             <div className="order-status">
-                <div className="header-accent-color">
-                    Great news! {meals[0].restaurantName} accepted your order!
+                <div className="header-success">
+                    Great news! {meals[0].restaurantName} accepted your order! :)
                 </div>
                 <div className="header-accent-color">
-                    Estimated time for delivery: {estimatedTime[0] + estimatedTime[1]} minutes
+                    Estimated time for delivery: {estimatedTime}
                 </div>
             </div>
             }
             {rejectReason && 
             <div className="order-status">
-                <div className="header-accent-color">
+                <div className="header-danger">
                     Bad news! {meals[0].restaurantName} rejected your order!
                 </div>
                 <div className="header-accent-color">

@@ -122,3 +122,11 @@ textarea{
     @extend .header-white;
     color:$accent-color-2;
 }
+.header-success{
+    @extend .header-white;
+    color: $success-color;
+}
+.header-danger{
+    @extend .header-white;
+    color:$danger-color;
+}
