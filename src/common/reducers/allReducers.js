@@ -3,6 +3,7 @@ import authReducer from '../reducers/auth.reducer';
 import feedReducer from '../reducers/feed.reducer';
 import cartReducer from '../reducers/cart.reducer';
 import menuReducer from './menu.reducer';
+import orderReducer from './order.reducer';
 import { LOGOUT } from '../actions/auth.actions';
 
 const allReducers = combineReducers(
@@ -10,7 +11,8 @@ const allReducers = combineReducers(
         authentication: authReducer,
         feed: feedReducer,
         cart: cartReducer,
-        menu: menuReducer
+        menu: menuReducer,
+        order: orderReducer
     }
 );
 

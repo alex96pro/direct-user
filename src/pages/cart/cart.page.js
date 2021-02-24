@@ -20,6 +20,7 @@ export default function Cart() {
     const reduceMealOpacity = (index) => {
         document.getElementsByClassName('cart-meal')[index].style.opacity = 0.7;
     };
+
     const increaseMealOpacity = (index) => {
         document.getElementsByClassName('cart-meal')[index].style.opacity = 1;
     };
@@ -31,6 +32,10 @@ export default function Cart() {
 
     const incrementOrDecrementAmount = (index, type) => {
         dispatch(changeAmount({index: index, type: type}));
+    };
+
+    const sendOrder = () => {
+        history.push('/order');
     };
 
     useEffect(() => {
@@ -89,7 +94,7 @@ export default function Cart() {
                     <div className="cart-total-label">
                         Total: {(Math.round(meals.reduce((sum, current) => sum + current.price * current.amount, 0)*100) / 100).toFixed(2)}{CURRENCY}
                     </div>
-                    <button className={minimumDeliveryConflicts.length > 0 ? "button-normal-disabled" : "button-normal cart-checkout-button"}>Proceed to checkout</button>
+                    <button onClick={sendOrder} className={minimumDeliveryConflicts.length > 0 ? "button-normal-disabled" : "button-normal cart-checkout-button"}>Proceed to checkout</button>
                 </div>
             </React.Fragment>
             :
