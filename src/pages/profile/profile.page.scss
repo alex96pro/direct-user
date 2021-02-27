@@ -15,7 +15,7 @@
     }
     .profile-info{
         @include flex-align(column,center,flex-start,nowrap);
-        background-color:$wrapper-color;
+        background-color:white;
         width:60rem;
         margin: 1rem 0rem;
         padding: 1rem;

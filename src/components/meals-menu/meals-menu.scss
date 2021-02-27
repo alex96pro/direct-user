@@ -8,7 +8,7 @@
         @include flex-align(column, flex-end, center, nowrap);
         width:25rem;
         position: relative; // this is not needed when container is flex, his child with absolute position will position relative to flex container
-        background-color: $wrapper-color;
+        background-color: white;
         margin:0.2rem 0.2rem;
         border-radius: 0;
     }
@@ -60,11 +60,11 @@
             margin-bottom:5rem; //in order to categories button be visible in mobile footer
         }
         .menu-meals-meal{
-            width:49vw;
+            width:48vw;
         }
         .menu-meals-meal-photo{
-            width:49vw;
-            height:49vw;
+            width:48vw;
+            height:48vw;
         }
         .menu-meals-meal-name{
             font-size: 1.2rem;

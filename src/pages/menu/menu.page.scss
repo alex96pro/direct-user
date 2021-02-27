@@ -9,17 +9,19 @@
     }
     .menu-info{
         position: fixed;
-        top:8rem;
+        top:6rem;
         left:0;
         z-index: 1;
-        background-color: $wrapper-color;
+        background-color:white;
         width:20vw;
-        margin:0.2rem 2rem 0rem 0rem;
+        height: 100vh;
+        padding-top:2rem;
+        margin-right:2rem;
+        border-radius: 0;
     }
     .menu-category{
         @include flex-align(row,flex-start,center,wrap);
         color:$accent-color-3;
-        background-color:white;
         margin:1rem 0rem;
         font-size: 2.2rem;
         transition:0.2s;
@@ -64,7 +66,8 @@
     }
     .menu-restaurant-closed{
         color:$danger-color;
-        font-size:2.5rem;
+        font-size:3rem;
+        margin:1rem 0rem;
     }
     .menu-header-mobile{
         display:none;
@@ -97,7 +100,6 @@
             top:100vh;
             left:0;
             width:100vw;
-            height: 100vh;
             transition:0.4s;
         }
         .menu-header-mobile{

@@ -65,6 +65,7 @@ export default function Menu() {
                     {meals.length > 0 && 
                     <div className="menu-header">
                         {restaurant.logo && <img src={restaurant.logo} alt="Loading..." className="menu-restaurant-logo"/>}
+                        {restaurant.closed && <div className="menu-restaurant-closed">Closed</div>}
                         <div className="menu-restaurant-name">{restaurant.restaurantName}'s menu</div>
                         {restaurant["working-hours-from"] && 
                         <div className="menu-restaurant-info">Working hours {restaurant["working-hours-from"]}-{restaurant["working-hours-to"]}</div>}
@@ -75,7 +76,6 @@ export default function Menu() {
                             <div className="menu-restaurant-info">Location: {restaurant.location}</div>
                         </React.Fragment>
                         }
-                    {restaurant.closed && <div className="menu-restaurant-closed">Closed</div>}
                     <div className="menu-category-header">Categories</div>
                     {restaurant.categories.map((category, index) => <div key={index}>
                         <label className="menu-category" htmlFor={`category${index}`}>

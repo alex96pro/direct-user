@@ -47,6 +47,7 @@ export default function Cart() {
             history.push('/login');
             return;
         }
+        window.scroll(0,0);
         socket = socketClient (BACKEND_API);
         socket.on('connection', () => {
             socket.emit('send-id',{userId: localStorage.getItem('USER_ID')});
@@ -97,10 +98,6 @@ export default function Cart() {
         checkDeliveryMinimums();
         // eslint-disable-next-line
     }, [meals]);
-    
-    useEffect(() => {
-        window.scroll(0,0);
-    },[]);
 
     return(
         <div className="cart">
@@ -122,20 +119,14 @@ export default function Cart() {
                         <img src={meal.photo} alt="meal" className="cart-meal-photo"/>
                         <div>
                             <div className="label-accent-color-2">{meal.mealName}</div>
-
                             <label className="label-accent-color-2">Amount: {meal.amount}</label>
-
                             <i className="fas fa-minus fa-2x" onClick={() => incrementOrDecrementAmount(index, "DECREMENT")}></i>
                             <i className="fas fa-plus fa-2x" onClick={() => incrementOrDecrementAmount(index, "INCREMENT")}></i>
-                            
                             <div className="label-accent-color-2">{(Math.round(meal.price * meal.amount * 100) / 100).toFixed(2)}{CURRENCY}</div>
-                            
                             <div className="cart-notes" onClick={() => setEditNotesModal({show: true, meal:{name:meal.mealName, notes: meal.notes, index: index, }})}>Notes
                             <i className="fas fa-edit fa-1x"></i>
                             </div>
-                            
                             <div className="cart-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
-                            
                             <i className="fas fa-trash fa-2x" onMouseEnter={() => reduceMealOpacity(index)}
                                 onMouseLeave={() => increaseMealOpacity(index)} onClick={() => setRemoveMealModal({show:true, mealName:meal.mealName, index: index})}></i>
                         </div>

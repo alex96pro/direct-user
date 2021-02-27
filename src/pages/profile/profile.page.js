@@ -13,13 +13,13 @@ import SubmitButton from '../../components/submit-button';
 
 export default function Profile() {
 
-    const {register, handleSubmit, errors} = useForm();
     const history = useHistory();
+    const dispatch = useDispatch();
+    const {register, handleSubmit, errors} = useForm();
     const [changePasswordModal, setChangePasswordModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState({show:false, addressIdToRemove:''});
     const [messageAdd, setMessageAdd] = useState('');
     const [messageDelete, setMessageDelete] = useState({id: -1, text:''});
-    const dispatch = useDispatch();
     const {email, phone, addresses, loadingStatus} = useSelector(state => state.authentication);
     const {deliveryAddress} = useSelector(state => state.cart);
     const {currentAddress} = useSelector(state => state.feed);

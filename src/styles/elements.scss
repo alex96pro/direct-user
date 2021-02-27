@@ -84,6 +84,7 @@ select, option{
     width:100%;
     font-size:1.6rem;
     padding:0.8rem;
+    border:1px solid $accent-color;
 }
 textarea{
     @extend input[type=text];

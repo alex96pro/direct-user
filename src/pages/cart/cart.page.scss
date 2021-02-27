@@ -9,7 +9,7 @@
         @include flex-align(row, flex-start, flex-start, nowrap);
         width:54rem;
         margin: 0.4rem 0rem;
-        background-color: $wrapper-color;
+        background-color: white;
         transition: 0.2s;
     }
     .cart-meal-photo{
@@ -24,7 +24,6 @@
         transition:0.2s;
         cursor: pointer;
         &:hover{
-            background-color: $accent-color;
             color:$accent-color-2;
         }
     }
@@ -38,9 +37,6 @@
             color:$accent-color-2;
         }
     }
-    .fa-plus, .fa-minus{
-        background-color: white;
-    }
     .fa-house-user{
         color:$accent-color-3;
         margin:0rem 0.5rem;
@@ -52,12 +48,12 @@
     .cart-total{
         @include flex-align(column,flex-start,center,wrap);
         position: fixed;
-        top:12rem;
+        top:6rem;
         left:0;
         height: 100vh;
-        background-color: $wrapper-color;
+        background-color: white;
         width:20vw;
-        padding:1rem;
+        padding:6rem 1rem;
         border-radius: 0;
     }
     .cart-total-label{
@@ -89,6 +85,7 @@
             width: 100vw;
             top:inherit;
             bottom:0;
+            padding:0.6rem;
         }
     }
 }

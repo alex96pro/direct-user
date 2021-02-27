@@ -25,7 +25,7 @@ export default function MealsFeed(props) {
     const changeColor = (index, color) => {
         let element = document.getElementsByClassName('meal')[index];
         if(element){
-            color ? element.style.backgroundColor = '#d8d8d8' : element.style.backgroundColor = '#e7e7e7';
+            color ? element.style.backgroundColor = '#e7e7e7' : element.style.backgroundColor = '#ffffff';
         }
     };
 

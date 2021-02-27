@@ -24,7 +24,8 @@ body{
     }
 }
 .form-container{
-    background-color: $wrapper-color;
+    background-color: white;
+    box-shadow: 0 0 1rem $wrapper-color;
     padding:1rem 3rem;
 }
 .loader{
@@ -139,8 +140,11 @@ body{
             width:100vw;
         }
         .modal-container-double{
-            width: 100vw;
-            height: 100vh;
+            top:inherit;
+            bottom:0;
+            left:0;
+            width:100vw;
+            transform: none;
             @include flex-align(column,flex-start,center,nowrap);
             overflow-y: scroll; // for fixed element to be scrollable
             max-height: 100%; // for fixed element to be scrollable

@@ -1,4 +1,5 @@
 import * as ACTIONS from '../actions/cart.actions';
+import { LOGOUT } from '../actions/auth.actions';
 
 const initialState = {
     meals: [],
@@ -89,6 +90,8 @@ export default function cartReducer(state = initialState, action) {
                 loadingStatus: state.ordersResponses.length + 1 === state.numberOfOrders ? false : true,
                 ordersResponses: [...state.ordersResponses, {restaurantName: action.payload.restaurantName, rejectReason: action.payload.rejectReason}],
             };
+        case LOGOUT:
+            return initialState;
         default:
             return state;
     }
