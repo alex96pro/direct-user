@@ -20,13 +20,19 @@ export default function MealModal(props) {
     }, []);
 
     const handleAddToCart = (data) => {
-        if(props.restaurant){ // add to cart from menu
-            dispatch(addToCart({amount:data.amount, notes:data.notes, restaurantName:props.restaurant.restaurantName, mealName:props.meal.mealName, price:props.meal.price, 
-            photo:props.meal.photo, restaurantId:props.restaurant.restaurantId, deliveryMinimum:props.restaurant.deliveryMinimum, deliveryAddress: currentAddress}));
-        }else{ //add to cart from feed
-            dispatch(addToCart({amount:data.amount, notes:data.notes, restaurantName:props.meal.restaurantName, mealName:props.meal.mealName, price:props.meal.price, 
-            photo:props.meal.photo, restaurantId:props.meal.restaurantId, deliveryMinimum:props.meal["delivery-minimum"], deliveryAddress: currentAddress}));
-        }
+        dispatch(addToCart({
+            meal:{
+                mealName: props.meal.mealName, 
+                photo: props.meal.photo, 
+                price: props.meal.price, 
+                amount: data.amount, 
+                notes: data.notes, 
+                restaurantId: props.meal.restaurantId || props.restaurant.restaurantId, 
+                restaurantName: props.meal.restaurantName || props.restaurant.restaurantName, 
+                deliveryMinimum: props.meal["delivery-minimum"] || props.restaurant.deliveryMinimum
+            }, 
+            deliveryAddress: currentAddress
+        }));
         props.closeModal();
         infoToast('Added to cart');
     };
@@ -56,7 +62,7 @@ export default function MealModal(props) {
                     <img src={props.meal.photo} alt="Loading..." className="meal-modal-photo"/>
                 </div>
                 <div className="modal-body">
-                    <Label name='Meal:' value={props.meal.mealName}/>
+                    <Label value={props.meal.mealName}/>
                     <Label name='Description:' value={props.meal.description}/>
                     {props.feed &&
                     <div>

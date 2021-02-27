@@ -1,8 +1,9 @@
 import './profile.page.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewAddressAPI } from '../../common/api/auth.api';
+import { useHistory } from 'react-router-dom';
 import ConfirmModal from './confirm.modal';
 import NavBar from '../../components/nav-bar/nav-bar';
 import ChangePasswordModal from './change-password.modal';
@@ -13,6 +14,7 @@ import SubmitButton from '../../components/submit-button';
 export default function Profile() {
 
     const {register, handleSubmit, errors} = useForm();
+    const history = useHistory();
     const [changePasswordModal, setChangePasswordModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState({show:false, addressIdToRemove:''});
     const [messageAdd, setMessageAdd] = useState('');
@@ -63,6 +65,13 @@ export default function Profile() {
             setMessageAdd('Address is required');
         }
     };
+
+    useEffect(() => {
+        if(!localStorage.getItem('ACCESS_TOKEN')){
+            history.push('/login');
+            return;
+        }
+    }, [history])
 
     return (
         <div className="profile">

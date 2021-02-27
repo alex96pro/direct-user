@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { signUpAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from '../../components/nav-bar/nav-bar';
 import SubmitButton from '../../components/submit-button';
 import InputError from '../../components/input-error';
@@ -32,6 +32,12 @@ export default function SignUp() {
             dispatch(signUpAPI({...data, address, lat: position.lat, lon: position.lon}, setNewMessage));
         }
     };
+
+    useEffect(() => {
+        if(localStorage.getItem('ACCESS_TOKEN')){
+            history.push('/feed');
+        }
+    }, [history]);
 
     return (
         <div className="sign-up">

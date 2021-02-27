@@ -7,7 +7,6 @@ import SignUp from './pages/sign-up/sign-up.page';
 import Feed from './pages/feed/feed.page';
 import Profile from './pages/profile/profile.page';
 import Cart from './pages/cart/cart.page';
-import Order from './pages/order/order.page';
 import Menu from './pages/menu/menu.page';
 import VerifyAccount from './pages/verification/verify-account.page';
 import ForgottenPassword from './pages/verification/forgotten-password.page';
@@ -29,7 +28,6 @@ export default function App() {
           <Route path="/profile" exact component={Profile}></Route>
           <Route path="/feed" exact component={Feed}></Route>
           <Route path="/cart" exact component={Cart}></Route>
-          <Route path="/order" exact component={Order}></Route>
           <Route path="/menu/:id" exact component={Menu}></Route>
       </Router>
     );

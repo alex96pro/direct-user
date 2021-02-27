@@ -3,6 +3,7 @@ export const BACKEND_API = "https://direct-server-dev.herokuapp.com";
 export const CURRENCY = '$';
 export const DISTANCE = 'km';
 export const DEFAULT_RANGE = 5;
+export const MAXIMUM_RESTAURANTS_FOR_ORDER = 3;
 export const MEAL_TAGS = [
     {value:'vegetarian', name:'Vegetarian', icon:'fas fa-leaf fa-2x feed-nutrition-icon'},
     {value:'vegan', name:'Vegan', icon:'fas fa-seedling fa-2x feed-nutrition-icon'},

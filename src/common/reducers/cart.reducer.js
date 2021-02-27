@@ -4,7 +4,11 @@ const initialState = {
     meals: [],
     cartSize: 0,
     minimumDeliveryConflicts: [],
-    deliveryAddress:''
+    deliveryAddress:'',
+    waitingForResponses: false,
+    numberOfOrders: 0,
+    ordersResponses: [],
+    loadingStatus: false
 };
 
 export default function cartReducer(state = initialState, action) {
@@ -13,8 +17,8 @@ export default function cartReducer(state = initialState, action) {
         case ACTIONS.ADD_TO_CART:
             return{
                 ...state,
-                meals: [...state.meals, action.payload],
-                cartSize: +state.cartSize + +action.payload.amount,
+                meals: [...state.meals, action.payload.meal],
+                cartSize: +state.cartSize + +action.payload.meal.amount,
                 deliveryAddress: action.payload.deliveryAddress
             };
         case ACTIONS.REMOVE_FROM_CART:
@@ -63,7 +67,28 @@ export default function cartReducer(state = initialState, action) {
             return {
                 ...state,
                 minimumDeliveryConflicts: action.payload
-            }
+            };
+        case ACTIONS.SEND_ORDER:
+            return {
+                ...state,
+                numberOfOrders: action.payload,
+                waitingForResponses: true,
+                loadingStatus: true
+            };
+        case ACTIONS.ORDER_ACCEPTED:
+            return {
+                ...state,
+                waitingForResponses: state.ordersResponses.length + 1 === state.numberOfOrders ? false : true,
+                loadingStatus: state.ordersResponses.length + 1 === state.numberOfOrders ? false : true,
+                ordersResponses: [...state.ordersResponses, {restaurantName: action.payload.restaurantName, estimatedTime: action.payload.estimatedTime}],
+            };
+        case ACTIONS.ORDER_REJECTED:
+            return {
+                ...state,
+                waitingForResponses: state.ordersResponses.length + 1 === state.numberOfOrders ? false : true,
+                loadingStatus: state.ordersResponses.length + 1 === state.numberOfOrders ? false : true,
+                ordersResponses: [...state.ordersResponses, {restaurantName: action.payload.restaurantName, rejectReason: action.payload.rejectReason}],
+            };
         default:
             return state;
     }

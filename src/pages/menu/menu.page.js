@@ -1,7 +1,7 @@
 import './menu.page.scss';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom'; 
 import { getMealsFromMenuAPI } from '../../common/api/menu.api';
 import { clearMenu } from '../../common/actions/menu.actions';
 import { CURRENCY } from '../../util/consts';
@@ -13,16 +13,21 @@ export default function Menu() {
 
     const dispatch = useDispatch();
     const params = useParams();
+    const history = useHistory();
     const {meals, restaurant, loadingStatus, message} = useSelector((state => state.menu));
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [showCategoriesForMobile, setShowCategoriesForMobile] = useState(false);
 
     useEffect(() => {
+        if(!localStorage.getItem('ACCESS_TOKEN')){
+            history.push('/login');
+            return;
+        }
         dispatch(getMealsFromMenuAPI(params.id));
         return () => {
             dispatch(clearMenu());
         }
-    }, [dispatch, params.id]);
+    }, [dispatch, history, params.id]);
 
     const addCategory = (event) => {
         if(event.target.checked){

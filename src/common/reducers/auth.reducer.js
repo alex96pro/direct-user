@@ -35,6 +35,8 @@ export default function authReducer(state = initialState, action) {
                 loadingStatus: false,
                 addresses: state.addresses.filter(address => address.addressId !== action.payload)
             };
+        case ACTIONS.LOGOUT:
+            return initialState;
         default:
             return state;
     }

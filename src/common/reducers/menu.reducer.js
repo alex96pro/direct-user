@@ -1,4 +1,5 @@
 import * as ACTIONS from '../actions/menu.actions';
+import { LOGOUT } from '../actions/auth.actions';
 
 const initialState = {
     loadingStatus: false,
@@ -49,6 +50,8 @@ export default function menuReducer(state = initialState, action) {
                 loadingStatus: false,
                 message: action.payload
             }
+        case LOGOUT:
+            return initialState;
         default:
             return state;
     }

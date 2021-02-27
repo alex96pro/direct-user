@@ -55,7 +55,7 @@ input[type=text], input[type=password], input[type=email]{
     border:1px solid $accent-color;
     width:100%;
     height:3.3rem;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     border-radius: 0.6rem;
     padding: 0rem 1rem;
     &:focus{
@@ -82,7 +82,7 @@ input::-webkit-inner-spin-button {
 }
 select, option{
     width:100%;
-    font-size:1.5rem;
+    font-size:1.6rem;
     padding:0.8rem;
 }
 textarea{
@@ -103,6 +103,10 @@ textarea{
 .label-accent-color-2{
     @extend .label-white;
     color:$accent-color-2;
+}
+.message-success{
+    @extend .label-white;
+    color:$success-color;
 }
 .get-app-icon{
     height:5.3rem;

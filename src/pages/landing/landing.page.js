@@ -41,7 +41,6 @@ export default function Landing() {
         }
         // eslint-disable-next-line
     }, []);
-
     return (
         <div className="landing">
             <div className="landing-1">

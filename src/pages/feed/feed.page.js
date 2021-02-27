@@ -5,6 +5,7 @@ import { getMealsAPI } from '../../common/api/feed.api';
 import { changeRange, searchFeed, changeTag, addDelivery, bottomOfPage, redirectFromFeed } from '../../common/actions/feed.actions';
 import { changeAddress } from '../../common/actions/feed.actions';
 import { useForm } from 'react-hook-form';
+import { useHistory } from 'react-router-dom';
 import { DISTANCE, MEAL_TAGS } from '../../util/consts';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../components/loader';
@@ -15,6 +16,7 @@ import InputError from '../../components/input-error';
 export default function Feed() {
 
     const dispatch = useDispatch();
+    const history = useHistory();
     const {meals, loadingStatus, message, scrollCount, endOfResultsFlag} = useSelector(state => state.feed);
     const {addresses, currentAddress, search, range, tags, delivery, redirectedToFeed} = useSelector(state => state.feed);
     const {deliveryAddress} = useSelector(state => state.cart);
@@ -103,6 +105,10 @@ export default function Feed() {
     };
      
     useEffect(() => { // ON MOUNT AND UNMOUNT
+        if(!localStorage.getItem('ACCESS_TOKEN')){
+            history.push('/login');
+            return;
+        }
         window.addEventListener('scroll', handleBottomOfPage);
         return () => {
             dispatch(redirectFromFeed());
@@ -112,10 +118,14 @@ export default function Feed() {
     },[]);
     
     useEffect(() => { // ON UPDATES
+        if(!localStorage.getItem('ACCESS_TOKEN')){
+            history.push('/login');
+            return;
+        }
         if(!endOfResultsFlag && !redirectedToFeed){
             dispatch(getMealsAPI(currentAddress, range, search, tags, delivery, scrollCount));
         }
-    },[currentAddress, range, tags, delivery, scrollCount, endOfResultsFlag, redirectedToFeed, addresses, search, dispatch]);
+    },[currentAddress, range, tags, delivery, scrollCount, endOfResultsFlag, redirectedToFeed, addresses, search, dispatch, history]);
 
     return(
         <div className="feed">

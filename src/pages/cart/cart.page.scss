@@ -3,11 +3,11 @@
 .cart{
     @include flex-align(column, center, center, nowrap);
     .cart-meals-container{
-        margin-bottom:16rem;
+        margin-bottom:15rem;
     }
     .cart-meal{
         @include flex-align(row, flex-start, flex-start, nowrap);
-        width:45rem;
+        width:54rem;
         margin: 0.4rem 0rem;
         background-color: $wrapper-color;
         transition: 0.2s;
@@ -50,11 +50,13 @@
         transform: translateY(calc(50vh - 50% - 6rem));
     }
     .cart-total{
-        @include flex-align(column,center,center,wrap);
+        @include flex-align(column,flex-start,center,wrap);
         position: fixed;
-        bottom:0;
-        background-color: rgba($color: $accent-color, $alpha: 0.9);
-        width:100vw;
+        top:12rem;
+        left:0;
+        height: 100vh;
+        background-color: $wrapper-color;
+        width:20vw;
         padding:1rem;
         border-radius: 0;
     }
@@ -67,11 +69,26 @@
     .cart-checkout-button{
         background-color: $accent-color-3;
     }
+    .cart-black-container{
+        position: fixed;
+        top:0;
+        left:0;
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        opacity: 0.6;
+    }
 }
 @include mobile-range{
     .cart{
         .cart-meal{
             width:100vw;
+        }
+        .cart-total{
+            height: max-content;
+            width: 100vw;
+            top:inherit;
+            bottom:0;
         }
     }
 }

@@ -1,4 +1,5 @@
 import * as ACTIONS from '../actions/feed.actions';
+import { LOGOUT } from '../actions/auth.actions';
 
 const initialState = {
     loadingStatus: false,
@@ -122,6 +123,8 @@ export default function feedReducer(state = initialState, action) {
                 ...state,
                 redirectedToFeed: true
             };
+        case LOGOUT:
+            return initialState;
         default:
             return state;
     }
