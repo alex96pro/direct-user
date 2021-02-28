@@ -1,12 +1,16 @@
 export function getClientDateAndTime() {
     let today = new Date();
+    let day = today.getDate();
+    day = day < 10 ? '0' + day : day;
+    let month = today.getMonth() + 1;
+    month = month < 10 ? '0' + month : month;
     let hours = today.getHours();
     hours = hours < 10 ? '0' + hours : hours;
     let minutes = today.getMinutes();
     minutes = minutes < 10 ? '0' + minutes : minutes;
     let seconds = today.getSeconds();
     seconds = seconds < 10 ? '0' + seconds : seconds;
-    return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate() + ' ' + hours + ':' + minutes + ':' + seconds;
+    return today.getFullYear() + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 };
 
 export function getClientTime() {
