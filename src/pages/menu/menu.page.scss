@@ -11,7 +11,6 @@
         position: fixed;
         top:6rem;
         left:0;
-        z-index: 1;
         background-color:white;
         width:20vw;
         height: 100vh;
@@ -21,7 +20,7 @@
     }
     .menu-category{
         @include flex-align(row,flex-start,center,wrap);
-        color:$accent-color-3;
+        color:$text-color;
         margin:1rem 0rem;
         font-size: 2.2rem;
         transition:0.2s;
@@ -31,7 +30,7 @@
         }
     }
     .menu-category-header{
-        color:$accent-color;
+        color:$text-color;
         margin:0;
         font-size: 2.5rem;
         margin-top:4rem;
@@ -44,7 +43,7 @@
         }
         .menu-restaurant-info{
             margin:1.4rem 0rem;
-            color:$accent-color;
+            color:$text-color;
             font-size: 2rem;
         }
         .menu-restaurant-logo{
@@ -62,7 +61,7 @@
         height:20rem;
         width:max-content;
         font-size:4rem;
-        color:$accent-color;
+        color:$text-color;
     }
     .menu-restaurant-closed{
         color:$danger-color;
@@ -73,7 +72,7 @@
         display:none;
         text-align: center;
         width:100vw;
-        color:$accent-color;
+        color:$text-color;
         font-size:2rem;
         margin-bottom:1rem;
     }
@@ -96,7 +95,7 @@
         .menu-info{
             visibility: hidden;
             position:fixed;
-            z-index: 2;
+            z-index: 1;
             top:100vh;
             left:0;
             width:100vw;

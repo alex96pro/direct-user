@@ -23,10 +23,10 @@ export default function RemoveMealModal(props) {
             <div className="modal-underlay" onClick={() => props.closeModal()}></div>
             <div className="modal-container" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
-                    <button onClick={() => props.closeModal()} className="modal-x">x</button>
+                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
                 </div>
-                <div className="modal-body">
-                    <label className="label-accent-color">
+                <div className="modal-body-1">
+                    <label className="label">
                         Are you sure you want to remove {props.meal.mealName} from your cart?
                     </label>
                     <button onClick={removeMealFromCart} className="button-long">Remove</button>

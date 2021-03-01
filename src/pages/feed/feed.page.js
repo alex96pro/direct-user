@@ -132,12 +132,12 @@ export default function Feed() {
             <NavBar loggedIn={true}/>
                 <div className="feed-filters">
                     <form onSubmit={handleSubmit(handleSearch)}>
-                        <div className="label-accent-color">Search</div>
+                        <div className="label">Search</div>
                         <input required minLength="3" type="text" id="search-feed" ref={register()} name="search" style={{width:'50%'}}/>
                         <button type="submit" className="button-small">Search</button>
                         {search && <button type="button" className="button-small" onClick={clearSearch}>Clear</button>}
                     </form>
-                    <div className="label-accent-color">Current address</div>
+                    <div className="label">Current address</div>
                     <select onChange={handleChangeAddress} defaultValue={currentAddress.address}>
                         {addresses.map((addressItem, index) =>
                         <option value={addressItem.address} key={index}>
@@ -148,13 +148,13 @@ export default function Feed() {
                         </option>
                     </select>
                     {currentLocationSelected && 
-                    <p className="label-accent-color">Delivery is disabled when using current location</p>}
+                    <p className="label">Delivery is disabled when using current location</p>}
                     {messageDeliveryAddress && <MessageDanger text={messageDeliveryAddress}/>}
                 
                     <form onSubmit={handleSubmit(handleChangeRange)}>
-                        <div className="label-accent-color">Range</div>
+                        <div className="label">Range</div>
                         <input type="number" ref={register({required: true, min:1, max:100})} name="range"/>
-                        <label className="label-accent-color">{DISTANCE}</label>
+                        <label className="label">{DISTANCE}</label>
                         <button type="submit" className="button-small">Apply</button>
                         {errors.range && errors.range.type === "required" && <InputError text={'Range is required'}/>}
                         {errors.range && errors.range.type === "max" && <InputError text={`Maximal range is 100${DISTANCE}`}/>}

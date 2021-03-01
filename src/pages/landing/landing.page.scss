@@ -20,7 +20,7 @@
         }
         .landing-1-punchline{
             font-size: 5rem;
-            color:$accent-color-2;
+            color:$text-color;
             font-weight: bold;
             margin: 6rem 0rem;
             transition:0.3s;
@@ -33,27 +33,28 @@
         }
         .landing-label{
             font-size:3rem;
-            color:$accent-color-2;
+            color:$text-color;
             margin-top:10rem;
         }
         .landing-input{
             padding:2rem 1rem;
             width:50rem;
             margin:1rem 0rem;
+            border:0;
         }
         .landing-1-button{
             background-color:inherit;
-            color:$accent-color;
+            color:$text-color;
             font-size:2rem;
             font-weight: bold;
             width:12rem;
-            border:0.2rem solid $accent-color;
+            border:0.2rem solid $text-color;
             margin:0.8rem;
             padding:0.8rem;
             cursor: pointer;
             transition: 0.2s;
             &:hover{
-                background-color:$accent-color;
+                background-color:$text-color;
                 color:white;
             }
         }

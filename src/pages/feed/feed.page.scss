@@ -26,16 +26,16 @@
     }
     .feed-filters-heading{
         font-size:2rem;
-        color:$accent-color;
+        color:$text-color;
         margin: 0.4rem 0rem;
     }
     .feed-filter-label{
-        color:$accent-color;
+        color:$text-color;
         font-size:1.8rem;
         transition: 0.2s;
         cursor: pointer;
         &:hover{
-            color:$success-color;
+            color:$accent-color;
         }
     }
     .feed-bottom{

@@ -19,7 +19,7 @@
     .cart-restaurant-name{
         font-size: 1.8rem;
         font-weight: bold;
-        color:$accent-color;
+        color:$text-color;
         padding: 0.4rem 0.2rem;
         transition:0.2s;
         cursor: pointer;
@@ -30,7 +30,7 @@
     .cart-notes{
         font-size: 1.8rem;
         font-weight: bold;
-        color:$accent-color;
+        color:$text-color;
         padding: 0.4rem 0.2rem;
         cursor: pointer;
         &:hover{
@@ -38,7 +38,7 @@
         }
     }
     .fa-house-user{
-        color:$accent-color-3;
+        color:$accent-color-2;
         margin:0rem 0.5rem;
     }
     .cart-no-meals{
@@ -58,12 +58,12 @@
     }
     .cart-total-label{
         font-size:3rem;
-        color:$accent-color-3;
+        color:$accent-color-2;
         font-weight: bold;
         margin:0.5rem 0rem;
     }
     .cart-checkout-button{
-        background-color: $accent-color-3;
+        background-color: $accent-color-2;
     }
     .cart-black-container{
         position: fixed;

@@ -1,3 +1,5 @@
+@import '../../mixins';
+
 .meal-modal-photo{
     width:100%;
     height:auto;
@@ -5,4 +7,18 @@
 .meal-modal-amount-row{
     display: flex;
     align-items: center;
+}
+@include mobile-range{
+    .meal-modal-photo{
+        width:100vw;
+        height:100vw;
+        border-radius: 0;
+    }
+    .modal{
+        .modal-container-double{
+            .modal-body-1{
+                padding:0;
+            }
+        }
+    }
 }

@@ -56,21 +56,21 @@ export default function MealModal(props) {
             <div className="modal-underlay" onClick={() => props.closeModal()}></div>
             <div className="modal-container-double" style={{opacity:modalOpacity}}>
                 <div className="modal-header">
-                    <button onClick={() => props.closeModal()} className="modal-x">x</button>
+                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
                 </div>
-                <div className="modal-body">
+                <div className="modal-body-1">
                     <img src={props.meal.photo} alt="Loading..." className="meal-modal-photo"/>
                 </div>
-                <div className="modal-body">
-                    <Label value={props.meal.mealName}/>
-                    <Label name='Description:' value={props.meal.description}/>
+                <div className="modal-body-2">
+                    <div className="label-accent-color">{props.meal.mealName}</div>
+                    <div className="label">{props.meal.description}</div>
                     {props.feed &&
                     <div>
-                        <Label name='Restaurant:' value={props.meal.restaurantName}/>
+                        <div className="label-accent-color-2">{props.meal.restaurantName}</div>
                         {!props.meal.delivery &&
                         <React.Fragment>
-                        <Label name='Address:' value={props.meal.location}/>
-                        <Label name='Phone:' value={props.meal.phone}/>
+                            <div className="label">{props.meal.location}</div>
+                            <div className="label">{props.meal.phone}</div>
                         </React.Fragment>}
                     </div>
                     }
@@ -80,14 +80,14 @@ export default function MealModal(props) {
                     <MessageDanger text='Delivery is disabled when using current location'/>
                     :
                     <form onSubmit={handleSubmit(handleAddToCart)}>
-                        <div className="label-accent-color-2">Amount</div>
+                        <div className="label">Amount</div>
                         <div className="meal-modal-amount-row">
                             <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})}/>
                             <i className="fas fa-minus fa-2x" onClick={decrementAmmount}></i>
                             <i className="fas fa-plus fa-2x" onClick={incrementAmmount}></i>
                         </div>
                         {errors.amount && <InputError text={'Amount is required'}/>}
-                        <div className="label-accent-color-2">Notes (optional)</div>
+                        <div className="label">Notes (optional)</div>
                         <textarea name="notes" ref={register({maxLength: 200})}/>
                         {errors.notes && <InputError text={'Notes are limited to 200 characters'}/>}
 

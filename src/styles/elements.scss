@@ -3,7 +3,7 @@
 
 .button-link{
     background-color: transparent;
-    color:$accent-color;
+    color:$text-color;
     text-decoration: underline;
     margin:1rem 1rem;
     font-size: 1.6rem;
@@ -17,7 +17,7 @@
 }
 .button-normal{
     width:max-content;
-    background-color:$accent-color;
+    background-color: $accent-color;
     padding:1rem;
     margin:0.6rem;
     color:white;
@@ -25,12 +25,12 @@
     transition: 0.2s;
     cursor: pointer;
     &:hover{
-        background-color: $accent-color-3;
+        background-color: $accent-color-2;
     }
 }
 .button-normal-disabled{
     @extend .button-normal;
-    background-color: gray;
+    background-color:$accent-color-2;
     pointer-events: none;
     cursor:none;
 }
@@ -41,7 +41,7 @@
 }
 .button-long-disabled{
     @extend .button-long;
-    background-color: gray;
+    background-color:$accent-color-2;
     pointer-events: none;
     cursor:none;
 }
@@ -52,22 +52,23 @@
     margin: 0.2rem;
 }
 input[type=text], input[type=password], input[type=email]{
-    border:1px solid $accent-color-2;
+    border:1px solid rgba(0, 0, 0, 0.4);
     width:100%;
     height:3.3rem;
     font-size: 1.6rem;
     border-radius: 0.6rem;
     padding: 0rem 1rem;
+    transition:0.2s;
     &:focus{
         outline:none;
-        box-shadow: 0 0 0.8rem rgba(17, 90, 110, 0.753);
+        box-shadow: 0 0 0.6rem $accent-color;
     }
 }
 input[type=checkbox]{
     width:2rem;
     height:2rem;
     margin:1rem;
-    color:$accent-color;
+    color:$text-color;
 }
 
 input[type=number]{
@@ -82,9 +83,10 @@ input::-webkit-inner-spin-button {
 }
 select, option{
     width:100%;
+    color:$text-color;
     font-size:1.6rem;
     padding:0.8rem;
-    border:1px solid $accent-color;
+    border:1px solid rgba(0, 0, 0, 0.4);
 }
 textarea{
     @extend input[type=text];
@@ -97,9 +99,13 @@ textarea{
     color:white;
     margin:0.4rem 0.1rem;
 }
+.label{
+    @extend .label-white;
+    color:$text-color;
+}
 .label-accent-color{
     @extend .label-white;
-    color:$accent-color-2;
+    color:$accent-color;
 }
 .label-accent-color-2{
     @extend .label-white;
@@ -118,6 +124,10 @@ textarea{
     margin: 1rem 1rem;
     font-size: 3rem;
     text-align: center;
+}
+.header{
+    @extend .header-white;
+    color:$text-color;
 }
 .header-accent-color{
     @extend .header-white;

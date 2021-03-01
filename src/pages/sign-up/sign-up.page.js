@@ -47,31 +47,31 @@ export default function SignUp() {
                 <div className="form-container">
                 <div className="sign-up-header">Create your new account</div>
                     <form onSubmit={handleSubmit(signUp)}>
-                        <div className="label-accent-color">Email</div>
+                        <div className="label">Email</div>
                         <input type="email" name="email" ref={register({required:true})}/>
                         {errors.email && <InputError text={'Email is required'}/>}
                         {message.text && <InputError text={message.text}/>}
 
-                        <div className="label-accent-color">Delivery address</div>
+                        <div className="label">Delivery address</div>
                         <GoogleAutocomplete/>
                         
                         {errors.deliveryAddress && <InputError text={'Delivery address is required'}/>}
 
-                        <div className="label-accent-color">Floor / Apartment / Other</div>
+                        <div className="label">Floor / Apartment / Other</div>
                         <input type="text" name="description" ref={register({required:true})}/>
                         {errors.description && <InputError text={'This field is required'}/>}
 
-                        <div className="label-accent-color">Phone</div>
+                        <div className="label">Phone</div>
                         <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})}/>
                         {errors.phone && errors.phone.type === "required" && <InputError text={'Phone is required'}/>}
                         {errors.phone && errors.phone.type === "pattern" && <InputError text={'Phone can contain numbers only'}/>}
 
-                        <div className="label-accent-color">Password</div>
+                        <div className="label">Password</div>
                         <input type="password" name="password" ref={register({required:true})}/>
                         {errors.password && <InputError text={'Password is required'}/>}
                         {messagePasswords && <InputError text={messagePasswords}/>}
 
-                        <div className="label-accent-color">Retype password</div>
+                        <div className="label">Retype password</div>
                         <input type="password" name="retypePassword" ref={register({required:true})}/>
                         {errors.retypePassword && <InputError text={'Retype password'}/>}
                         {messagePasswords && <InputError text={messagePasswords}/>}
@@ -79,7 +79,7 @@ export default function SignUp() {
                         <SubmitButton loadingStatus={loadingStatus} text="Sign Up"/>
                     </form>
                 </div>
-                <p className="label-accent-color">Already have an account?<button type="button" onClick={() => history.push('/login')} className="button-link">Log in</button></p>
+                <p className="label">Already have an account?<button type="button" onClick={() => history.push('/login')} className="button-link">Log in</button></p>
             </div>}
             {message.text && message.success && <div className="header-accent-color-2">{message.text}</div>}
         </div>

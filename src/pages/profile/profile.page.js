@@ -80,14 +80,14 @@ export default function Profile() {
                 <div className="profile-container-header">Your Profile</div>
                 <div className="profile-info">
                     <div className="profile-header-small">Email</div>
-                    <div className="label-accent-color">{email}</div>
+                    <div className="label">{email}</div>
                     <div className="profile-header-small">Phone</div>
-                    <div className="label-accent-color">{phone}</div>
+                    <div className="label">{phone}</div>
                     <div className="profile-header-small">Addresses</div>
 
                     {addresses.map((address, index) =>
                     <div className="profile-address-row" key={address.addressId}>
-                        <div className="label-accent-color">
+                        <div className="label">
                             <label className="label-accent-color-2">{index + 1}.</label>
                             {address.address} {`(${address.description})`}
                             {messageDelete.id === address.addressId && <InputError text={messageDelete.text}/>}

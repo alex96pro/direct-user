@@ -47,10 +47,10 @@ export default function Login() {
                 <div className="form-container">
                     <div className="login-header">Log in to your account</div>
                     <form onSubmit={handleSubmit(login)}>
-                        <div className="label-accent-color">Email</div>
+                        <div className="label">Email</div>
                         <input type="email" name="email" ref={register({required:true})}/>
                         {errors.email && <InputError text={'Email is required'}/>}
-                        <div className="label-accent-color">Password</div>
+                        <div className="label">Password</div>
                         <input type="password" name="password" ref={register({required:true})}/>
                         {errors.password && <InputError text={'Password is required'}/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Log In"/>

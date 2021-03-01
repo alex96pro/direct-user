@@ -52,7 +52,7 @@ export default function Landing() {
                         {PUNCHLINES[currentPunchline]}
                     </div>
                     <div className="landing-label">Where are you, you hungry human?</div>
-                    <input type="text" className="landing-input" placeholder="Delivery or your address"></input>
+                    <input type="text" className="landing-input" placeholder="Delivery address"></input>
                     {/* <button onClick={() => history.push('/login')} className="landing-1-button">Log In</button>
                     <button onClick={() => history.push('/sign-up')} className="landing-1-button">Sign up</button> */}
                 </div>

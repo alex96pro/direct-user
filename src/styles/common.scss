@@ -88,31 +88,20 @@ body{
         @extend .modal-container;
         width:72rem;
     }
-    .modal-body{
+    .modal-body-1{
         height: 100%;
         width:34rem;
         padding: 0.4rem;
         height: max-content;
+    }
+    .modal-body-2{
+        @extend .modal-body-1;
     }
     .modal-header{
         border-radius: 0;
         width:100%;
         @include flex-align(row,flex-end,center,nowrap);
         background-color: $wrapper-color;
-        .modal-x{
-            background-color: $accent-color;
-            color:white;
-            font-size: 1.8rem;
-            font-weight: bold;
-            padding: 0.4rem 1rem;
-            margin: 0.4rem;
-            margin-bottom:0.6rem;
-            cursor: pointer;
-            transition: 0.2s;
-            &:hover{
-                background-color: $accent-color-2;
-            }
-        }
     } 
 }
 .fa-plus, .fa-minus{
@@ -123,12 +112,23 @@ body{
     cursor: pointer;
 }
 .fa-edit, .fa-trash{
-    color:$accent-color-2;
+    color:$accent-color;
     margin:0.4rem;
     transition:0.2s;
     cursor: pointer;
     &:hover{
-        color:$accent-color;
+        color:$accent-color-2;
+    }
+}
+.fa-times{
+    color:white;
+    background-color: $accent-color;
+    padding:0.4rem 0.8rem;
+    margin:0.4rem;
+    transition: 0.2s;
+    cursor: pointer;
+    &:hover{
+        background-color:$accent-color-2;
     }
 }
 @include mobile-range{
@@ -137,6 +137,9 @@ body{
     }
     .modal{
         .modal-container{
+            width:100vw;
+        }
+        .modal-body-1, .modal-body-2{
             width:100vw;
         }
         .modal-container-double{

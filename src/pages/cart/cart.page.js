@@ -104,7 +104,7 @@ export default function Cart() {
             <NavBar loggedIn={true}/>
             {meals.length !== 0 ?
             <React.Fragment>
-                <div className="header-accent-color">Your cart</div>
+                <div className="header">Your cart</div>
                 {minimumDeliveryConflicts.length > 0 && 
                 <div>
                     {minimumDeliveryConflicts.map((conflict, index) => 
@@ -150,7 +150,7 @@ export default function Cart() {
                         null
                     }
                     {message && <MessageDanger text={message}/>}
-                    {waitingForResponses && <label className="label-accent-color">Waiting for {numberOfOrders > 1 ? 'restaurants' : 'restaurant'} response...</label>}
+                    {waitingForResponses && <label className="label">Waiting for {numberOfOrders > 1 ? 'restaurants' : 'restaurant'} response...</label>}
                     {ordersResponses.map((orderResponse, index) =>
                     orderResponse.estimatedTime ? 
                     <div className="message-success" key={index}>
@@ -167,7 +167,7 @@ export default function Cart() {
             </React.Fragment>
             :
             <div className="cart-no-meals">
-                <p className="header-accent-color" >You don't have any meals in your cart</p>
+                <p className="header" >You don't have any meals in your cart</p>
                 <button onClick={() => history.push('/feed')} className="button-normal">Go back to feed</button>
             </div>
             }

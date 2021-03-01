@@ -24,7 +24,7 @@ export default function VerifyAccount() {
             <NavBar loggedIn={false}/>
             {loadingStatus? <Loader/>:
                 <div className="verify-account-container">
-                    <div className="header-accent-color">Congratulations ! You are ready to go !</div>
+                    <div className="header">Congratulations ! You are ready to go !</div>
                     <button className="button-long" onClick={() => history.push('/login')}>Log In</button>
                 </div>
             }
