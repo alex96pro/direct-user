@@ -61,6 +61,11 @@ body{
     font-size:2rem;
     margin:1rem;
 }
+.flex-space-between{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .modal{
     .modal-underlay{
         position:fixed;
@@ -141,6 +146,7 @@ body{
         }
         .modal-body-1, .modal-body-2{
             width:100vw;
+            padding: 1.2rem;
         }
         .modal-container-double{
             top:inherit;

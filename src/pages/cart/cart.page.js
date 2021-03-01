@@ -117,18 +117,19 @@ export default function Cart() {
                     {meals.map((meal,index) =>
                     <div className="cart-meal" key={index}>
                         <img src={meal.photo} alt="meal" className="cart-meal-photo"/>
-                        <div>
-                            <div className="label-accent-color-2">{meal.mealName}</div>
-                            <label className="label-accent-color-2">Amount: {meal.amount}</label>
-                            <i className="fas fa-minus fa-2x" onClick={() => incrementOrDecrementAmount(index, "DECREMENT")}></i>
-                            <i className="fas fa-plus fa-2x" onClick={() => incrementOrDecrementAmount(index, "INCREMENT")}></i>
-                            <div className="label-accent-color-2">{(Math.round(meal.price * meal.amount * 100) / 100).toFixed(2)}{CURRENCY}</div>
-                            <div className="cart-notes" onClick={() => setEditNotesModal({show: true, meal:{name:meal.mealName, notes: meal.notes, index: index, }})}>Notes
-                            <i className="fas fa-edit fa-1x"></i>
+                        <div className="cart-meal-info">
+                            <div className="cart-meal-header">
+                                <div className="cart-meal-name">{meal.mealName}</div>
+                                <div className="cart-meal-price">{(Math.round(meal.price * meal.amount * 100) / 100).toFixed(2)}{CURRENCY}</div>
                             </div>
                             <div className="cart-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
+                            <i className="fas fa-minus fa-2x" onClick={() => incrementOrDecrementAmount(index, "DECREMENT")}></i>
+                            <label className="cart-meal-amount">{meal.amount}</label>
+                            <i className="fas fa-plus fa-2x" onClick={() => incrementOrDecrementAmount(index, "INCREMENT")}></i>
+                            <i className="fas fa-edit fa-2x" onClick={() => setEditNotesModal({show: true, meal:{name:meal.mealName, notes: meal.notes, index: index, }})}></i>
                             <i className="fas fa-trash fa-2x" onMouseEnter={() => reduceMealOpacity(index)}
                                 onMouseLeave={() => increaseMealOpacity(index)} onClick={() => setRemoveMealModal({show:true, mealName:meal.mealName, index: index})}></i>
+                            {meal.notes && <div className="cart-meal-notes">{meal.notes}</div>}
                         </div>
                     </div>)}
                 </div>
@@ -143,7 +144,7 @@ export default function Cart() {
                     </div>
                     {(ordersResponses.length === 0 || ordersResponses.length !== numberOfOrders) ?
                         minimumDeliveryConflicts.length > 0 ?
-                        <button className="button-long-disabled">Send order</button>
+                        <button className="button-long button-gray">Send order</button>
                         :
                         <ConfirmButton loadingStatus={loadingStatus} onClick={handleSendOrder} text='Send order'/>
                         :

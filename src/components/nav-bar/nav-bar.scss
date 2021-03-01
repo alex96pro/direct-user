@@ -37,18 +37,27 @@ nav{
         top:0.2rem;
         cursor: pointer;
     }
+    .nav-cart-container{
+        position: relative;
+    }
+    .nav-cart-icon{
+        width:4rem;
+        height:4rem;
+        cursor: pointer;
+    }
     .nav-cart-size{
-        background-color: $accent-color;
-        font-size: 2rem;
+        position: absolute;
+        top:0.3rem;
+        left:1.8rem;
+        font-size: 2.2rem;
         font-weight: bold;
-        padding:0.6rem 1.2rem;
-        border-radius: 50%;
-        color:white;
+        color:$text-color;
         transition:0.2s;
         cursor: pointer;
-        &:hover{
-            background-color:$accent-color-2;
-        }
+    }
+    .cart-double-digit{
+        font-size:1.8rem;
+        left:1.2rem;
     }
     .fa-shopping-cart{
         color:$accent-color;

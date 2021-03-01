@@ -6,36 +6,50 @@
         margin-bottom:15rem;
     }
     .cart-meal{
-        @include flex-align(row, flex-start, flex-start, nowrap);
-        width:54rem;
+        @include flex-align(row, flex-start, flex-start, wrap);
         margin: 0.4rem 0rem;
         background-color: white;
         transition: 0.2s;
     }
+    .cart-meal-info{
+        width:40rem;
+        padding:1.5rem;
+    }
+    .cart-meal-header{
+        width:100%;
+        @include flex-align(row,space-between, flex-start, nowrap);
+    }
+    .cart-meal-name{
+        width:65%;
+        color:$text-color;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+    .cart-meal-price{
+        color:$accent-color;
+        font-size: 2rem;
+        font-weight: bold;
+    }
     .cart-meal-photo{
-        width:50%;
+        width:27rem;
+        height:27rem;
         height:auto;
     }
     .cart-restaurant-name{
         font-size: 1.8rem;
-        font-weight: bold;
         color:$text-color;
         padding: 0.4rem 0.2rem;
+        margin: 1.2rem 0rem;
         transition:0.2s;
         cursor: pointer;
         &:hover{
             color:$accent-color-2;
         }
     }
-    .cart-notes{
-        font-size: 1.8rem;
-        font-weight: bold;
+    .cart-meal-notes{
         color:$text-color;
-        padding: 0.4rem 0.2rem;
-        cursor: pointer;
-        &:hover{
-            color:$accent-color-2;
-        }
+        font-size: 1.8rem;
+        margin:1rem 0rem;
     }
     .fa-house-user{
         color:$accent-color;
@@ -74,11 +88,27 @@
         background-color: black;
         opacity: 0.6;
     }
+    .cart-meal-amount{
+        font-size:2rem;
+        padding:0.8rem;
+    }
+    .fa-plus, .fa-minus{
+        margin:0rem 0.4rem;
+    }
+    .fa-edit{
+        margin:0;
+        padding:0rem 1.5rem;
+    }
 }
 @include mobile-range{
     .cart{
-        .cart-meal{
-            width:100vw;
+        .cart-meal-photo{
+            width:50vw;
+            height: 50vw;
+        }
+        .cart-meal-info{
+            width:50vw;
+            padding:0.2rem
         }
         .cart-total{
             height: max-content;
@@ -86,6 +116,9 @@
             top:inherit;
             bottom:0;
             padding:0.6rem;
+        }
+        .cart-meal-name, .cart-meal-price{
+            font-size: 1.8rem;
         }
     }
 }

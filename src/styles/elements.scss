@@ -51,6 +51,14 @@
     padding: 0.8rem;
     margin: 0.2rem;
 }
+.button-gray{
+    background-color: gray;
+    pointer-events: none;
+    cursor:none;
+    &:hover{
+        background-color: gray;
+    }
+}
 input[type=text], input[type=password], input[type=email]{
     border:1px solid rgba(0, 0, 0, 0.4);
     width:100%;
