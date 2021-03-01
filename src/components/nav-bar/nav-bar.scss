@@ -2,7 +2,7 @@
 @import '../../mixins';
 
 nav{
-    background-color:rgba($color:white, $alpha: 0.8);
+    background-color:white;
     height:6rem;
     width:100%;
     border-radius: 0;
@@ -14,8 +14,8 @@ nav{
     @include flex-align(row, flex-end, center, nowrap);
 
     .nav-link{
+        color:$accent-color-2;
         background-color: inherit;
-        color:white;
         margin: 0rem 1rem;
         padding: 1rem;
         font-size: 2rem;
@@ -30,10 +30,10 @@ nav{
         height:100%;
     }
     .nav-logo{
+        width:5.5rem;
+        height:5.5rem;
         position: fixed;
-        top:0;
-        left:2rem;
-        top: 0.8rem;
+        left:13rem;
         cursor: pointer;
     }
     .nav-cart-size{
