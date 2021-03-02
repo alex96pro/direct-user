@@ -1,5 +1,5 @@
 import './landing.page.scss';
-import { useHistory } from 'react-router-dom';
+// import { useHistory } from 'react-router-dom';
 import { PUNCHLINES } from '../../util/consts';
 import { useState, useEffect, useRef } from 'react';
 import NavBar from '../../components/nav-bar/nav-bar';
@@ -8,7 +8,7 @@ import AppleStore from '../../images/apple-store-icon.png';
 
 export default function Landing() {
 
-    const history = useHistory();
+    // const history = useHistory();
     const [currentPunchline, setCurrentPunchline] = useState(0);
     const currentPunchlineRef = useRef(currentPunchline);
 

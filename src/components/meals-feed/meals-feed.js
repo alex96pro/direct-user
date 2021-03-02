@@ -22,20 +22,12 @@ export default function MealsFeed(props) {
         setModal({show: false, selectedMeal: {}});
     };
 
-    const changeColor = (index, color) => {
-        let element = document.getElementsByClassName('meal')[index];
-        if(element){
-            color ? element.style.backgroundColor = '#e7e7e7' : element.style.backgroundColor = '#ffffff';
-        }
-    };
-
     return (
         <React.Fragment>
         {props.meals.map((meal, index) => 
             <div className="meal" key={meal.specialId}>
                 <div className="meal-left-container">
-                    <img src={meal.photo} alt="meal" className="meal-photo" onClick={() => showModal(meal)}
-                    onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}/>
+                    <img src={meal.photo} alt="meal" className="meal-photo" onClick={() => showModal(meal)}/>
                     {meal.closed && 
                 <React.Fragment>
                      <div className="meal-photo-darkened" onClick={() => showModal(meal)}></div>
@@ -44,14 +36,13 @@ export default function MealsFeed(props) {
                 </div>
                 
                 <div className="meal-right-container">
-                    <div className="meal-header" onClick={() => showModal(meal)}
-                        onMouseEnter={() => changeColor(index, 1)} onMouseLeave={() => changeColor(index, 0)}>
+                    <div className="meal-header" onClick={() => showModal(meal)}>
                         <div className="meal-name">{meal.mealName}</div>
                         <div className="meal-price">{meal.price}{CURRENCY}</div>
                     </div>
                     <div>
                         <div className="meal-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
-                        <div className="meal-see-menu" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>See menu</div>
+                        {/* <div className="meal-see-menu" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>See menu</div> */}
                         <div className="meal-tags">
                         {meal.tags.map((tag, tagIndex) => 
                             <div className="meal-tag" key={tagIndex}>#{tag}</div>

@@ -98,7 +98,7 @@ select, option{
 }
 textarea{
     @extend input[type=text];
-    height: 7rem;
+    height: 5rem;
     padding: 0.4rem 1rem;
     resize: none;
 }
