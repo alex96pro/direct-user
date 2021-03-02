@@ -43,6 +43,10 @@ export default function MealModal(props) {
         infoToast('Added to cart');
     };
 
+    const changeAmount = (event) => {
+        setTotalPrice(singleItemPrice * event.target.value);
+    };
+
     const incrementAmmount = () => {
         const input = document.getElementsByName('amount')[0];
         if(input){
@@ -53,7 +57,7 @@ export default function MealModal(props) {
 
     const decrementAmmount = () => {
         const input = document.getElementsByName('amount')[0];
-        if(input && input.value > 0){
+        if(input && input.value > 1){
             input.stepDown();
             setTotalPrice(totalPrice - singleItemPrice);
         }
@@ -110,9 +114,10 @@ export default function MealModal(props) {
                     <form onSubmit={handleSubmit(handleAddToCart)}>
                         <div className="label">Amount</div>
                         <div className="meal-modal-amount-row">
-                            <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})}/>
+                            <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})} onChange={changeAmount}/>
                             <i className="fas fa-minus fa-2x" onClick={decrementAmmount}></i>
                             <i className="fas fa-plus fa-2x" onClick={incrementAmmount}></i>
+                            {errors.amount && <InputError text={'Amount is required'}/>}
                         </div>
                         {props.meal.modifier_required && 
                         <React.Fragment>
@@ -132,7 +137,6 @@ export default function MealModal(props) {
                         </div>
                         }
                         {showAddons && <AddOns addOns={props.meal.modifier_optional} addAddOn={addAddOn}/>}
-                        {errors.amount && <InputError text={'Amount is required'}/>}
                         <div className="label">Notes (optional)</div>
                         <textarea name="notes" ref={register({maxLength: 200})}/>
                         {errors.notes && <InputError text={'Notes are limited to 200 characters'}/>}
