@@ -28,10 +28,12 @@
         max-width: 100%;
         max-height: 80vh;
         overflow-y: auto;
+        overflow-x : hidden;
     }
     .modal-body-horizontal{
         @extend .modal-body-vertical;
-        @include flex-align(row, space-evenly, flex-start, nowrap);
+        @include flex-align(row,flex-start, flex-start, wrap);
+        overflow-y: auto;
         width:80rem;
     }
     .modal-header{

@@ -1,7 +1,7 @@
 @import '../../mixins';
 @import '../../variables';
 .cart{
-    @include flex-align(column, center, center, nowrap);
+    @include page-container;
     .cart-meals-container{
         margin-bottom:15rem;
     }
@@ -57,7 +57,6 @@
     }
     .cart-no-meals{
         @include flex-align(column,center,center,wrap);
-        transform: translateY(calc(50vh - 50% - 6rem));
     }
     .cart-total{
         @include flex-align(column,flex-start,center,wrap);

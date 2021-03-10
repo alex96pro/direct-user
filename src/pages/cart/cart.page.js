@@ -140,7 +140,7 @@ export default function Cart() {
                         <label className="label-accent-color-2">{deliveryAddress.address}</label>
                     </div>
                     <div className="cart-total-label">
-                        Total: {(Math.round(meals.reduce((sum, current) => sum + current.price * current.amount, 0)*100) / 100).toFixed(2)}{CURRENCY}
+                        Total: {(Math.round(meals.reduce((sum, current) => sum + +current.totalPrice, 0)*100) / 100).toFixed(2)}{CURRENCY}
                     </div>
                     {(ordersResponses.length === 0 || ordersResponses.length !== numberOfOrders) ?
                         minimumDeliveryConflicts.length > 0 ?

@@ -14,11 +14,10 @@ export default function MealModal(props) {
     const {register, handleSubmit, errors} = useForm();
     const dispatch = useDispatch();
     const {currentAddress} = useSelector(state => state.feed);
-    // const [addOns, setAddOns] = useState([]);
-    // const [oldSelectPrice, setOldSelectPrice] = useState(0);
-    const [singleItemPrice, setSingleItemPrice] = useState(props.meal.price);
-    const [totalPrice, setTotalPrice] = useState(props.meal.price);
-    const { modifiers } = useSelector(state => state.modifiers);
+    const [amount, setAmount] = useState(1);
+    const [mealBasePrice, setMealBasePrice] = useState(props.meal.price);
+    const [requiredModifiers, setRequiredModifiers] = useState([]);
+    const [optionalModifiersPrice, setOptionalModifiersPrice] = useState(0);
 
     useEffect(() => {
         document.querySelector("body").style.overflow = 'hidden'; //prevent rest of the page from scrolling
@@ -28,31 +27,28 @@ export default function MealModal(props) {
     }, []);
 
     const handleAddToCart = (data) => {
-        // dispatch(addToCart({
-        //     meal:{
-        //         mealName: props.meal.mealName,
-        //         description: props.meal.description, 
-        //         photo: props.meal.photo,
-        //         singleItemPrice: (Math.round(singleItemPrice * 100) / 100).toFixed(2), 
-        //         totalPrice: (Math.round(totalPrice * 100) / 100).toFixed(2), 
-        //         amount: data.amount, 
-        //         notes: data.notes,
-        //         modifiers: modifiers,
-        //         restaurantId: props.meal.restaurantId || props.restaurant.restaurantId, 
-        //         restaurantName: props.meal.restaurantName || props.restaurant.restaurantName, 
-        //         deliveryMinimum: props.meal["delivery-minimum"] || props.restaurant.deliveryMinimum
-        //     }, 
-        //     deliveryAddress: currentAddress
-        // }));
-        // props.closeModal();
-        // infoToast('Added to cart');
+        dispatch(addToCart({
+            meal:{
+                mealName: props.meal.mealName,
+                description: props.meal.description, 
+                photo: props.meal.photo,
+                totalPrice: (Math.round((mealBasePrice + optionalModifiersPrice + requiredModifiers.reduce((sum, item) => sum += +item.price, 0)) * amount * 100) / 100).toFixed(2),
+                amount: amount, 
+                notes: data.notes,
+                restaurantId: props.meal.restaurantId || props.restaurant.restaurantId, 
+                restaurantName: props.meal.restaurantName || props.restaurant.restaurantName, 
+                deliveryMinimum: props.meal["delivery-minimum"] || props.restaurant.deliveryMinimum
+            }, 
+            deliveryAddress: currentAddress
+        }));
+        props.closeModal();
+        infoToast('Added to cart');
     };
 
     const changeAmount = (event) => {
         const input = document.getElementsByName('amount')[0];
         if(input){
-            console.log(input.value);
-            setTotalPrice(singleItemPrice * input.value);
+            setAmount(+input.value);
         }
     };
 
@@ -60,7 +56,7 @@ export default function MealModal(props) {
         const input = document.getElementsByName('amount')[0];
         if(input){
             input.value = +input.value + 1;
-            setTotalPrice(totalPrice + singleItemPrice);
+            setAmount(amount + 1);
         }
     };
 
@@ -68,29 +64,27 @@ export default function MealModal(props) {
         const input = document.getElementsByName('amount')[0];
         if(input && input.value > 1){
             input.value = input.value - 1;
-            setTotalPrice(totalPrice - singleItemPrice);
+            setAmount(amount - 1);
         }
     };
 
-    const addRequiredModifier = (event) => {
-        // const input = document.getElementsByName('amount')[0];
-        // if(!input) return;
-        // setSingleItemPrice(singleItemPrice + +event.target.value - +oldSelectPrice);
-        // setTotalPrice(totalPrice + input.value * event.target.value - input.value * oldSelectPrice);
-        // setOldSelectPrice(event.target.value);
+    const addRequiredBaseModifier = (modifier, optionPrice) => {
+        setMealBasePrice(+optionPrice);
     };
 
-    const addAddOn = (event) => {
-        const input = document.getElementsByName('amount')[0];
-        if(!input) return;
+    const addRequiredModifier = (modifier, optionPrice) => {
+        let newRequiredModifiers = requiredModifiers.filter(modifierItem => modifierItem.modifier.modifierId !== modifier.modifierId);
+        newRequiredModifiers.push({modifier: modifier, price: optionPrice});
+        setRequiredModifiers(newRequiredModifiers);
+    };
+
+    const addOptionalModifier = (event, modifier, optionPrice) => {
         if(event.target.checked){
-            setTotalPrice(totalPrice + input.value * event.target.value);
-            setSingleItemPrice(singleItemPrice + +event.target.value);
+            setOptionalModifiersPrice(optionalModifiersPrice + +optionPrice);
         }else{
-            setTotalPrice(totalPrice - input.value * event.target.value);
-            setSingleItemPrice(singleItemPrice - event.target.value);
+            setOptionalModifiersPrice(optionalModifiersPrice - optionPrice);
         }
-    };
+    }
 
     return (
         <React.Fragment>
@@ -137,10 +131,13 @@ export default function MealModal(props) {
                         <button className="button-long">Get directions</button>
                         }
                 </div>
-                {/* <div className="meal-modal-modifiers"><Modifiers addAddOn={addAddOn} addRequiredModifier={addRequiredModifier} modifiers={modifiers}/></div> */}
+                <Modifiers addOptionalModifier={addOptionalModifier} addRequiredModifier={addRequiredModifier} addRequiredBaseModifier={addRequiredBaseModifier}/>
             </div>
             <div className="modal-footer">
-                <button type="submit" className="button-long button-add-to-cart">{(Math.round(totalPrice * 100) / 100).toFixed(2) + CURRENCY}&nbsp;&nbsp;Add to cart</button>
+                <button type="submit" className="button-long button-add-to-cart">
+                    {(Math.round((mealBasePrice + optionalModifiersPrice + requiredModifiers.reduce((sum, item) => sum += +item.price, 0)) * amount * 100) / 100).toFixed(2) + CURRENCY} &nbsp;&nbsp; 
+                    Add to cart
+                </button>
             </div>
             </form>
         </div>

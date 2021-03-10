@@ -3,9 +3,8 @@
 
 .menu{
     .menu-container{
-        margin-top:2rem;
+        margin-top:8rem;
         @include flex-align(row, flex-start, flex-start, wrap);
-        // width:100vw;
     }
     .menu-info{
         position: fixed;

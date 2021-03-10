@@ -24,6 +24,7 @@ body{
     }
 }
 .form-container{
+    margin-top:$nav-bar-height / 2;
     background-color: white;
     box-shadow: 0 0 1rem $wrapper-color;
     padding:3rem;
@@ -61,7 +62,7 @@ body{
 .input-error{
     color:$danger-color;
     font-size:1.4rem;
-    margin-top:0.5rem;
+    margin-top:0.2rem;
     text-align: left;
 }
 .message-success{

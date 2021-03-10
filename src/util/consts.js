@@ -1,5 +1,5 @@
-export const BACKEND_API = "http://localhost:3001";
-// export const BACKEND_API = "https://direct-server-dev.herokuapp.com";
+// export const BACKEND_API = "http://localhost:3001";
+export const BACKEND_API = "https://direct-server-dev.herokuapp.com";
 export const CURRENCY = '$';
 export const DISTANCE = 'km';
 export const DEFAULT_RANGE = 5;

@@ -2,9 +2,9 @@
 @import '../../variables';
 
 .profile{
-    @include flex-align(column, center, center, wrap);
+    @include page-container;
     .profile-container{
-        transform: translateY(calc(50vh - 50% - 6rem));
+        margin-top:$nav-bar-height / 2;
         text-align: center;
         .profile-container-header{
             color:$text-color;

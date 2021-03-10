@@ -2,17 +2,23 @@
 @import '../../variables';
 
 .modifiers{
-    @include flex-align(row,space-between,flex-start,wrap);
+    @include flex-align(row,flex-start,flex-start,wrap);
     .modifiers-container{
-        // @include flex-align(row,flex-start,center,wrap);
-        width:50%;
-        padding:0.8rem;
+        padding:0rem 0.8rem;
+        margin-right:2rem;
+    }
+    .modifier-option-label{
+        transition: 0.2s;
+        cursor: pointer;
+        &:hover{
+            color:$accent-color;
+        }
     } 
 }
 @include mobile-range{
-    .modifiers{
-        .modifiers-container{
-            width:100vw;
-        }
-    }
+    // .modifiers{
+    //     .modifiers-container{
+    //         width:100vw;
+    //     }
+    // }
 }

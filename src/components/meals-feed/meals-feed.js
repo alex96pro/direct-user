@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { CURRENCY, DISTANCE } from '../../util/consts';
 import React, { useState } from 'react';
 import { errorToast } from '../../util/toasts/toasts';
-import { getMealModifiersAPI } from '../../common/api/modifiers.api';
+import { getSpecialModifiersAPI } from '../../common/api/modifiers.api';
 import { useDispatch, useSelector } from 'react-redux';
 import MealModal from '../../components/meal-modal/meal.modal';
 import Loader from '../../components/loader';
@@ -18,7 +18,7 @@ export default function MealsFeed(props) {
 
     const showModal = (meal) => {
         if(!meal.closed){
-            dispatch(getMealModifiersAPI(meal.specialId, () =>  setModal({show: true, selectedMeal: meal})));
+            dispatch(getSpecialModifiersAPI(meal.specialId, () =>  setModal({show: true, selectedMeal: meal})));
         }else{
             errorToast(`Restaurant ${meal.restaurantName} is closed`);
         }
