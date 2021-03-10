@@ -1,14 +1,17 @@
 import './meals-menu.scss';
 import { CURRENCY } from '../../util/consts';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MealModal from '../meal-modal/meal.modal';
 import { errorToast } from '../../util/toasts/toasts';
+import { getMealModifiersAPI } from '../../common/api/modifiers.api';
 
 export default function MealsMenu(props) {
 
     const [showMealModal, setShowMealModal] = useState({show:false, selectedMeal:{}});
     const { restaurant } = useSelector(state => state.menu);
+    const { modifiers } = useSelector(state => state.modifiers);
+    const dispatch = useDispatch();
 
     const filteredMeals = props.meals.filter(meal => 
         props.categories.includes(meal.category)
@@ -16,11 +19,10 @@ export default function MealsMenu(props) {
 
     const handleShowMealModal = (meal) => {
         if(!restaurant.closed){
-            setShowMealModal({show: true, selectedMeal: meal});
+            dispatch(getMealModifiersAPI(meal.mealId, () =>  setShowMealModal({show: true, selectedMeal: meal})));
         }else{
             errorToast(`Restaurant ${restaurant.restaurantName} is closed`);
         }
-        
     };
 
     const closeModal = () => {
@@ -41,14 +43,16 @@ export default function MealsMenu(props) {
                     <div className="menu-meals-meal-name">{meal.mealName}</div>
                     <div className="menu-meals-meal-price">{meal.price}{CURRENCY}</div>
                 </div>
-                <img src={meal.photo} className="menu-meals-meal-photo" alt="meal-menu"/>
-                <div className="menu-meals-hidden-description"
-                    onMouseEnter={() => showHiddenDiv(index)}
-                    onMouseLeave={() => hideHiddenDiv(index)}>
-                    <div className="menu-meals-description">{meal.description}</div>
+                <div className="menu-meals-photo-container">
+                    <img src={meal.photo} className="menu-meals-meal-photo" alt="meal-menu"/>
+                    <div className="menu-meals-hidden-description"
+                        onMouseEnter={() => showHiddenDiv(index)}
+                        onMouseLeave={() => hideHiddenDiv(index)}>
+                        <div className="menu-meals-description">{meal.description}</div>
+                    </div>
                 </div>
             </div>)}
-            {showMealModal.show && <MealModal restaurant={restaurant} meal={showMealModal.selectedMeal} closeModal={closeModal} detailedInfo={false}/>}
+            {showMealModal.show && <MealModal restaurant={restaurant} meal={showMealModal.selectedMeal} modifiers={modifiers} closeModal={closeModal} detailedInfo={false}/>}
         </div>
     );
 }

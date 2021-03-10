@@ -7,6 +7,7 @@ import { changeAddress } from '../../common/actions/feed.actions';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import { DISTANCE, MEAL_TAGS } from '../../util/consts';
+import { Checkbox } from 'antd';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../components/loader';
 import MealsFeed from '../../components/meals-feed/meals-feed';
@@ -68,11 +69,11 @@ export default function Feed() {
         }
     };
 
-    const handleChangeTag = (event) => {
+    const handleChangeTag = (event, tag) => {
         if(event.target.checked){
-            dispatch(changeTag({tag: event.target.value, checked: true}));
+            dispatch(changeTag({tag: tag, checked: true}));
         }else{
-            dispatch(changeTag({tag: event.target.value, checked: false}));
+            dispatch(changeTag({tag: tag, checked: false}));
         }
     };
 
@@ -133,17 +134,19 @@ export default function Feed() {
                 <div className="feed-filters">
                     <form onSubmit={handleSubmit(handleSearch)}>
                         <div className="label">Search</div>
-                        <input required minLength="3" type="text" id="search-feed" ref={register()} name="search" style={{width:'50%'}}/>
-                        <button type="submit" className="button-small">Search</button>
+                        <div className="flex-row">
+                            <input required minLength="3" type="text" id="search-feed" ref={register()} name="search" style={{width:'50%'}} className="app-input"/>
+                            <button type="submit" className="button-small">Search</button>
+                        </div>
                         {search && <button type="button" className="button-small" onClick={clearSearch}>Clear</button>}
                     </form>
                     <div className="label">Current address</div>
-                    <select onChange={handleChangeAddress} defaultValue={currentAddress.address}>
+                    <select onChange={handleChangeAddress} defaultValue={currentAddress.address} className="app-select">
                         {addresses.map((addressItem, index) =>
-                        <option value={addressItem.address} key={index}>
+                        <option value={addressItem.address} key={index} className="app-option">
                             {addressItem.address}
                         </option>)}
-                        <option value="Current location">
+                        <option value="Current location" className="app-option">
                             Current location
                         </option>
                     </select>
@@ -153,9 +156,11 @@ export default function Feed() {
                 
                     <form onSubmit={handleSubmit(handleChangeRange)}>
                         <div className="label">Range</div>
-                        <input type="number" ref={register({required: true, min:1, max:100})} name="range"/>
-                        <label className="label">{DISTANCE}</label>
-                        <button type="submit" className="button-small">Apply</button>
+                        <div className="flex-row">
+                            <input type="number" ref={register({required: true, min:1, max:100})} name="range" className="app-input-number"/>
+                            <label className="label">{DISTANCE}</label>
+                            <button type="submit" className="button-small">Apply</button>
+                        </div>
                         {errors.range && errors.range.type === "required" && <InputError text={'Range is required'}/>}
                         {errors.range && errors.range.type === "max" && <InputError text={`Maximal range is 100${DISTANCE}`}/>}
                     </form>
@@ -165,7 +170,7 @@ export default function Feed() {
                         {MEAL_TAGS.map((tag, index) => 
                         <div className="feed-filter-row" key={index}>
                             <div><i className={tag.icon}></i></div>
-                            <input type="checkbox" value={tag.value} onChange={handleChangeTag} checked={tags.includes(tag.value)} id={`checkbox-nutrition-${index}`}/>
+                            <Checkbox onChange={(event) => handleChangeTag(event, tag.value)} checked={tags.includes(tag.value)} id={`checkbox-nutrition-${index}`}/>
                             <label className="feed-filter-label" htmlFor={`checkbox-nutrition-${index}`}>{tag.name}</label>
                         </div>
                         )}
@@ -175,7 +180,7 @@ export default function Feed() {
                         <div className="feed-filters-heading">Delivery options</div>
                         <div className="feed-filter-row">
                             <i className="fas fa-truck fa-2x"></i>
-                            <input type="checkbox" onChange={handleAddDelivery} value="delivery" checked={delivery} id="checkbox-delivery"/>
+                            <Checkbox onChange={handleAddDelivery} checked={delivery} id="checkbox-delivery"/>
                             <label className="feed-filter-label" htmlFor="checkbox-delivery">Delivery</label>
                         </div>
                     </div>

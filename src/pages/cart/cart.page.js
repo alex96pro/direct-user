@@ -11,7 +11,7 @@ import { getClientTime } from '../../util/functions';
 import NavBar from '../../components/nav-bar/nav-bar';
 import MessageDanger from '../../components/message-danger';
 import ConfirmButton from '../../components/confirm-button';
-import EditNotesModal from './edit-notes.modal';
+import EditMealModal from './edit-meal.modal';
 import RemoveMealModal from './remove-meal.modal';
 var socket;
 
@@ -21,7 +21,7 @@ export default function Cart() {
     const {meals, minimumDeliveryConflicts, deliveryAddress, waitingForResponses, numberOfOrders, ordersResponses, loadingStatus} = useSelector(state => state.cart);
     const { phone } = useSelector(state => state.authentication);
     const [removeMealModal, setRemoveMealModal] = useState({show: false, mealName: '', index: ''});
-    const [editNotesModal, setEditNotesModal] = useState({show: false, meal:{}});
+    const [editMealModal, setEditMealModal] = useState({show: false, meal:{}});
     const [message, setMessage] = useState('');
     const history = useHistory();
 
@@ -120,13 +120,13 @@ export default function Cart() {
                         <div className="cart-meal-info">
                             <div className="cart-meal-header">
                                 <div className="cart-meal-name">{meal.mealName}</div>
-                                <div className="cart-meal-price">{(Math.round(meal.price * meal.amount * 100) / 100).toFixed(2)}{CURRENCY}</div>
+                                <div className="cart-meal-price">{meal.totalPrice + CURRENCY}</div>
                             </div>
                             <div className="cart-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
                             <i className="fas fa-minus fa-2x" onClick={() => incrementOrDecrementAmount(index, "DECREMENT")}></i>
                             <label className="cart-meal-amount">{meal.amount}</label>
                             <i className="fas fa-plus fa-2x" onClick={() => incrementOrDecrementAmount(index, "INCREMENT")}></i>
-                            <i className="fas fa-edit fa-2x" onClick={() => setEditNotesModal({show: true, meal:{name:meal.mealName, notes: meal.notes, index: index, }})}></i>
+                            <i className="fas fa-edit fa-2x" onClick={() => setEditMealModal({show: true, meal: meal})}></i>
                             <i className="fas fa-trash fa-2x" onMouseEnter={() => reduceMealOpacity(index)}
                                 onMouseLeave={() => increaseMealOpacity(index)} onClick={() => setRemoveMealModal({show:true, mealName:meal.mealName, index: index})}></i>
                             {meal.notes && <div className="cart-meal-notes">{meal.notes}</div>}
@@ -173,7 +173,7 @@ export default function Cart() {
             </div>
             }
             {removeMealModal.show && <RemoveMealModal meal={removeMealModal} closeModal={() => setRemoveMealModal({...removeMealModal, show: false})}/>}
-            {editNotesModal.show && <EditNotesModal meal={editNotesModal.meal} closeModal={() => setEditNotesModal({...editNotesModal, show: false})}/>}
+            {editMealModal.show && <EditMealModal meal={editMealModal.meal} closeModal={() => setEditMealModal({...editMealModal, show: false})}/>}
         </div>
     );
 };

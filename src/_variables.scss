@@ -7,7 +7,8 @@ $danger-color: #e23630;
 $tag-color:rgb(38, 154, 184);
 
 $main-font:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-
+$input-box-shadow: 0 0 0.8rem $accent-color-2;
+$input-border: 1px solid rgba(0, 0, 0, 0.3);
 $mobile-small-size:360px; 
 $mobile-medium-size:576px;
 $mobile-large-size:768px; 

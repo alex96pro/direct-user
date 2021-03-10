@@ -1,3 +1,5 @@
+import 'antd/dist/antd.css';
+import './styles/modal.scss';
 import './styles/common.scss';
 import './styles/elements.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';

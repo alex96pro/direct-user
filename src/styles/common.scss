@@ -26,7 +26,7 @@ body{
 .form-container{
     background-color: white;
     box-shadow: 0 0 1rem $wrapper-color;
-    padding:1rem 3rem;
+    padding:3rem;
 }
 .loader{
     width:8rem;
@@ -36,9 +36,17 @@ body{
 .loader-center{
     width:8rem;
     height:8rem;
-    position:absolute;
+    position:fixed;
     margin:auto;
     top: 0; left: 0; bottom: 0; right: 0;
+}
+.loader-center-overlay{
+    position: fixed;
+    top:0;
+    left:0;
+    background-color:rgba(0, 0, 0, 0.6);
+    width:100vw;
+    height:100vh;
 }
 .loader-small{
     width:1.5rem;
@@ -66,48 +74,10 @@ body{
     justify-content: space-between;
     align-items: center;
 }
-.modal{
-    .modal-underlay{
-        position:fixed;
-        z-index: 1;
-        left:0;
-        right:0;
-        top:0;
-        bottom:0;
-        background-color: rgba(0, 0, 0, 0.6);
-        border-radius: 0;
-    }
-    .modal-container{
-        @include flex-align(row,center,flex-start,wrap);
-        position:fixed;
-        z-index: 100;
-        background-color: white;
-        left:50vw;
-        top:50vh;
-        transform: translate(-50%, -50%);
-        opacity:0;
-        transition:1.2s;
-        width:36rem;
-    }
-    .modal-container-double{
-        @extend .modal-container;
-        width:72rem;
-    }
-    .modal-body-1{
-        height: 100%;
-        width:34rem;
-        padding: 0.4rem;
-        height: max-content;
-    }
-    .modal-body-2{
-        @extend .modal-body-1;
-    }
-    .modal-header{
-        border-radius: 0;
-        width:100%;
-        @include flex-align(row,flex-end,center,nowrap);
-        background-color: $wrapper-color;
-    } 
+.flex-row{
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 .fa-plus, .fa-minus{
     color:$accent-color;
@@ -136,27 +106,12 @@ body{
         background-color:$accent-color-2;
     }
 }
-@include mobile-range{
-    *{
-        font-size:9px;
-    }
-    .modal{
-        .modal-container{
-            width:100vw;
-        }
-        .modal-body-1, .modal-body-2{
-            width:100vw;
-            padding: 1.2rem;
-        }
-        .modal-container-double{
-            top:inherit;
-            bottom:0;
-            left:0;
-            width:100vw;
-            transform: none;
-            @include flex-align(column,flex-start,center,nowrap);
-            overflow-y: scroll; // for fixed element to be scrollable
-            max-height: 100%; // for fixed element to be scrollable
-        }
-    }
+.p-15{
+    padding:1.5rem;
+}
+.pb-15{
+    padding-bottom:1.5rem;
+}
+.pt-15{
+    padding-top:1.5rem;
 }

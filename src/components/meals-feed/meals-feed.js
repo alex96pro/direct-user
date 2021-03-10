@@ -3,16 +3,22 @@ import { useHistory } from 'react-router-dom';
 import { CURRENCY, DISTANCE } from '../../util/consts';
 import React, { useState } from 'react';
 import { errorToast } from '../../util/toasts/toasts';
+import { getMealModifiersAPI } from '../../common/api/modifiers.api';
+import { useDispatch, useSelector } from 'react-redux';
 import MealModal from '../../components/meal-modal/meal.modal';
+import Loader from '../../components/loader';
+
 
 export default function MealsFeed(props) {
 
     const history = useHistory();
+    const dispatch = useDispatch();
     const [modal, setModal] = useState({show: false, selectedMeal:{}});
+    const {modifiers, loadingStatus} = useSelector(state => state.modifiers);
 
     const showModal = (meal) => {
         if(!meal.closed){
-            setModal({show: true, selectedMeal: meal});
+            dispatch(getMealModifiersAPI(meal.specialId, () =>  setModal({show: true, selectedMeal: meal})));
         }else{
             errorToast(`Restaurant ${meal.restaurantName} is closed`);
         }
@@ -42,7 +48,6 @@ export default function MealsFeed(props) {
                     </div>
                     <div>
                         <div className="meal-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
-                        {/* <div className="meal-see-menu" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>See menu</div> */}
                         <div className="meal-tags">
                         {meal.tags.map((tag, tagIndex) => 
                             <div className="meal-tag" key={tagIndex}>#{tag}</div>
@@ -71,9 +76,9 @@ export default function MealsFeed(props) {
                         </div>
                     </div>
                 </div>
-                
             </div>)}
-            {modal.show && <MealModal meal={modal.selectedMeal} closeModal={closeModal} feed={true}/>}
+            {modal.show && <MealModal meal={modal.selectedMeal} closeModal={closeModal} feed={true} modifiers={modifiers}/>}
+            {loadingStatus && <Loader className="loader-center"/>}
         </React.Fragment>
     );
 }

@@ -3,13 +3,15 @@ import authReducer from '../reducers/auth.reducer';
 import feedReducer from '../reducers/feed.reducer';
 import cartReducer from '../reducers/cart.reducer';
 import menuReducer from './menu.reducer';
+import modifiersReducer from './modifiers.reducer';
 
 const allReducers = combineReducers(
     {
         authentication: authReducer,
         feed: feedReducer,
         cart: cartReducer,
-        menu: menuReducer
+        menu: menuReducer,
+        modifiers: modifiersReducer
     }
 );
 

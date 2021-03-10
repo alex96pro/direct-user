@@ -43,12 +43,11 @@ export default function SignUp() {
         <div className="sign-up">
             <NavBar loggedIn={false}/>
             {!message.success && 
-            <div className="sign-up-container">
                 <div className="form-container">
-                <div className="sign-up-header">Create your new account</div>
+                    <div className="sign-up-header">Create your new account</div>
                     <form onSubmit={handleSubmit(signUp)}>
                         <div className="label">Email</div>
-                        <input type="email" name="email" ref={register({required:true})}/>
+                        <input type="email" name="email" ref={register({required:true})} className="app-input"/>
                         {errors.email && <InputError text={'Email is required'}/>}
                         {message.text && <InputError text={message.text}/>}
 
@@ -58,29 +57,28 @@ export default function SignUp() {
                         {errors.deliveryAddress && <InputError text={'Delivery address is required'}/>}
 
                         <div className="label">Floor / Apartment / Other</div>
-                        <input type="text" name="description" ref={register({required:true})}/>
+                        <input type="text" name="description" ref={register({required:true})} className="app-input"/>
                         {errors.description && <InputError text={'This field is required'}/>}
 
                         <div className="label">Phone</div>
-                        <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})}/>
+                        <input type="text" name="phone" ref={register({required:true, pattern: /^\d+$/})} className="app-input"/>
                         {errors.phone && errors.phone.type === "required" && <InputError text={'Phone is required'}/>}
                         {errors.phone && errors.phone.type === "pattern" && <InputError text={'Phone can contain numbers only'}/>}
 
                         <div className="label">Password</div>
-                        <input type="password" name="password" ref={register({required:true})}/>
+                        <input type="password" name="password" ref={register({required:true})} className="app-input"/>
                         {errors.password && <InputError text={'Password is required'}/>}
                         {messagePasswords && <InputError text={messagePasswords}/>}
 
                         <div className="label">Retype password</div>
-                        <input type="password" name="retypePassword" ref={register({required:true})}/>
+                        <input type="password" name="retypePassword" ref={register({required:true})} className="app-input"/>
                         {errors.retypePassword && <InputError text={'Retype password'}/>}
                         {messagePasswords && <InputError text={messagePasswords}/>}
 
                         <SubmitButton loadingStatus={loadingStatus} text="Sign Up"/>
                     </form>
-                </div>
-                <p className="label">Already have an account?<button type="button" onClick={() => history.push('/login')} className="button-link">Log in</button></p>
-            </div>}
+                    <p className="label">Already have an account?<button type="button" onClick={() => history.push('/login')} className="button-link">Log in</button></p>
+                </div>}
             {message.text && message.success && <div className="header-accent-color-2">{message.text}</div>}
         </div>
     );

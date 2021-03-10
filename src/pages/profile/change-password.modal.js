@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { changePasswordAPI } from '../../common/api/auth.api';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -40,33 +40,33 @@ export default function ChangePasswordModal(props) {
     };
 
     return (
-        <div className="modal">
-            <div className="modal-underlay" onClick={() => props.closeModal()}></div>
-            <div className="modal-container" style={{opacity:modalOpacity}}>
-                <div className="modal-header">
-                    <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
-                </div>
-                <div className="modal-body-1">
-                    <form onSubmit={handleSubmit(handleChangePassword)}>
-                        <div className="label">Old password</div>
-                        <input type="password" name="oldPassword" ref={register({required:true})}/>
-                        {errors.oldPassword && <InputError text={'Old password is required'}/>}
-                        {messageOldPassword && <InputError text={messageOldPassword}/>}
+        <React.Fragment>
+        <div className="modal-underlay" onClick={() => props.closeModal()}></div>
+        <div className="modal" style={{opacity:modalOpacity}}>
+            <div className="modal-header">
+                <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
+            </div>
+            <div className="modal-body-vertical">
+                <form onSubmit={handleSubmit(handleChangePassword)}>
+                    <div className="label">Old password</div>
+                    <input type="password" name="oldPassword" ref={register({required:true})} className="app-input"/>
+                    {errors.oldPassword && <InputError text={'Old password is required'}/>}
+                    {messageOldPassword && <InputError text={messageOldPassword}/>}
 
-                        <div className="label">New password</div>
-                        <input type="password" name="newPassword" ref={register({required:true})}/>
-                        {errors.newPassword && <InputError text={'New password is required'}/>}
-                        {messageRetypePasswords && <InputError text={messageRetypePasswords}/>}
+                    <div className="label">New password</div>
+                    <input type="password" name="newPassword" ref={register({required:true})} className="app-input"/>
+                    {errors.newPassword && <InputError text={'New password is required'}/>}
+                    {messageRetypePasswords && <InputError text={messageRetypePasswords}/>}
 
-                        <div className="label">Retype new password</div>
-                        <input type="password" name="retypeNewPassword" ref={register({required:true})}/>
-                        {errors.retypeNewPassword && <InputError text={'Retype new password'}/>}
-                        {messageRetypePasswords && <InputError text={messageRetypePasswords}/>}
+                    <div className="label">Retype new password</div>
+                    <input type="password" name="retypeNewPassword" ref={register({required:true})} className="app-input"/>
+                    {errors.retypeNewPassword && <InputError text={'Retype new password'}/>}
+                    {messageRetypePasswords && <InputError text={messageRetypePasswords}/>}
 
-                        <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
-                    </form>
-                </div>
+                    <SubmitButton loadingStatus={loadingStatus} text="Confirm"/>
+                </form>
             </div>
         </div>
+        </React.Fragment>
     );
 };

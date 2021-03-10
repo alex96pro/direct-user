@@ -1,15 +1,15 @@
-import './meal.modal.scss';
+import './edit-meal.modal.scss';
 import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../common/actions/cart.actions';
 import { infoToast } from '../../util/toasts/toasts';
 import { CURRENCY } from '../../util/consts';
-import Modifiers from '../modifiers/modifiers';
-import MessageDanger from '../message-danger';
-import InputError from '../input-error';
+import Modifiers from '../../components/modifiers/modifiers';
+import MessageDanger from '../../components/message-danger';
+import InputError from '../../components/input-error';
 
-export default function MealModal(props) {
+export default function EditMealModal(props) {
     
     const {register, handleSubmit, errors} = useForm();
     const dispatch = useDispatch();
@@ -18,7 +18,6 @@ export default function MealModal(props) {
     // const [oldSelectPrice, setOldSelectPrice] = useState(0);
     const [singleItemPrice, setSingleItemPrice] = useState(props.meal.price);
     const [totalPrice, setTotalPrice] = useState(props.meal.price);
-    const { modifiers } = useSelector(state => state.modifiers);
 
     useEffect(() => {
         document.querySelector("body").style.overflow = 'hidden'; //prevent rest of the page from scrolling
@@ -27,11 +26,10 @@ export default function MealModal(props) {
         };
     }, []);
 
-    const handleAddToCart = (data) => {
+    const submitMeal = (data) => {
         // dispatch(addToCart({
         //     meal:{
-        //         mealName: props.meal.mealName,
-        //         description: props.meal.description, 
+        //         mealName: props.meal.mealName, 
         //         photo: props.meal.photo,
         //         singleItemPrice: (Math.round(singleItemPrice * 100) / 100).toFixed(2), 
         //         totalPrice: (Math.round(totalPrice * 100) / 100).toFixed(2), 
@@ -96,51 +94,33 @@ export default function MealModal(props) {
         <React.Fragment>
         <div className="modal-underlay" onClick={() => props.closeModal()}></div>
         <div className="modal" style={{opacity:1}}>
-        <form onSubmit={handleSubmit(handleAddToCart)}>
+        <form onSubmit={handleSubmit(submitMeal)}>
             <div className="modal-header">
                 <i className="fas fa-times fa-2x" onClick={() => props.closeModal()}></i>
             </div>
-            <div className="modal-body-horizontal">
+            <div className="modal-body-horizontal" style={{opacity:1}}>
+                
                 <div className="meal-modal-photo-container">
                     <img src={props.meal.photo} alt="Loading..." className="meal-modal-photo"/>
                 </div>
                 <div className="meal-modal-basic-info">
                     <div className="label-accent-color">{props.meal.mealName}</div>
-                    <div className="label pt-15">{props.meal.description}</div>
-                    {props.feed &&
-                    <div>
-                        <div className="label-accent-color-2">{props.meal.restaurantName}</div>
-                        {!props.meal.delivery &&
-                        <React.Fragment>
-                            <div className="label">{props.meal.location}</div>
-                            <div className="label">{props.meal.phone}</div>
-                        </React.Fragment>}
+                    <div className="label">{props.meal.description}</div>
+                    <div className="label">Amount</div>
+                    <div className="meal-modal-amount-row">
+                        <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})} onChange={changeAmount} className="app-input-number"/>
+                        <i className="fas fa-minus fa-2x" onClick={decrementAmmount}></i>
+                        <i className="fas fa-plus fa-2x" onClick={incrementAmmount}></i>
+                        {errors.amount && <InputError text={'Amount is required'}/>}
                     </div>
-                    }
-                    {props.meal.delivery || (props.restaurant && props.restaurant.delivery) ? //feed || menu
-                        currentAddress.address === 'Current location' ?
-                        <MessageDanger text='Delivery is disabled when using current location'/>
-                        :
-                        <React.Fragment>
-                            <div className="label pt-15">Amount</div>
-                            <div className="meal-modal-amount-row">
-                                <input type="number" name="amount" defaultValue="1" ref={register({required:true, min:1})} onChange={changeAmount} className="app-input-number"/>
-                                <i className="fas fa-minus fa-2x" onClick={decrementAmmount}></i>
-                                <i className="fas fa-plus fa-2x" onClick={incrementAmmount}></i>
-                                {errors.amount && <InputError text={'Amount is required'}/>}
-                            </div>
-                            <div className="label pt-15">Notes (optional)</div>
-                            <textarea name="notes" ref={register({maxLength: 200})} className="app-textarea"/>
-                            {errors.notes && <InputError text={'Notes are limited to 200 characters'}/>}
-                        </React.Fragment>
-                        :
-                        <button className="button-long">Get directions</button>
-                        }
+                    <div className="label">Notes (optional)</div>
+                    <textarea name="notes" ref={register({maxLength: 200})} className="app-textarea"/>
+                    {errors.notes && <InputError text={'Notes are limited to 200 characters'}/>}
                 </div>
-                {/* <div className="meal-modal-modifiers"><Modifiers addAddOn={addAddOn} addRequiredModifier={addRequiredModifier} modifiers={modifiers}/></div> */}
+                <div className="meal-modal-modifiers"><Modifiers addAddOn={addAddOn} addRequiredModifier={addRequiredModifier} modifiers={props.meal.modifiers}/></div>
             </div>
             <div className="modal-footer">
-                <button type="submit" className="button-long button-add-to-cart">{(Math.round(totalPrice * 100) / 100).toFixed(2) + CURRENCY}&nbsp;&nbsp;Add to cart</button>
+                <button type="submit" className="button-long button-add-to-cart">{(Math.round(totalPrice * 100) / 100).toFixed(2) + CURRENCY}Save changes</button>
             </div>
             </form>
         </div>

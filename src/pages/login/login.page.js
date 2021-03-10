@@ -43,15 +43,14 @@ export default function Login() {
     return (
         <div className="login">
             <NavBar loggedIn={false}/>
-            <div className="login-container">
                 <div className="form-container">
                     <div className="login-header">Log in to your account</div>
                     <form onSubmit={handleSubmit(login)}>
                         <div className="label">Email</div>
-                        <input type="email" name="email" ref={register({required:true})}/>
+                        <input type="email" name="email" ref={register({required:true})} className="app-input"/>
                         {errors.email && <InputError text={'Email is required'}/>}
                         <div className="label">Password</div>
-                        <input type="password" name="password" ref={register({required:true})}/>
+                        <input type="password" name="password" ref={register({required:true})} className="app-input"/>
                         {errors.password && <InputError text={'Password is required'}/>}
                         <SubmitButton loadingStatus={loadingStatus} text="Log In"/>
                     </form>
@@ -59,7 +58,6 @@ export default function Login() {
                     {history.location.message && <p className="message-success">{history.location.message}</p>}
                 </div>
                 <div><button type="button" onClick={() => setShowModal(true)} className="button-link">Forgot password?</button></div>
-            </div>
             {showModal && <ForgottenPasswordModal closeModal={closeModal}/>}
         </div>
     );

@@ -1,24 +1,40 @@
 @import '../../mixins';
+@import '../../variables';
 
-.meal-modal-photo{
-    width:100%;
-    height:auto;
+.meal-modal-photo-container{
+    width:50%;
 }
-.meal-modal-amount-row{
-    display: flex;
-    align-items: center;
+.meal-modal-photo{
+    width:calc(100% - 1rem);
+    height:auto;
+    margin:0.5rem;
+}
+.meal-modal-basic-info{
+    width:calc(50% - 0.6rem);
+    padding:0.6rem;
+}
+.meal-modal-modifiers{
+    width:100%;
+    padding:0.6rem;
+    margin-bottom:4rem;
+}
+.button-add-to-cart{
+    margin:0;
+    border-radius: 0rem 0rem 0.8rem 0.8rem;
 }
 @include mobile-range{
+    .meal-modal-photo-container{
+        width:100vw;
+    }
     .meal-modal-photo{
         width:100vw;
         height:100vw;
         border-radius: 0;
+        margin:0;
     }
-    .modal{
-        .modal-container-double{
-            .modal-body-1{
-                padding:0;
-            }
-        }
+    .meal-modal-basic-info{
+        width:100vw;
+        margin:0rem;
+        padding:1rem;
     }
 }

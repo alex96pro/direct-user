@@ -7,7 +7,7 @@ export function getMealsFromMenuAPI(id) {
         dispatch(loadingStatus(true));
         let time = getClientTime();
         let day = getClientDay();
-        let response = await get(`/user/menu/${id}/${day}/${time}`, false);
+        let response = await get(`/user/menu/meals/${id}/${day}/${time}`, false);
         if(response.data.meals && response.data.meals.length > 0){
             dispatch(getMealsFromMenu({meals: response.data.meals, restaurant: response.data.restaurant}));
         }else{

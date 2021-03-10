@@ -1,0 +1,18 @@
+@import '../../mixins';
+@import '../../variables';
+
+.modifiers{
+    @include flex-align(row,space-between,flex-start,wrap);
+    .modifiers-container{
+        // @include flex-align(row,flex-start,center,wrap);
+        width:50%;
+        padding:0.8rem;
+    } 
+}
+@include mobile-range{
+    .modifiers{
+        .modifiers-container{
+            width:100vw;
+        }
+    }
+}

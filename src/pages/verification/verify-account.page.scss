@@ -2,11 +2,10 @@
 @import '../../variables';
 
 .verify-account{
-    @include flex-align(column, center, center, wrap);
+    @include page-container;
     
     .verify-account-container{
         padding:2rem;
         background-color: $wrapper-color;
-        transform: translateY(calc(50vh - 50% - 6rem));
     }
 }

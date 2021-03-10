@@ -22,7 +22,7 @@ export default function NavBar(props) {
     };
 
     return(
-        <nav>
+        <nav className={props.loggedIn ? 'nav' : 'nav-logged-out'}>
             {props.loggedIn ?
             <div className="nav-container">
                 <div className="nav-cart-container">

@@ -1,7 +1,7 @@
 @import '../../variables';
 @import '../../mixins';
 
-nav{
+.nav{
     background-color:white;
     height:6rem;
     width:100%;
@@ -10,106 +10,109 @@ nav{
     z-index: 1;
     top:0;
     left:0;
-    box-shadow: 0 0.4rem 0.4rem -0.2rem $wrapper-color;
+    box-shadow: 0 0.4rem 0.4rem -0.2rem $accent-color;
     @include flex-align(row, flex-end, center, nowrap);
-
-    .nav-link{
-        color:$text-color;
-        background-color: inherit;
-        margin: 0rem 1rem;
-        padding: 1rem;
-        font-size: 2rem;
-        transition: 0.2s;
-        cursor: pointer;
-        &:hover{
-            color:$text-color;
-        }
-    }
-    .nav-container{
-        @include flex-align(row, flex-end, center, wrap);
-        height:100%;
-    }
-    .nav-logo{
-        width:5.5rem;
-        height:5.5rem;
-        position: fixed;
-        left:1rem;
-        top:0.2rem;
-        cursor: pointer;
-    }
-    .nav-cart-container{
-        position: relative;
-    }
-    .nav-cart-icon{
-        width:4rem;
-        height:4rem;
-        cursor: pointer;
-    }
-    .nav-cart-size{
-        position: absolute;
-        top:0.3rem;
-        left:1.8rem;
-        font-size: 2.2rem;
-        font-weight: bold;
-        color:$text-color;
-        transition:0.2s;
-        cursor: pointer;
-    }
-    .cart-double-digit{
-        font-size:1.8rem;
-        left:1.2rem;
-    }
-    .fa-shopping-cart{
+}
+.nav-logged-out{
+    @extend .nav;
+    position: fixed;
+}
+.nav-link{
+    color:$text-color;
+    background-color: inherit;
+    margin: 0rem 1rem;
+    padding: 1rem;
+    font-size: 2rem;
+    transition: 0.2s;
+    cursor: pointer;
+    &:hover{
         color:$accent-color;
-        margin-right:3rem;
-        transition:0.2s;
-        cursor: pointer;
-        &:hover{
-            color:$accent-color-2;
-        }
-    }
-    .fa-bars{
-        color:$accent-color;
-        top:0rem;
-        left:0rem;
-        margin:0rem 3rem;
-        transition:0.2s;
-        cursor: pointer;
-        &:hover{
-            color: $accent-color-2;
-        }
-    }
-    .drop-down{
-        position: absolute;
-        border-radius: 0;
-        top:6.2rem;
-        background-color: $accent-color-2;
-    }
-    .drop-down-item{
-        width:100%;
-        padding:2rem;
-        color:white;
-        background-color: inherit;
-        border-radius: 0;
-        font-size:1.8rem;
-        transition: 0.2s;
-        cursor: pointer;
-        &:hover{
-            background-color: $accent-color;
-        }
-    }
-    .drop-down-underlay{
-        position: absolute;
-        top:0rem;
-        left:0rem;
-        width:100vw;
-        height:100vh;
     }
 }
+.nav-container{
+    @include flex-align(row, flex-end, center, wrap);
+    height:100%;
+    position: relative;
+    right:2rem;
+}
+.nav-logo{
+    width:6.6rem;
+    height:4.5rem;
+    position: fixed;
+    left:1rem;
+    top:0.6rem;
+    cursor: pointer;
+}
+.nav-cart-container{
+    position: relative;
+}
+.nav-cart-icon{
+    width:4rem;
+    height:4rem;
+    cursor: pointer;
+}
+.nav-cart-size{
+    position: absolute;
+    top:0.3rem;
+    left:1.8rem;
+    font-size: 2.2rem;
+    font-weight: bold;
+    color:$text-color;
+    transition:0.2s;
+    cursor: pointer;
+}
+.cart-double-digit{
+    font-size:1.8rem;
+    left:1.2rem;
+}
+.fa-shopping-cart{
+    color:$accent-color;
+    margin-right:3rem;
+    transition:0.2s;
+    cursor: pointer;
+    &:hover{
+        color:$accent-color-2;
+    }
+}
+.fa-bars{
+    color:$accent-color;
+    top:0rem;
+    left:0rem;
+    margin:0rem 3rem;
+    transition:0.2s;
+    cursor: pointer;
+    &:hover{
+        color: $accent-color-2;
+    }
+}
+.drop-down{
+    position: absolute;
+    border-radius: 0;
+    top:6.2rem;
+    background-color: $accent-color-2;
+}
+.drop-down-item{
+    width:100%;
+    padding:2rem;
+    color:white;
+    background-color: inherit;
+    border-radius: 0;
+    font-size:1.8rem;
+    transition: 0.2s;
+    cursor: pointer;
+    &:hover{
+        background-color: $accent-color;
+    }
+}
+.drop-down-underlay{
+    position: fixed;
+    top:0rem;
+    left:0rem;
+    width:100vw;
+    height:100vh;
+}
 @media (max-width:390px){
-    nav{
-        .nav-logo{
-            left:0.2rem;
-        }
+    .nav-logo{
+        left:0.2rem;
     }
 }

@@ -16,13 +16,12 @@
         left:0rem;
         border-radius: 0;
     }
-   
     .feed-filters-container{
-        padding:0.5rem;
-        margin:1rem 0.2rem;
+        margin:1.6rem 0rem;
     }
     .feed-filter-row{
         @include flex-align(row, flex-start, center, nowrap);
+        padding:0.4rem 0rem;
     }
     .feed-filters-heading{
         font-size:2rem;

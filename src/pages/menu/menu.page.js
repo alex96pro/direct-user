@@ -5,6 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { getMealsFromMenuAPI } from '../../common/api/menu.api';
 import { clearMenu } from '../../common/actions/menu.actions';
 import { CURRENCY } from '../../util/consts';
+import { Checkbox } from 'antd';
 import Loader from '../../components/loader';
 import NavBar from '../../components/nav-bar/nav-bar';
 import MealsMenu from '../../components/meals-menu/meals-menu';
@@ -14,7 +15,9 @@ export default function Menu() {
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
-    const {meals, restaurant, loadingStatus, message} = useSelector((state => state.menu));
+    const {meals, restaurant, message} = useSelector((state => state.menu));
+    const loadingStatusMenu = useSelector(state => state.menu.loadingStatus);
+    const loadingStatusModifiers = useSelector(state => state.modifiers.loadingStatus);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [showCategoriesForMobile, setShowCategoriesForMobile] = useState(false);
 
@@ -29,11 +32,11 @@ export default function Menu() {
         }
     }, [dispatch, history, params.id]);
 
-    const addCategory = (event) => {
+    const addCategory = (event, category) => {
         if(event.target.checked){
-            setSelectedCategories([...selectedCategories, event.target.value]);
+            setSelectedCategories([...selectedCategories, category]);
         }else{
-            let newCategories = selectedCategories.filter(category => category !== event.target.value);
+            let newCategories = selectedCategories.filter(categoryItem => categoryItem !== category);
             setSelectedCategories(newCategories);
         }
     }
@@ -55,7 +58,7 @@ export default function Menu() {
     return(
         <div className="menu">
             <NavBar loggedIn={true}/>
-            {loadingStatus ? <Loader className="loader-center"/>
+            {loadingStatusMenu ? <Loader className="loader-center"/>
             :
             <div className="menu-container">
                 <div className="menu-header-mobile">{restaurant.restaurantName}'s Menu
@@ -79,7 +82,7 @@ export default function Menu() {
                     <div className="menu-category-header">Categories</div>
                     {restaurant.categories.map((category, index) => <div key={index}>
                         <label className="menu-category" htmlFor={`category${index}`}>
-                            <input type="checkbox" value={category} onChange={addCategory} id={`category${index}`}/>{category}
+                            <Checkbox onChange={(event) => addCategory(event, category)} id={`category${index}`}/>{category}
                         </label>
                     </div>)}
                     </div>}
@@ -91,7 +94,7 @@ export default function Menu() {
                 </button>
             </div>
             }
-            
+            {loadingStatusModifiers && <Loader className="loader-center"/>}
         </div>
     );
 }

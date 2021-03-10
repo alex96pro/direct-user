@@ -104,7 +104,7 @@ export default function Profile() {
                             {messageAdd && <InputError text={messageAdd}/>}
                             <input type="text" name="description" ref={register({required:true})} 
                             placeholder="floor / apartment / other" 
-                            className="profile-address-description"/>
+                            className="app-input profile-address-description"/>
                             {errors.description && <InputError text={'This field is required'}/>}
                             <button type="button" onClick={() => {setAddNewAddressShow(false); setMessageAdd('');}} className="button-normal">Cancel</button>
                             <SubmitButton loadingStatus={loadingStatus} small={true} text='Confirm'/>

@@ -11,7 +11,8 @@ const loadState = () => {
             authentication: store.authentication,
             feed: { ...store.feed, endOfResultsFlag: false, meals:[], scrollCount: 1, redirectedToFeed: false, search:'' },
             cart: store.cart,
-            menu: store.menu
+            menu: store.menu,
+            modifiers: store.modifiers
         };
     }
     return storeObject;
