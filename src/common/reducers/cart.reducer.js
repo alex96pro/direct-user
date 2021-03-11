@@ -14,6 +14,7 @@ const initialState = {
 
 export default function cartReducer(state = initialState, action) {
     let newMeals = [];
+    let newCartSize = 0;
     switch(action.type){
         case ACTIONS.ADD_TO_CART:
             return{
@@ -22,6 +23,25 @@ export default function cartReducer(state = initialState, action) {
                 cartSize: +state.cartSize + +action.payload.meal.amount,
                 deliveryAddress: action.payload.deliveryAddress
             };
+        case ACTIONS.EDIT_CART_MEAL:
+            for(let i = 0; i < state.meals.length; i++){
+                if(i === action.payload.index){
+                    newMeals.push({
+                        ...state.meals[i], 
+                        amount: action.payload.amount,
+                        price: action.payload.price,
+                        notes: action.payload.notes,
+                        selectedModifiers: action.payload.selectedModifiers
+                    });
+                }else{
+                    newMeals.push(state.meals[i]);
+                }
+            }
+            return{
+                ...state,
+                meals: newMeals,
+                cartSize: state.cartSize - state.meals[action.payload.index].amount + +action.payload.amount
+            }
         case ACTIONS.REMOVE_FROM_CART:
             newMeals = state.meals.filter((meal, index) => index !== action.payload);
             return{
@@ -31,20 +51,21 @@ export default function cartReducer(state = initialState, action) {
                 deliveryAddress: newMeals.length === 0 ? '' : state.deliveryAddress
             }
         case ACTIONS.CHANGE_AMOUNT:
-            let newCartSize = 0;
             for(let i = 0; i < state.meals.length; i++){
                 if(i !== action.payload.index){
                     newMeals.push(state.meals[i]);
                 }else{
-                    let newAmount;
+                    let newAmount, newPrice;
                     if(action.payload.type === "INCREMENT"){
-                        newAmount = +state.meals[i].amount + 1; 
+                        newAmount = +state.meals[i].amount + 1;
+                        newPrice = (state.meals[i].price / state.meals[i].amount) + parseFloat(state.meals[i].price);
                         newCartSize = +state.cartSize + 1;
                     }else{
-                        newAmount = state.meals[i].amount > 1 ? state.meals[i].amount - 1 : state.meals[i].amount; 
+                        newAmount = state.meals[i].amount > 1 ? state.meals[i].amount - 1 : state.meals[i].amount;
+                        newPrice = state.meals[i].amount > 1 ? state.meals[i].price - (Math.round(state.meals[i].price / state.meals[i].amount * 100) / 100).toFixed(2) : state.meals[i].price; 
                         newCartSize = state.meals[i].amount > 1 ? state.cartSize - 1 : state.cartSize; 
                     }  
-                    newMeals.push({...state.meals[i], amount: newAmount});
+                    newMeals.push({...state.meals[i], amount: newAmount, price: (Math.round(newPrice * 100) / 100).toFixed(2)});
                 }
             }
             return{

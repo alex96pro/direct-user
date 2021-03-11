@@ -20,6 +20,7 @@ export default function Feed() {
     const history = useHistory();
     const {meals, loadingStatus, message, scrollCount, endOfResultsFlag} = useSelector(state => state.feed);
     const {addresses, currentAddress, search, range, tags, delivery, redirectedToFeed} = useSelector(state => state.feed);
+    const loadingModifiers = useSelector(state => state.modifiers.loadingStatus);
     const {deliveryAddress} = useSelector(state => state.cart);
     const [messageDeliveryAddress, setMessageDeliveryAddress] = useState('');
     const [currentLocationSelected, setCurrentLocationSelected] = useState(false);
@@ -137,8 +138,8 @@ export default function Feed() {
                         <div className="flex-row">
                             <input required minLength="3" type="text" id="search-feed" ref={register()} name="search" style={{width:'50%'}} className="app-input"/>
                             <button type="submit" className="button-small">Search</button>
+                            {search && <button type="button" className="button-small" onClick={clearSearch}>Clear</button>}
                         </div>
-                        {search && <button type="button" className="button-small" onClick={clearSearch}>Clear</button>}
                     </form>
                     <div className="label">Current address</div>
                     <select onChange={handleChangeAddress} defaultValue={currentAddress.address} className="app-select">
@@ -196,6 +197,7 @@ export default function Feed() {
                 <button onClick={showOrHideFiltersForMobile} className="feed-footer-mobile">
                     {showFiltersForMobile ? 'Return to feed' : 'Filters'}
                 </button>
+                {loadingModifiers && <Loader className="loader-center" blackBackground/>}
         </div>
     );
 };

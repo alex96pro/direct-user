@@ -10,7 +10,6 @@ export default function MealsMenu(props) {
 
     const [showMealModal, setShowMealModal] = useState({show:false, selectedMeal:{}});
     const { restaurant } = useSelector(state => state.menu);
-    const { modifiers } = useSelector(state => state.modifiers);
     const dispatch = useDispatch();
 
     const filteredMeals = props.meals.filter(meal => 
@@ -52,7 +51,7 @@ export default function MealsMenu(props) {
                     </div>
                 </div>
             </div>)}
-            {showMealModal.show && <MealModal restaurant={restaurant} meal={showMealModal.selectedMeal} modifiers={modifiers} closeModal={closeModal} detailedInfo={false}/>}
+            {showMealModal.show && <MealModal restaurant={restaurant} meal={showMealModal.selectedMeal} closeModal={closeModal} detailedInfo={false}/>}
         </div>
     );
 }

@@ -38,6 +38,7 @@
     @extend .button-normal;
     width:100%;
     margin: 1rem 0rem;
+    padding:0.8rem 1rem;
 }
 .button-long-disabled{
     @extend .button-long;
@@ -72,7 +73,6 @@
         box-shadow: $input-box-shadow;
     }
 }
-
 .app-input-number{
     @extend .app-input;
     width:6rem;
@@ -99,6 +99,9 @@ input::-webkit-inner-spin-button {
     height: 6rem;
     padding: 0.4rem 1rem;
     resize: none;
+}
+p{
+    margin:0;
 }
 .label-white{
     font-size:1.8rem;
@@ -150,26 +153,4 @@ input::-webkit-inner-spin-button {
 .header-danger{
     @extend .header-white;
     color:$danger-color;
-}
-.ant-checkbox{
-    width: 22px;
-    height: 22px;
-    margin:0rem 1rem;
-}
-.ant-checkbox-inner{
-    width: 22px;
-    height: 22px;
-}
-.ant-checkbox-checked .ant-checkbox-inner {
-    background-color: $accent-color;
-    border-color: $accent-color;
-}
-.ant-checkbox-wrapper:hover .ant-checkbox-inner, .ant-checkbox:hover .ant-checkbox-inner, .ant-checkbox-input:focus + .ant-checkbox-inner {
-  border-color: $text-color;
-}
-.ant-checkbox-checked::after {
-    border: 1px solid $accent-color;
-}
-.ant-checkbox-inner {
-    border: 1px solid $text-color;
 }

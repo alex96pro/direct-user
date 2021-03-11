@@ -5,7 +5,6 @@
     .feed-meals-container{
         @include flex-align(column, center, center, nowrap);
         margin-top:$nav-bar-height;
-        width:100vw; //when modal is open, it hides scrollbar and prevents scrolling, so feed has ugly efect on closing modal, so 100vw is needed
     }
     .feed-filters{
         position: fixed;

@@ -94,7 +94,7 @@ export default function Menu() {
                 </button>
             </div>
             }
-            {loadingStatusModifiers && <Loader className="loader-center"/>}
+            {loadingStatusModifiers && <Loader className="loader-center" blackBackground/>}
         </div>
     );
 }

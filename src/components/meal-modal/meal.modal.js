@@ -5,19 +5,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../common/actions/cart.actions';
 import { infoToast } from '../../util/toasts/toasts';
 import { CURRENCY } from '../../util/consts';
-import Modifiers from '../modifiers/modifiers';
+import { calculateMealPrice } from '../../util/functions';
+import Modifiers from './modifiers';
 import MessageDanger from '../message-danger';
 import InputError from '../input-error';
+import { getRequiredBaseModifier, getRequiredModifiers} from '../../util/functions';
 
 export default function MealModal(props) {
     
     const {register, handleSubmit, errors} = useForm();
     const dispatch = useDispatch();
     const {currentAddress} = useSelector(state => state.feed);
+    const { modifiers } = useSelector(state => state.modifiers);
     const [amount, setAmount] = useState(1);
-    const [mealBasePrice, setMealBasePrice] = useState(props.meal.price);
-    const [requiredModifiers, setRequiredModifiers] = useState([]);
-    const [optionalModifiersPrice, setOptionalModifiersPrice] = useState(0);
+    const [selectedModifiers, setSelectedModifiers] = useState({
+        requiredBaseModifier: getRequiredBaseModifier(modifiers, props.meal.price), 
+        requiredModifiers: getRequiredModifiers(modifiers), 
+        optionalModifiers: []
+    });
 
     useEffect(() => {
         document.querySelector("body").style.overflow = 'hidden'; //prevent rest of the page from scrolling
@@ -32,9 +37,11 @@ export default function MealModal(props) {
                 mealName: props.meal.mealName,
                 description: props.meal.description, 
                 photo: props.meal.photo,
-                totalPrice: (Math.round((mealBasePrice + optionalModifiersPrice + requiredModifiers.reduce((sum, item) => sum += +item.price, 0)) * amount * 100) / 100).toFixed(2),
+                price: calculateMealPrice(selectedModifiers, amount),
                 amount: amount, 
                 notes: data.notes,
+                modifiers: modifiers,
+                selectedModifiers: selectedModifiers,
                 restaurantId: props.meal.restaurantId || props.restaurant.restaurantId, 
                 restaurantName: props.meal.restaurantName || props.restaurant.restaurantName, 
                 deliveryMinimum: props.meal["delivery-minimum"] || props.restaurant.deliveryMinimum
@@ -45,7 +52,7 @@ export default function MealModal(props) {
         infoToast('Added to cart');
     };
 
-    const changeAmount = (event) => {
+    const changeAmount = () => {
         const input = document.getElementsByName('amount')[0];
         if(input){
             setAmount(+input.value);
@@ -68,23 +75,23 @@ export default function MealModal(props) {
         }
     };
 
-    const addRequiredBaseModifier = (modifier, optionPrice) => {
-        setMealBasePrice(+optionPrice);
+    const addRequiredBaseModifier = (modifier, optionName, optionPrice) => {
+        setSelectedModifiers({...selectedModifiers, requiredBaseModifier: {modifierId: modifier.modifierId, modifierName: modifier.modifier.name, optionName: optionName, optionPrice: +optionPrice}});
     };
 
-    const addRequiredModifier = (modifier, optionPrice) => {
-        let newRequiredModifiers = requiredModifiers.filter(modifierItem => modifierItem.modifier.modifierId !== modifier.modifierId);
-        newRequiredModifiers.push({modifier: modifier, price: optionPrice});
-        setRequiredModifiers(newRequiredModifiers);
+    const addRequiredModifier = (modifier, optionName, optionPrice) => {
+        let newRequiredModifiers = selectedModifiers.requiredModifiers.filter(item => item.modifierId !== modifier.modifierId);
+        newRequiredModifiers.push({modifierId: modifier.modifierId, modifierName: modifier.modifier.name, optionName: optionName, optionPrice: optionPrice});
+        setSelectedModifiers({...selectedModifiers, requiredModifiers: newRequiredModifiers});
     };
 
-    const addOptionalModifier = (event, modifier, optionPrice) => {
+    const addOptionalModifier = (event, modifier, optionName, optionPrice) => {
         if(event.target.checked){
-            setOptionalModifiersPrice(optionalModifiersPrice + +optionPrice);
+            setSelectedModifiers({...selectedModifiers, optionalModifiers: [...selectedModifiers.optionalModifiers, {modifierId:modifier.modifierId, modifierName: modifier.modifier.name, optionName:optionName, optionPrice:optionPrice}]});
         }else{
-            setOptionalModifiersPrice(optionalModifiersPrice - optionPrice);
+            setSelectedModifiers({...selectedModifiers, optionalModifiers: selectedModifiers.optionalModifiers.filter(item => (item.optionName !== optionName && item.modifierId === modifier.modifierId))});
         }
-    }
+    };
 
     return (
         <React.Fragment>
@@ -111,7 +118,7 @@ export default function MealModal(props) {
                         </React.Fragment>}
                     </div>
                     }
-                    {props.meal.delivery || (props.restaurant && props.restaurant.delivery) ? //feed || menu
+                    {(props.meal.delivery || (props.restaurant && props.restaurant.delivery)) ? //feed || menu
                         currentAddress.address === 'Current location' ?
                         <MessageDanger text='Delivery is disabled when using current location'/>
                         :
@@ -129,16 +136,16 @@ export default function MealModal(props) {
                         </React.Fragment>
                         :
                         <button className="button-long">Get directions</button>
-                        }
+                    }
                 </div>
                 <Modifiers addOptionalModifier={addOptionalModifier} addRequiredModifier={addRequiredModifier} addRequiredBaseModifier={addRequiredBaseModifier}/>
             </div>
+            {(props.meal.delivery || (props.restaurant && props.restaurant.delivery)) && 
             <div className="modal-footer">
                 <button type="submit" className="button-long button-add-to-cart">
-                    {(Math.round((mealBasePrice + optionalModifiersPrice + requiredModifiers.reduce((sum, item) => sum += +item.price, 0)) * amount * 100) / 100).toFixed(2) + CURRENCY} &nbsp;&nbsp; 
-                    Add to cart
+                    {calculateMealPrice(selectedModifiers, amount) + CURRENCY} &nbsp;&nbsp; Add to cart
                 </button>
-            </div>
+            </div>}
             </form>
         </div>
         </React.Fragment>

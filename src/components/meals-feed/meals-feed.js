@@ -14,7 +14,7 @@ export default function MealsFeed(props) {
     const history = useHistory();
     const dispatch = useDispatch();
     const [modal, setModal] = useState({show: false, selectedMeal:{}});
-    const {modifiers, loadingStatus} = useSelector(state => state.modifiers);
+    const {loadingStatus} = useSelector(state => state.modifiers);
 
     const showModal = (meal) => {
         if(!meal.closed){
@@ -77,7 +77,7 @@ export default function MealsFeed(props) {
                     </div>
                 </div>
             </div>)}
-            {modal.show && <MealModal meal={modal.selectedMeal} closeModal={closeModal} feed={true} modifiers={modifiers}/>}
+            {modal.show && <MealModal meal={modal.selectedMeal} closeModal={closeModal} feed={true}/>}
             {loadingStatus && <Loader className="loader-center"/>}
         </React.Fragment>
     );

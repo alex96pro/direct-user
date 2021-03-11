@@ -1,4 +1,5 @@
 export const ADD_TO_CART = "ADD_TO_CART";
+export const EDIT_CART_MEAL = "EDIT_CART_MEAL";
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 export const CHANGE_AMOUNT = "CHANGE_AMOUNT";
 export const CHANGE_NOTES = "CHANGE_NOTES";
@@ -10,6 +11,12 @@ export const ORDER_REJECTED = "ORDER_REJECTED";
 export function addToCart(payload) {
     return {
         type: ADD_TO_CART,
+        payload
+    };
+};
+export function editCartMeal(payload) {
+    return {
+        type: EDIT_CART_MEAL,
         payload
     };
 };

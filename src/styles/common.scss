@@ -27,7 +27,7 @@ body{
     margin-top:$nav-bar-height / 2;
     background-color: white;
     box-shadow: 0 0 1rem $wrapper-color;
-    padding:3rem;
+    padding:2rem;
 }
 .loader{
     width:8rem;
@@ -80,33 +80,6 @@ body{
     justify-content: flex-start;
     align-items: center;
 }
-.fa-plus, .fa-minus{
-    color:$accent-color;
-    background-color: $wrapper-color;
-    padding:0.4rem;
-    margin-left:0.4rem;
-    cursor: pointer;
-}
-.fa-edit, .fa-trash{
-    color:$accent-color;
-    margin:0.4rem;
-    transition:0.2s;
-    cursor: pointer;
-    &:hover{
-        color:$accent-color-2;
-    }
-}
-.fa-times{
-    color:white;
-    background-color: $accent-color;
-    padding:0.4rem 0.8rem;
-    margin:0.4rem;
-    transition: 0.2s;
-    cursor: pointer;
-    &:hover{
-        background-color:$accent-color-2;
-    }
-}
 .p-15{
     padding:1.5rem;
 }
@@ -115,4 +88,10 @@ body{
 }
 .pt-15{
     padding-top:1.5rem;
+}
+.pl-15{
+    padding-left:1.5rem;
+}
+.pr-15{
+    padding-right:1.5rem;
 }

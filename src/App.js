@@ -1,4 +1,5 @@
 import 'antd/dist/antd.css';
+import './styles/foreign-components.scss';
 import './styles/modal.scss';
 import './styles/common.scss';
 import './styles/elements.scss';

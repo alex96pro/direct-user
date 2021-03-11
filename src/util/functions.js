@@ -65,3 +65,34 @@ export function checkDeliveryMinimumsForCart(meals) {
     });
     return deliveryMinimumConflicts;
 };
+
+export function calculateMealPrice(selectedModifiers, amount) {
+    let base = +selectedModifiers.requiredBaseModifier.optionPrice;
+    let required = selectedModifiers.requiredModifiers.reduce((sum, item) => sum += +item.optionPrice, 0);
+    let optional = selectedModifiers.optionalModifiers.reduce((sum, item) => sum += +item.optionPrice, 0);
+    return (Math.round((base + required + optional) * amount * 100) / 100).toFixed(2);
+};
+
+export function getRequiredBaseModifier(modifiers, price){
+    for(let i = 0; i < modifiers.length; i++){
+        if(modifiers[i].modifier.modifierType === "requiredBase"){
+            return {modifierId: modifiers[i].modifierId, modifierName:modifiers[i].modifier.name, optionName: modifiers[i].modifier.defaultOption, optionPrice: modifiers[i].modifier.options[modifiers[i].modifier.defaultOption]};
+        }
+    }
+    //meal has no required base modifier
+    return {modifierId: -1, optionName: '', optionPrice: price};
+};
+export function getRequiredModifiers(modifiers){
+    let modifiersArray = [];
+    for(let i = 0; i < modifiers.length; i++){
+        if(modifiers[i].modifier.modifierType === "required"){
+            modifiersArray.push({
+                modifierId: modifiers[i].modifierId, 
+                modifierName: modifiers[i].modifier.name,
+                optionName: modifiers[i].modifier.defaultOption, 
+                optionPrice: modifiers[i].modifier.options[modifiers[i].modifier.defaultOption]
+            });
+        }
+    }
+    return modifiersArray;
+};

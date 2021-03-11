@@ -35,6 +35,7 @@
         @include flex-align(row,flex-start, flex-start, wrap);
         overflow-y: auto;
         width:80rem;
+        padding:0;
     }
     .modal-header{
         width: 100%;
@@ -44,6 +45,7 @@
     }
     .modal-footer{
         position: relative;
+        // bottom:1px;
     }
 }
 @include mobile-range{
@@ -56,7 +58,6 @@
             width:100vw;
         }
         .modal-body-horizontal{
-            padding:0rem;
             @include flex-align(column, flex-start, stretch, nowrap);
         }
     }

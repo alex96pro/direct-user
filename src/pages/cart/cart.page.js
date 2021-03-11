@@ -74,8 +74,8 @@ export default function Cart() {
             orders.push({restaurantId: uniqueRestaurantIds[i], deliveryAddress: deliveryAddress.address + ' ('+deliveryAddress.description+')', phone: phone, total: 0, meals:[]});
             for(let j = 0; j < meals.length; j++){
                 if(meals[j].restaurantId === uniqueRestaurantIds[i]){
-                    orders[i].meals.push({name: meals[j].mealName, amount: meals[j].amount, notes: meals[j].notes});
-                    orders[i].total += meals[j].price * meals[j].amount;
+                    orders[i].meals.push({name: meals[j].mealName, price: meals[j].price, amount: meals[j].amount, notes: meals[j].notes, modifiers: meals[j].selectedModifiers});
+                    orders[i].total += +meals[j].price;
                 }
             }
             orders[i].total = (Math.round(orders[i].total * 100) / 100).toFixed(2);
@@ -120,13 +120,13 @@ export default function Cart() {
                         <div className="cart-meal-info">
                             <div className="cart-meal-header">
                                 <div className="cart-meal-name">{meal.mealName}</div>
-                                <div className="cart-meal-price">{meal.totalPrice + CURRENCY}</div>
+                                <div className="cart-meal-price">{meal.price + CURRENCY}</div>
                             </div>
                             <div className="cart-restaurant-name" onClick={() => history.push(`/menu/${meal.restaurantId}`)}>{meal.restaurantName}</div>
                             <i className="fas fa-minus fa-2x" onClick={() => incrementOrDecrementAmount(index, "DECREMENT")}></i>
                             <label className="cart-meal-amount">{meal.amount}</label>
                             <i className="fas fa-plus fa-2x" onClick={() => incrementOrDecrementAmount(index, "INCREMENT")}></i>
-                            <i className="fas fa-edit fa-2x" onClick={() => setEditMealModal({show: true, meal: meal})}></i>
+                            <i className="fas fa-edit fa-2x" onClick={() => setEditMealModal({show: true, meal: meal, index: index})}></i>
                             <i className="fas fa-trash fa-2x" onMouseEnter={() => reduceMealOpacity(index)}
                                 onMouseLeave={() => increaseMealOpacity(index)} onClick={() => setRemoveMealModal({show:true, mealName:meal.mealName, index: index})}></i>
                             {meal.notes && <div className="cart-meal-notes">{meal.notes}</div>}
@@ -140,7 +140,7 @@ export default function Cart() {
                         <label className="label-accent-color-2">{deliveryAddress.address}</label>
                     </div>
                     <div className="cart-total-label">
-                        Total: {(Math.round(meals.reduce((sum, current) => sum + +current.totalPrice, 0)*100) / 100).toFixed(2)}{CURRENCY}
+                        Total: {(Math.round(meals.reduce((sum, current) => sum + +current.price, 0)*100) / 100).toFixed(2)}{CURRENCY}
                     </div>
                     {(ordersResponses.length === 0 || ordersResponses.length !== numberOfOrders) ?
                         minimumDeliveryConflicts.length > 0 ?
@@ -173,7 +173,7 @@ export default function Cart() {
             </div>
             }
             {removeMealModal.show && <RemoveMealModal meal={removeMealModal} closeModal={() => setRemoveMealModal({...removeMealModal, show: false})}/>}
-            {editMealModal.show && <EditMealModal meal={editMealModal.meal} closeModal={() => setEditMealModal({...editMealModal, show: false})}/>}
+            {editMealModal.show && <EditMealModal meal={editMealModal.meal} index={editMealModal.index} closeModal={() => setEditMealModal({...editMealModal, show: false})}/>}
         </div>
     );
 };
