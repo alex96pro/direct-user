@@ -84,7 +84,7 @@ export function addNewAddressAPI(data) {
         data.userId = localStorage.getItem("USER_ID");
         localStorage.removeItem('POSITION');
         localStorage.removeItem('ADDRESS');
-        let response = await post(`/auth/add-new-address`, data, true, {401:'Unauthorized'});
+        let response = await post(`/user/auth/add-new-address`, data, true, {401:'Unauthorized'});
         if(response.status === 200){
             dispatch(addNewAddress(response.data));
             dispatch(updateFeedAddresses({type: "ADD", address: response.data}));
