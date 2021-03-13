@@ -6,12 +6,6 @@
     .profile-container{
         margin-top:$nav-bar-height / 2;
         text-align: center;
-        .profile-container-header{
-            color:$text-color;
-            font-size:2.4rem;
-            margin:1rem 0rem;
-            text-align: center;
-        }
     }
     .profile-info{
         @include flex-align(column,center,flex-start,nowrap);
@@ -19,10 +13,6 @@
         width:60rem;
         margin: 1rem 0rem;
         padding: 1rem;
-    }
-    .profile-header-small{
-        @extend .profile-container-header;
-        font-size: 2rem;
     }
     .profile-new-address{
         margin: 1.2rem 0rem;
