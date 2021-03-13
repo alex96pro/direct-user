@@ -1,8 +1,8 @@
 import 'antd/dist/antd.css';
 import './styles/foreign-components.scss';
 import './styles/modal.scss';
-import './styles/common.scss';
 import './styles/elements.scss';
+import './styles/common.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Landing from './pages/landing/landing.page';
 import Login from './pages/login/login.page';

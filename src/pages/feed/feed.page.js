@@ -136,9 +136,9 @@ export default function Feed() {
                     <form onSubmit={handleSubmit(handleSearch)}>
                         <div className="label">Search</div>
                         <div className="flex-row">
-                            <input required minLength="3" type="text" id="search-feed" ref={register()} name="search" style={{width:'50%'}} className="app-input"/>
-                            <button type="submit" className="button-small">Search</button>
-                            {search && <button type="button" className="button-small" onClick={clearSearch}>Clear</button>}
+                            <input required minLength="3" type="text" id="search-feed" ref={register()} name="search" className="app-input app-input-with-icon"/>
+                            <button type="submit" className="button-for-input">Search</button>
+                            {search && <button type="button" className="input-icon" onClick={clearSearch}>x</button>}
                         </div>
                     </form>
                     <div className="label">Current address</div>
@@ -158,14 +158,21 @@ export default function Feed() {
                     <form onSubmit={handleSubmit(handleChangeRange)}>
                         <div className="label">Range</div>
                         <div className="flex-row">
-                            <input type="number" ref={register({required: true, min:1, max:100})} name="range" className="app-input-number"/>
-                            <label className="label">{DISTANCE}</label>
-                            <button type="submit" className="button-small">Apply</button>
+                            <input type="number" ref={register({required: true, min:1, max:100})} name="range" className="app-input app-input-with-icon"/>
+                            <label className="input-icon">{DISTANCE}</label>
+                            <button type="submit" className="button-for-input">Apply</button>
                         </div>
                         {errors.range && errors.range.type === "required" && <InputError text={'Range is required'}/>}
                         {errors.range && errors.range.type === "max" && <InputError text={`Maximal range is 100${DISTANCE}`}/>}
                     </form>
-                
+                    <div className="feed-filters-container">
+                        <div className="feed-filters-heading">Delivery options</div>
+                        <div className="feed-filter-row">
+                            <i className="fas fa-truck fa-2x"></i>
+                            <Checkbox onChange={handleAddDelivery} checked={delivery} id="checkbox-delivery"/>
+                            <label className="feed-filter-label" htmlFor="checkbox-delivery">Delivery</label>
+                        </div>
+                    </div>
                     <div className="feed-filters-container">
                         <div className="feed-filters-heading">Nutrition filters</div>
                         {MEAL_TAGS.map((tag, index) => 
@@ -175,15 +182,6 @@ export default function Feed() {
                             <label className="feed-filter-label" htmlFor={`checkbox-nutrition-${index}`}>{tag.name}</label>
                         </div>
                         )}
-                    </div>
-                    
-                    <div className="feed-filters-container">
-                        <div className="feed-filters-heading">Delivery options</div>
-                        <div className="feed-filter-row">
-                            <i className="fas fa-truck fa-2x"></i>
-                            <Checkbox onChange={handleAddDelivery} checked={delivery} id="checkbox-delivery"/>
-                            <label className="feed-filter-label" htmlFor="checkbox-delivery">Delivery</label>
-                        </div>
                     </div>
                 </div>
                 

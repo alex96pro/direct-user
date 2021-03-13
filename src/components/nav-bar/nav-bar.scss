@@ -10,7 +10,7 @@
     z-index: 1;
     top:0;
     left:0;
-    box-shadow: 0 0.4rem 0.4rem -0.2rem $accent-color;
+    box-shadow: 0 0.4rem 0.4rem -0.2rem gray;
     @include flex-align(row, flex-end, center, nowrap);
 }
 .nav-link{
@@ -74,7 +74,8 @@
     color:$accent-color;
     top:0rem;
     left:0rem;
-    margin:0rem 3rem;
+    margin-left:4rem;
+    margin-right:2rem;
     transition:0.2s;
     cursor: pointer;
     &:hover{
@@ -82,14 +83,15 @@
     }
 }
 .drop-down{
-    position: absolute;
+    position: fixed;
     border-radius: 0;
     top:6.2rem;
+    right:0;
     background-color: $accent-color-2;
 }
 .drop-down-item{
     width:100%;
-    padding:2rem;
+    padding:1.6rem;
     color:white;
     background-color: inherit;
     border-radius: 0;

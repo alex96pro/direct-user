@@ -142,9 +142,11 @@ export default function MealModal(props) {
             </div>
             {(props.meal.delivery || (props.restaurant && props.restaurant.delivery)) && 
             <div className="modal-footer">
-                <button type="submit" className="button-long button-add-to-cart">
-                    {calculateMealPrice(selectedModifiers, amount) + CURRENCY} &nbsp;&nbsp; Add to cart
-                </button>
+                <div className="meal-modal-footer">
+                    <button type="submit" className="button-long m-0">
+                        {calculateMealPrice(selectedModifiers, amount) + CURRENCY} &nbsp;&nbsp; Add to cart
+                    </button>
+                </div>
             </div>}
             </form>
         </div>

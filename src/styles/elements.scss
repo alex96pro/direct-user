@@ -1,6 +1,30 @@
 @import '../variables.scss';
 @import '../mixins.scss';
 
+.button-for-input{
+    height:3.3rem;
+    font-size: 1.6rem;
+    width:9rem;
+    border-radius: 0rem 0.4rem 0.4rem 0rem;
+    background-color: $accent-color;
+    color:white;
+    transition: 0.2s;
+    cursor: pointer;
+    &:hover{
+        background-color: $accent-color-2;
+    }
+    
+}
+.input-icon{
+    position: absolute;
+    right:8.4rem;
+    color:$text-color;
+    font-size: 2rem;
+    background-color: inherit;
+    height:3.3rem;
+    width:3rem;
+    cursor: pointer;
+}
 .button-link{
     background-color: transparent;
     color:$text-color;
@@ -65,13 +89,16 @@
     width:100%;
     height:3.3rem;
     font-size: 1.6rem;
-    border-radius: 0.6rem;
     padding: 0rem 1rem;
     transition:0.2s;
     &:focus{
         outline:none;
         box-shadow: $input-box-shadow;
     }
+}
+.app-input-with-icon{
+    border-radius: 0.4rem 0rem 0rem 0.4rem;
+    padding-right:4rem;
 }
 .app-input-number{
     @extend .app-input;

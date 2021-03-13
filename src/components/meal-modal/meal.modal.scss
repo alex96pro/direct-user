@@ -17,8 +17,10 @@
     width:100%;
     padding:0.6rem;
 }
-.button-add-to-cart{
-    margin:0;
+.meal-modal-footer{
+    background-color: white;
+    box-shadow: 0 0 0 2px rgba($color: gray, $alpha: 0.4);
+    padding:1rem;
     border-radius: 0rem 0rem 0.8rem 0.8rem;
 }
 @include mobile-range{
