@@ -97,9 +97,11 @@ export default function MealModal(props) {
                 <Modifiers modifiers={props.meal.modifiers} selectedModifiers={props.meal.selectedModifiers} addOptionalModifier={addOptionalModifier} addRequiredModifier={addRequiredModifier} addRequiredBaseModifier={addRequiredBaseModifier}/>
             </div>
             <div className="modal-footer">
-                <button type="submit" className="button-long button-add-to-cart">
-                    {calculateMealPrice(selectedModifiers, +amount) + CURRENCY} &nbsp;&nbsp; Save changes
-                </button>
+                <div className="meal-modal-footer">
+                    <button type="submit" className="button-long m-0">
+                        {calculateMealPrice(selectedModifiers, +amount) + CURRENCY} &nbsp;&nbsp; Save changes
+                    </button>
+                </div>
             </div>
             </form>
         </div>
