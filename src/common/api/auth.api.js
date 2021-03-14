@@ -38,7 +38,7 @@ export function logInAPI(data, loginSuccess, message) {
 export function verifyAccountAPI(hashedUserId) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/user/auth/verify-account`,{hashedUserId:hashedUserId}, false, {401:'Unauthorized'});
+        let response = await post(`/user/auth/verify-account`,{hashedUserId:hashedUserId}, false, {400:'Link expired or incorrect'});
         if(response.status === 200){
             dispatch(loadingStatus(false));
         }else{
@@ -65,7 +65,7 @@ export function forgottenPasswordAPI(data, message) {
 export function newPasswordAPI(data, userId, message) {
     return async (dispatch) => {
         dispatch(loadingStatus(true));
-        let response = await post(`/user/auth/new-password`,{newPassword: data.newPassword, userId: userId},false,{401:'Unauthorized'});
+        let response = await post(`/user/auth/new-password`,{newPassword: data.newPassword, userId: userId},false,{400:'Link expired or incorrect'});
         if(response.status === 200){
             dispatch(loadingStatus(false));
             message("Successfuly created new password", true);

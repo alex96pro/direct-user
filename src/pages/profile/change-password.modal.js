@@ -23,8 +23,10 @@ export default function ChangePasswordModal(props) {
 
     const setNewMessage = (newMessage, newSuccess = false) => {
         if(newSuccess){
-            history.push({pathname:'/login', message:'Successfully changed your password !'});
             dispatch(logOut());
+            localStorage.removeItem('ACCESS_TOKEN');
+            localStorage.removeItem('USER_ID');
+            history.push({pathname:'/login', message:'Successfully changed your password !'});
         }else{
             setMessageOldPassword(newMessage);
         }

@@ -1,9 +1,8 @@
 import './profile.page.scss';
-import { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewAddressAPI } from '../../common/api/auth.api';
-import { useHistory } from 'react-router-dom';
 import ConfirmModal from './confirm.modal';
 import NavBar from '../../components/nav-bar/nav-bar';
 import ChangePasswordModal from './change-password.modal';
@@ -13,7 +12,6 @@ import SubmitButton from '../../components/submit-button';
 
 export default function Profile() {
 
-    const history = useHistory();
     const dispatch = useDispatch();
     const {register, handleSubmit, errors} = useForm();
     const [changePasswordModal, setChangePasswordModal] = useState(false);
@@ -60,18 +58,12 @@ export default function Profile() {
                 }
             }
             setMessageAdd("");
+            setMessageDelete({id: -1, text: ""});
             dispatch(addNewAddressAPI(data));
         }else{
             setMessageAdd('Address is required');
         }
     };
-
-    useEffect(() => {
-        if(!localStorage.getItem('ACCESS_TOKEN')){
-            history.push('/login');
-            return;
-        }
-    }, [history])
 
     return (
         <div className="profile">
@@ -86,16 +78,17 @@ export default function Profile() {
                     <div className="label">Addresses</div>
 
                     {addresses.map((address, index) =>
+                    <React.Fragment>
                     <div className="profile-address-row" key={address.addressId}>
-                        <div className="label">
-                            <label className="label">{index + 1}.</label>
-                            {address.address} {`(${address.description})`}
-                            {messageDelete.id === address.addressId && <InputError text={messageDelete.text}/>}
-                        </div>
+                            <div className="label">{index + 1}.
+                            {address.address} {`(${address.description})`}</div>
                         <i className="fas fa-trash fa-2x" onClick={() => checkRemoveAddress(address)}></i>
+                        
                     </div>
+                    {messageDelete.id === address.addressId && <InputError text={messageDelete.text}/>}
+                    </React.Fragment>
                     )}
-                    {!addNewAddressShow && <button onClick={() => setAddNewAddressShow(true)} className="button-long">Add new address</button>}
+                    {!addNewAddressShow && <button onClick={() => {setAddNewAddressShow(true);setMessageAdd(''); setMessageDelete({id: -1, text: ""});}} className="button-long">Add new address</button>}
 
                     {addNewAddressShow && 
                     <div className="profile-new-address">
@@ -106,7 +99,7 @@ export default function Profile() {
                             placeholder="floor / apartment / other" 
                             className="app-input profile-address-description"/>
                             {errors.description && <InputError text={'This field is required'}/>}
-                            <button type="button" onClick={() => {setAddNewAddressShow(false); setMessageAdd('');}} className="button-normal">Cancel</button>
+                            <button type="button" onClick={() => {setAddNewAddressShow(false); setMessageAdd(''); setMessageDelete({id: -1, text: ""});}} className="button-normal">Cancel</button>
                             <SubmitButton loadingStatus={loadingStatus} small={true} text='Confirm'/>
                         </form>
                     </div>

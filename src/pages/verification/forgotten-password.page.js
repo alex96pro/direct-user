@@ -33,7 +33,7 @@ export default function ForgottenPassword() {
     return (
         <div className="forgotten-password">
             <NavBar loggedIn={false}/>
-                <div className="forgotten-password-container">
+                <div className="form-container">
                     {!message.success ?
                     <form onSubmit={handleSubmit(handleNewPassword)}>
                         <div className="label">New password</div>

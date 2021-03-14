@@ -3,7 +3,7 @@
 .cart{
     @include page-container;
     .cart-meals-container{
-        margin-bottom:15rem;
+        margin-bottom:17rem;
     }
     .cart-meal{
         @include flex-align(row, flex-start, flex-start, wrap);
@@ -115,6 +115,7 @@
             top:inherit;
             bottom:0;
             padding:0.6rem;
+            box-shadow: 0 -0.6rem 0.6rem -0.5rem gray;
         }
         .cart-meal-name, .cart-meal-price{
             font-size: 1.8rem;

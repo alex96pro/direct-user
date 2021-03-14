@@ -4,6 +4,8 @@ import './styles/modal.scss';
 import './styles/elements.scss';
 import './styles/common.scss';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {ToastContainer, toast} from 'react-toastify';
+import ProtectedRoute from './components/protected-route';
 import Landing from './pages/landing/landing.page';
 import Login from './pages/login/login.page';
 import SignUp from './pages/sign-up/sign-up.page';
@@ -13,7 +15,6 @@ import Cart from './pages/cart/cart.page';
 import Menu from './pages/menu/menu.page';
 import VerifyAccount from './pages/verification/verify-account.page';
 import ForgottenPassword from './pages/verification/forgotten-password.page';
-import {ToastContainer, toast} from 'react-toastify';
 
 export default function App() {
     return (
@@ -28,10 +29,10 @@ export default function App() {
           <Route path="/sign-up" exact component={SignUp}></Route>
           <Route path="/verify-account/:id" exact component={VerifyAccount}></Route>
           <Route path="/forgotten-password/:id" exact component={ForgottenPassword}></Route>
-          <Route path="/profile" exact component={Profile}></Route>
-          <Route path="/feed" exact component={Feed}></Route>
-          <Route path="/cart" exact component={Cart}></Route>
-          <Route path="/menu/:id" exact component={Menu}></Route>
+          <ProtectedRoute path="/profile" component={Profile}></ProtectedRoute>
+          <ProtectedRoute path="/feed" component={Feed}></ProtectedRoute>
+          <ProtectedRoute path="/cart" component={Cart}></ProtectedRoute>
+          <ProtectedRoute path="/menu/:id" component={Menu}></ProtectedRoute>
       </Router>
     );
 }

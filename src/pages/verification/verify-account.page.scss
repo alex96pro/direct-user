@@ -3,9 +3,5 @@
 
 .verify-account{
     @include page-container;
-    
-    .verify-account-container{
-        padding:2rem;
-        background-color: $wrapper-color;
-    }
+    margin-top:$nav-bar-height / 2;
 }

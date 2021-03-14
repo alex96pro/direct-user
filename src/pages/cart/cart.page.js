@@ -43,10 +43,6 @@ export default function Cart() {
     };
 
     useEffect(() => {
-        if(!localStorage.getItem('ACCESS_TOKEN')){
-            history.push('/login');
-            return;
-        }
         window.scroll(0,0);
         socket = socketClient (BACKEND_API);
         socket.on('connection', () => {
@@ -58,7 +54,7 @@ export default function Cart() {
         socket.on('order-rejected', (args) => {
             dispatch(orderRejected(args));
         });
-    }, [dispatch, history]);
+    }, [dispatch]);
 
     const handleSendOrder = () => {
         let restaurantIds = meals.map(meal => meal.restaurantId);

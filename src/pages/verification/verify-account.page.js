@@ -23,7 +23,7 @@ export default function VerifyAccount() {
         <div className="verify-account">
             <NavBar loggedIn={false}/>
             {loadingStatus? <Loader/>:
-                <div className="verify-account-container">
+                <div className="form-container">
                     <div className="header">Congratulations ! You are ready to go !</div>
                     <button className="button-long" onClick={() => history.push('/login')}>Log In</button>
                 </div>
