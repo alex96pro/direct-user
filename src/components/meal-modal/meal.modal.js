@@ -140,7 +140,7 @@ export default function MealModal(props) {
                 </div>
                 <Modifiers addOptionalModifier={addOptionalModifier} addRequiredModifier={addRequiredModifier} addRequiredBaseModifier={addRequiredBaseModifier}/>
             </div>
-            {(props.meal.delivery || (props.restaurant && props.restaurant.delivery)) && 
+            {(currentAddress.address !== 'Current location') && (props.meal.delivery || (props.restaurant && props.restaurant.delivery)) && 
             <div className="modal-footer">
                 <div className="meal-modal-footer">
                     <button type="submit" className="button-long m-0">

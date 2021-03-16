@@ -32,11 +32,11 @@
     right:2rem;
 }
 .nav-logo{
-    width:6.6rem;
+    width:4.5rem;
     height:4.5rem;
     position: fixed;
     left:1rem;
-    top:0.6rem;
+    top:0.7rem;
     cursor: pointer;
 }
 .nav-cart-container{
@@ -87,12 +87,12 @@
     border-radius: 0;
     top:6.2rem;
     right:0;
-    background-color: $accent-color-2;
+    background-color: white;
 }
 .drop-down-item{
     width:100%;
     padding:1.6rem;
-    color:white;
+    color:$text-color;
     background-color: inherit;
     border-radius: 0;
     font-size:1.8rem;
@@ -100,6 +100,7 @@
     cursor: pointer;
     &:hover{
         background-color: $accent-color;
+        color:white;
     }
 }
 .drop-down-underlay{

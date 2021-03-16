@@ -5,7 +5,7 @@
     .feed-meals-container{
         @include flex-align(column, center, center, nowrap);
         margin-top:$nav-bar-height;
-        width:100vw;
+        // width:100vw;
     }
     .feed-filters{
         position: fixed;
@@ -41,16 +41,6 @@
     }
     .feed-bottom{
         text-align: center;
-    }
-    .feed-nutrition-icon{
-        color:$success-color;
-        width:2rem;
-        height: 2rem;
-    }
-    .fa-truck{
-        width:2rem;
-        height:2rem;
-        color:$success-color;
     }
     .feed-footer-mobile{
         display:none;

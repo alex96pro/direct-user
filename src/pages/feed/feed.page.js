@@ -6,7 +6,7 @@ import { changeRange, searchFeed, changeTag, addDelivery, bottomOfPage, redirect
 import { changeAddress } from '../../common/actions/feed.actions';
 import { useForm } from 'react-hook-form';
 import { DISTANCE, MEAL_TAGS } from '../../util/consts';
-import { Checkbox } from 'antd';
+import { Checkbox, Select } from 'antd';
 import NavBar from '../../components/nav-bar/nav-bar';
 import Loader from '../../components/loader';
 import MealsFeed from '../../components/meals-feed/meals-feed';
@@ -25,8 +25,8 @@ export default function Feed() {
     const {register, handleSubmit, errors} = useForm({defaultValues:{search: search, range: range}});
     const [showFiltersForMobile, setShowFiltersForMobile] = useState(false);
 
-    const handleChangeAddress = (event) => {
-        let selectedAddress = event.target.value;
+    const handleChangeAddress = (selected) => {
+        let selectedAddress = selected;
         if(selectedAddress === "Current location"){
             setCurrentLocationSelected(true);
             window.navigator.geolocation.getCurrentPosition((position) => {
@@ -129,12 +129,21 @@ export default function Feed() {
                         <div className="label">Search</div>
                         <div className="flex-row">
                             <input required minLength="3" type="text" id="search-feed" ref={register()} name="search" className="app-input app-input-with-icon"/>
+                            {search && <span className="input-icon" onClick={clearSearch}>x</span>}
                             <button type="submit" className="button-for-input">Search</button>
-                            {search && <button type="button" className="input-icon" onClick={clearSearch}>x</button>}
                         </div>
                     </form>
                     <div className="label">Current address</div>
-                    <select onChange={handleChangeAddress} defaultValue={currentAddress.address} className="app-select">
+                    <Select onChange={handleChangeAddress} defaultValue={currentAddress.address}>
+                        {addresses.map((addressItem, index) =>
+                        <Select.Option value={addressItem.address} key={index} >
+                            {addressItem.address}
+                        </Select.Option>)}
+                        <Select.Option value="Current location">
+                            Current location
+                        </Select.Option>
+                    </Select>
+                    {/* <select onChange={handleChangeAddress} defaultValue={currentAddress.address} className="app-select">
                         {addresses.map((addressItem, index) =>
                         <option value={addressItem.address} key={index} className="app-option">
                             {addressItem.address}
@@ -142,7 +151,7 @@ export default function Feed() {
                         <option value="Current location" className="app-option">
                             Current location
                         </option>
-                    </select>
+                    </select> */}
                     {currentLocationSelected && 
                     <p className="label">Delivery is disabled when using current location</p>}
                     {messageDeliveryAddress && <MessageDanger text={messageDeliveryAddress}/>}

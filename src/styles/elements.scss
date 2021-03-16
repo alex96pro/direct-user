@@ -1,30 +1,6 @@
 @import '../variables.scss';
 @import '../mixins.scss';
 
-.button-for-input{
-    height:3.3rem;
-    font-size: 1.6rem;
-    width:9rem;
-    border-radius: 0rem 0.4rem 0.4rem 0rem;
-    background-color: $accent-color;
-    color:white;
-    transition: 0.2s;
-    cursor: pointer;
-    &:hover{
-        background-color: $accent-color-2;
-    }
-    
-}
-.input-icon{
-    position: absolute;
-    right:8.4rem;
-    color:$text-color;
-    font-size: 2rem;
-    background-color: inherit;
-    height:3.3rem;
-    width:3rem;
-    cursor: pointer;
-}
 .button-link{
     background-color: transparent;
     color:$text-color;
@@ -33,7 +9,7 @@
     font-size: 1.6rem;
     font-weight: bold;
     outline:none;
-    transition: 0.2s;
+    transition: 0.4s;
     cursor: pointer;
     &:hover{
         color:$accent-color-2;
@@ -46,7 +22,7 @@
     margin:1rem 0.6rem;
     color:white;
     font-size: 1.8rem;
-    transition: 0.2s;
+    transition: 0.4s;
     cursor: pointer;
     &:hover{
         background-color: $accent-color-2;
@@ -57,6 +33,14 @@
     background-color:$accent-color-2;
     pointer-events: none;
     cursor:none;
+}
+.button-for-input{
+    @extend .button-normal;
+    margin:0;
+    height:3.3rem;
+    min-width:8rem;
+    border-radius: 0rem 0.4rem 0.4rem 0rem;
+    font-size: 1.6rem;
 }
 .button-long{
     @extend .button-normal;
@@ -84,6 +68,21 @@
         background-color: gray;
     }
 }
+.input-icon{
+    width:4rem;
+    color:$text-color;
+    font-size: 1.8rem;
+    border-radius: 0;
+    width:4.4rem;
+    height:3.3rem;
+    line-height: 3.2rem;
+    text-align: center;
+    border:$input-border;
+    border-left:0;
+    background-color: rgb(246, 246, 246);
+    border-radius: 0;
+    cursor: pointer;
+}
 .app-input{
     border:$input-border;
     width:100%;
@@ -98,7 +97,10 @@
 }
 .app-input-with-icon{
     border-radius: 0.4rem 0rem 0rem 0.4rem;
-    padding-right:4rem;
+    &:focus{
+        position: relative;
+        z-index: 1; // in order to box-shadow go over icon
+    }
 }
 .app-input-number{
     @extend .app-input;
@@ -133,7 +135,8 @@ p{
 .label-white{
     font-size:1.8rem;
     color:white;
-    margin:0.4rem 0.1rem;
+    margin-top:1rem;
+    margin-bottom:0.2rem;
 }
 .label{
     @extend .label-white;

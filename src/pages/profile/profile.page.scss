@@ -25,13 +25,6 @@
     .profile-address-description{
         margin-top:1rem;
     }
-    .fa-trash{
-        color:$danger-color;
-        cursor: pointer;
-        &:hover{
-            color: $accent-color-2;
-        }
-    }
 }
 @include mobile-range{
     .profile{

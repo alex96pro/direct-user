@@ -31,7 +31,13 @@
             color:$accent-color;
         }
     } 
-    
+    .modifier-name{
+        color:$text-color;
+        font-size: 2rem;
+        font-weight: bold;
+        padding-top:1rem;
+        padding-left:1rem;
+    }
 }
 @include mobile-range{
     .modifiers{

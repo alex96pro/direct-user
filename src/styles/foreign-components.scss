@@ -11,22 +11,27 @@
 .fa-edit, .fa-trash{
     color:$accent-color;
     margin:0.4rem;
-    transition:0.2s;
+    transition:0.4s;
     cursor: pointer;
     &:hover{
         color:$accent-color-2;
     }
 }
 .fa-times{
-    color:white;
-    background-color: $accent-color;
+    color:$text-color;
     padding:0.4rem 0.8rem;
     margin:0.4rem;
-    transition: 0.2s;
     cursor: pointer;
-    &:hover{
-        background-color:$accent-color-2;
-    }
+}
+.feed-nutrition-icon{
+    color:$accent-color;
+    width:2rem;
+    height: 2rem;
+}
+.fa-truck{
+    width:2rem;
+    height:2rem;
+    color:$accent-color;
 }
 .ant-checkbox{
     width: 22px;
@@ -74,4 +79,38 @@
 .ant-radio-group{
     @include flex-align(row, space-between, center, wrap);
     width:100%;
+}
+.ant-select{
+    width:100%;
+}
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+    height:3.3rem;
+    border:$input-border;
+}
+.ant-select-single.ant-select-open .ant-select-selection-item {
+    color:$text-color;
+}
+.ant-select-focused:not(.ant-select-disabled).ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    border-color:gray;
+    box-shadow: $input-box-shadow;
+}
+.ant-select:not(.ant-select-disabled):hover .ant-select-selector {
+    border-color:gray;
+}
+.ant-select-item {
+    border-radius: 0;
+    &:hover{
+        background-color: rgba($color: $accent-color, $alpha: 0.2);
+    }
+}
+.ant-select-selection-item{
+    font-size: 1.6rem;
+}
+.ant-select-item-option-content{
+    color:$text-color;
+    font-size: 1.6rem;
+    cursor: pointer;
+}
+.ant-select-item-option-selected:not(.ant-select-item-option-disabled){
+    background-color: rgba($color: $accent-color, $alpha: 0.2);
 }
